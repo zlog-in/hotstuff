@@ -102,7 +102,7 @@ class LocalBench:
             client_logs = [PathMaker.client_log_file(i) for i in range(nodes)]
             if local == 0:             
                 for addr, log_file in zip(addresses, client_logs):
-                    addr_ip = addr[:-6]
+                    addr_ip = addr[:-5]
                     print(addr_ip)
                     print(addr)
                     if addr_ip == node_ip:

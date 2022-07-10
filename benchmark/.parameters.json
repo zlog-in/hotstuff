@@ -2,8 +2,8 @@
     "consensus": {
         "max_payload_size": 500,
         "min_block_delay": 0,
-        "sync_retry_delay": 10000,
-        "timeout_delay": 1000
+        "sync_retry_delay": 20000,
+        "timeout_delay": 5000
     },
     "mempool": {
         "max_payload_size": 15000,

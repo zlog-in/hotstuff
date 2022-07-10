@@ -23,8 +23,8 @@ def local(ctx):
     }
     node_params = {
         'consensus': {
-            'timeout_delay': 1_000,
-            'sync_retry_delay': 10_000,
+            'timeout_delay': 5_000,
+            'sync_retry_delay': 20_000,
             'max_payload_size': 500,
             'min_block_delay': 0
         },
