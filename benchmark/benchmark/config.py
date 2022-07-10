@@ -1,4 +1,6 @@
 from json import dump, load
+import re
+from traceback import print_tb
 
 
 class ConfigError(Exception):
@@ -72,14 +74,43 @@ class Committee:
 
 
 class LocalCommittee(Committee):
-    def __init__(self, names, port):
+    def __init__(self, names, port, nodes, local, server):
         assert isinstance(names, list) and all(isinstance(x, str) for x in names)
         assert isinstance(port, int)
         size = len(names)
-        consensus = [f'127.0.0.1:{port + i}' for i in range(size)]
-        front = [f'127.0.0.1:{port + i + size}' for i in range(size)]
-        mempool = [f'127.0.0.1:{port + i + 2*size}' for i in range(size)]
+        print(f'size: {size}')
+        print(f'names: {names}')
+        consensus = []
+        front = []
+        mempool = []
+        
+        if local == 1:
+            consensus = [f'127.0.0.1:{port + i}' for i in range(size)]
+            front = [f'127.0.0.1:{port + i + size}' for i in range(size)]
+            mempool = [f'127.0.0.1:{port + i + 2*size}' for i in range(size)]
+            print(f'consensus: {consensus}')
+            print(f'front: {front}')
+            print(f'mempool: {mempool}')
+        if local == 0:
+            for i in range(size):
+
+                if i % 10 != 9:
+                    #print('if !9')
+                    #consensus[i] = 129.13.88.1{(i % 10) +82}
+                    consensus.append(f'129.13.88.1{(i % 10) +82}:{port }')
+                    front.append(f'129.13.88.1{(i % 10) +82}: {port + 1}')
+                    mempool.append(f'129.13.88.1{(i % 10) +82}: {port + 2}')
+                else:
+                    consensus.append(f'129.13.88.1{(i % 10) +71}:{port}')
+                    front.append(f'129.13.88.1{(i % 10) +71}: {port + 1}')
+                    mempool.append(f'129.13.88.1{(i % 10) +71}: {port +2}')
+                    port = port + 3
+        
+        print(consensus)
+        print(front)
+        print(mempool)
         super().__init__(names, consensus, front, mempool)
+        
 
 
 class NodeParameters:
@@ -128,6 +159,9 @@ class BenchParameters:
             self.faults = int(json['faults'])
             self.duration = int(json['duration'])
             self.runs = int(json['runs']) if 'runs' in json else 1
+            self.replicas = int(json['replicas'])
+            self.local = int(json['local'])
+            self.servers = int(json['servers'])
         except KeyError as e:
             raise ConfigError(f'Malformed bench parameters: missing key {e}')
 
