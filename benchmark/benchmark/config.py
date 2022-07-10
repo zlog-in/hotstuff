@@ -98,12 +98,12 @@ class LocalCommittee(Committee):
                     #print('if !9')
                     #consensus[i] = 129.13.88.1{(i % 10) +82}
                     consensus.append(f'129.13.88.1{(i % 10) +82}:{port }')
-                    front.append(f'129.13.88.1{(i % 10) +82}: {port + 1}')
-                    mempool.append(f'129.13.88.1{(i % 10) +82}: {port + 2}')
+                    front.append(f'129.13.88.1{(i % 10) +82}:{port + 1}')
+                    mempool.append(f'129.13.88.1{(i % 10) +82}:{port + 2}')
                 else:
                     consensus.append(f'129.13.88.1{(i % 10) +71}:{port}')
-                    front.append(f'129.13.88.1{(i % 10) +71}: {port + 1}')
-                    mempool.append(f'129.13.88.1{(i % 10) +71}: {port +2}')
+                    front.append(f'129.13.88.1{(i % 10) +71}:{port + 1}')
+                    mempool.append(f'129.13.88.1{(i % 10) +71}:{port +2}')
                     port = port + 3
         
         print(consensus)

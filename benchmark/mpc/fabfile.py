@@ -16,7 +16,7 @@ def container(ctx):
 
     hosts.put('/home/z/Sync/Study/DSN/Marc/Code/hotstuff/benchmark/mpc/ben.sh', remote='/home/zhan/hotstuff')
     hosts.run('docker rm -f hotstuff')
-    hosts.run('docker run -itd --name hotstuff -p 8000-8019:8000-8019 --mount type=bind,source=/home/zhan/hotstuff/logs,destination=/home/hotstuff/benchmark/logs image_hotstuff')
+    hosts.run('docker run -itd --name hotstuff -p 8000-8049:8000-8049 --mount type=bind,source=/home/zhan/hotstuff/logs,destination=/home/hotstuff/benchmark/logs image_hotstuff')
     hosts.run('docker cp index.txt hotstuff:/home/hotstuff/benchmark/')
     hosts.run('docker cp hotstuff/ben.sh hotstuff:/home/hotstuff/benchmark/')
 
@@ -30,6 +30,6 @@ def build(ctx):
     hosts.run('rm -rf hotstuff/')
     hosts.run('mkdir  hotstuff/')
     hosts.put('/home/z/Sync/Study/DSN/Marc/Code/hotstuff/benchmark/mpc/Dockerfile', remote='/home/zhan/hotstuff')
-    hosts.run('docker rm -f hotstuff')
-    hosts.run('docker rmi image_hotstuff')
+    # hosts.run('docker rm -f hotstuff')
+    # hosts.run('docker rmi image_hotstuff')
     hosts.run('docker build -f /home/zhan/hotstuff/Dockerfile -t image_hotstuff .')

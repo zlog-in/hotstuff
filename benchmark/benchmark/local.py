@@ -96,14 +96,15 @@ class LocalBench:
 
             # Run the clients (they will wait for the nodes to be ready).
             addresses = committee.front
+            print(addresses)
             rate_share = ceil(rate / nodes)
             timeout = self.node_parameters.timeout_delay
             client_logs = [PathMaker.client_log_file(i) for i in range(nodes)]
             if local == 0:             
                 for addr, log_file in zip(addresses, client_logs):
                     addr_ip = addr[:-6]
-                    # print(addr_ip)
-                    # print(addr)
+                    print(addr_ip)
+                    print(addr)
                     if addr_ip == node_ip:
                         cmd = CommandMaker.run_client(
                         addr,
@@ -123,6 +124,7 @@ class LocalBench:
                         rate_share,
                         timeout
                     )
+                    print(cmd)
                     self._background_run(cmd, log_file)
 
             # Run the nodes.
@@ -153,6 +155,7 @@ class LocalBench:
                         PathMaker.parameters_file(),
                         debug=debug
                     )
+                    print(cmd)
                     self._background_run(cmd, log_file)
 
             # Wait for the nodes to synchronize
