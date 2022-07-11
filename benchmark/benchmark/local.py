@@ -57,8 +57,6 @@ class LocalBench:
                 local = config['local'] 
                 duration = config['duration']       
             nodes = replicas * servers
-            print(nodes)
-            sleep(10)
             #print(type(local))
             # Cleanup all files.
             cmd = f'{CommandMaker.clean_logs()} ; {CommandMaker.cleanup()}'
