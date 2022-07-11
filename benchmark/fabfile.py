@@ -17,8 +17,8 @@ def local(ctx):
         'replicas': 3,
         'tx_size': 512,
         'faults': 0,
-        'duration': 20,
-        'local': 1,
+        'duration': 60,
+        'local': 0,
         'servers': 10,
     }
     node_params = {
