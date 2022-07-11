@@ -15,6 +15,7 @@ def container(ctx):
     hosts.run('mkdir -p hotstuff/logs')
 
     hosts.put('/home/z/Sync/Study/DSN/Marc/Code/hotstuff/benchmark/mpc/ben.sh', remote='/home/zhan/hotstuff')
+    hosts.run('docker stop narwhal')
     hosts.run('docker rm -f hotstuff')
     hosts.run('docker run -itd --name hotstuff -p 9000-9049:9000-9049 --mount type=bind,source=/home/zhan/hotstuff/logs,destination=/home/hotstuff/benchmark/logs image_hotstuff')
     hosts.run('docker cp index.txt hotstuff:/home/hotstuff/benchmark/')

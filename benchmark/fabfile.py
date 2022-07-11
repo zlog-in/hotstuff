@@ -14,7 +14,7 @@ def local(ctx):
     bench_params = {
         'nodes': 4,
         'rate': 10_000,
-        'replicas': 3,
+        'replicas': 10,
         'tx_size': 512,
         'faults': 0,
         'duration': 20,
