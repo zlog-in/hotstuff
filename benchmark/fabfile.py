@@ -17,7 +17,7 @@ def local(ctx):
         'replicas': 3,
         'tx_size': 512,
         'faults': 0,
-        'duration': 100,
+        'duration': 60,
         'local': 0,
         'servers': 10,
     }

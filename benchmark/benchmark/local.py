@@ -47,7 +47,7 @@ class LocalBench:
             print(self.nodes)
             nodes, rate, replicas, local, servers = self.nodes[0], self.rate[0], self.replicas, self.local, self.servers
             nodes = replicas * servers
-            print(type(local))
+            #print(type(local))
             # Cleanup all files.
             cmd = f'{CommandMaker.clean_logs()} ; {CommandMaker.cleanup()}'
             subprocess.run([cmd], shell=True, stderr=subprocess.DEVNULL)
@@ -83,7 +83,7 @@ class LocalBench:
                 case 7: node_ip = '129.13.88.189'
                 case 8: node_ip = '129.13.88.190' 
                 case 9: node_ip = '129.13.88.180'
-            print(node_ip)
+            #print(node_ip)
             names = [x.name for x in keys]
             #print(f'names: {names}')
             committee = LocalCommittee(names, self.BASE_PORT, nodes, local, servers)
@@ -96,15 +96,15 @@ class LocalBench:
 
             # Run the clients (they will wait for the nodes to be ready).
             addresses = committee.front
-            print(addresses)
+            #print(addresses)
             rate_share = ceil(rate / nodes)
             timeout = self.node_parameters.timeout_delay
             client_logs = [PathMaker.client_log_file(i) for i in range(nodes)]
             if local == 0:             
                 for addr, log_file in zip(addresses, client_logs):
                     addr_ip = addr[:-5]
-                    print(addr_ip)
-                    print(addr)
+                    #print(addr_ip)
+                    #print(addr)
                     if addr_ip == node_ip:
                         cmd = CommandMaker.run_client(
                         addr,
@@ -117,7 +117,7 @@ class LocalBench:
 
             if local == 1:
                 for addr, log_file in zip(addresses, client_logs):
-                    print(addr)
+                    #print(addr)
                     cmd = CommandMaker.run_client(
                         addr,
                         self.tx_size,
@@ -133,7 +133,7 @@ class LocalBench:
             if local == 0:
                 index = 0
                 for key_file, db, log_file in zip(key_files, dbs, node_logs):
-                    print(key_file)
+                    #print(key_file)
                     if index % 10 == node_i:
                         cmd = CommandMaker.run_node(
                         key_file,
