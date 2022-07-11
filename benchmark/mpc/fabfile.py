@@ -33,6 +33,6 @@ def build(ctx):
     hosts.run('rm -rf hotstuff/')
     hosts.run('mkdir  hotstuff/')
     hosts.put('/home/z/Sync/Study/DSN/Marc/Code/hotstuff/benchmark/mpc/Dockerfile', remote='/home/zhan/hotstuff')
-    # hosts.run('docker rm -f hotstuff')
-    # hosts.run('docker rmi image_hotstuff')
+    hosts.run('docker rm -f hotstuff')
+    hosts.run('docker rmi image_hotstuff')
     hosts.run('docker build -f /home/zhan/hotstuff/Dockerfile -t image_hotstuff .')

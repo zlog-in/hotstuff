@@ -78,8 +78,8 @@ class LocalCommittee(Committee):
         assert isinstance(names, list) and all(isinstance(x, str) for x in names)
         assert isinstance(port, int)
         size = len(names)
-        print(f'size: {size}')
-        print(f'names: {names}')
+        #print(f'size: {size}')
+        #print(f'names: {names}')
         consensus = []
         front = []
         mempool = []
@@ -88,9 +88,9 @@ class LocalCommittee(Committee):
             consensus = [f'127.0.0.1:{port + i}' for i in range(size)]
             front = [f'127.0.0.1:{port + i + size}' for i in range(size)]
             mempool = [f'127.0.0.1:{port + i + 2*size}' for i in range(size)]
-            print(f'consensus: {consensus}')
-            print(f'front: {front}')
-            print(f'mempool: {mempool}')
+            #print(f'consensus: {consensus}')
+            #print(f'front: {front}')
+            #print(f'mempool: {mempool}')
         if local == 0:
             for i in range(size):
 
@@ -106,9 +106,9 @@ class LocalCommittee(Committee):
                     mempool.append(f'129.13.88.1{(i % 10) +71}:{port +2}')
                     port = port + 3
         
-        print(consensus)
-        print(front)
-        print(mempool)
+        #print(consensus)
+        #print(front)
+        #print(mempool)
         super().__init__(names, consensus, front, mempool)
         
 
