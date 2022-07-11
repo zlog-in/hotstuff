@@ -57,6 +57,8 @@ class LocalBench:
                 local = config['local'] 
                 duration = config['duration']       
             nodes = replicas * servers
+            print(nodes)
+            sleep(10)
             #print(type(local))
             # Cleanup all files.
             cmd = f'{CommandMaker.clean_logs()} ; {CommandMaker.cleanup()}'
@@ -174,8 +176,8 @@ class LocalBench:
             sleep(2 * self.node_parameters.timeout_delay / 1000)
 
             # Wait for all transactions to be processed.
-            Print.info(f'Running benchmark ({self.duration} sec)...')
-            sleep(self.duration)
+            Print.info(f'Running benchmark ({duration} sec)...')
+            sleep(duration)
             self._kill_nodes()
 
             # Parse logs and return the parser.

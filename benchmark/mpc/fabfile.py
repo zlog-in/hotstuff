@@ -8,6 +8,8 @@ def benchmarking(ctx):
     hosts = ThreadingGroup('mpc-0','mpc-1','mpc-2','mpc-3','mpc-4','mpc-5','mpc-6','mpc-7','mpc-8','mpc-9')
     hosts.run('docker stop narwhal')
     hosts.run('docker start hotstuff')
+    hosts.put('/home/z/Sync/Study/DSN/Marc/Code/hotstuff/benchmark/config.json', remote  = '/home/zhan/hotstuff/')
+    hosts.run('docker cp hotstuff/config.json hotstuff:/home/hotstuff/benchmark/')
     hosts.run('docker exec -t hotstuff bash ben.sh')
 
 @task
