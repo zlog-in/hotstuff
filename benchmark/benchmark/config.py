@@ -159,7 +159,7 @@ class BenchParameters:
             self.faults = int(json['faults'])
             self.duration = int(json['duration'])
             self.runs = int(json['runs']) if 'runs' in json else 1
-            self.replicas = int(json['replicas'])
+            
             self.local = int(json['local'])
             self.servers = int(json['servers'])
         except KeyError as e:

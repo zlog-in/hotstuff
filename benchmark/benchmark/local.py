@@ -1,3 +1,4 @@
+
 from audioop import add
 import subprocess
 from math import ceil
@@ -50,7 +51,8 @@ class LocalBench:
                 config = json.load(f)
             read = 1 
             print(self.nodes)
-            nodes, rate, replicas, local, servers = self.nodes[0], self.rate[0], self.replicas, self.local, self.servers
+            nodes, rate, local, servers = self.nodes[0], self.rate[0], self.local, self.servers
+            
             if read == 1:
                 replicas = config['replicas']
                 servers = config['servers']
@@ -58,6 +60,7 @@ class LocalBench:
                 duration = config['duration']   
                 rate = config['input_rate']    
             nodes = replicas * servers
+            f.close()
             #print(type(local))
             # Cleanup all files.
             cmd = f'{CommandMaker.clean_logs()} ; {CommandMaker.cleanup()}'

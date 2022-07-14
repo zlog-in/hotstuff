@@ -6,6 +6,7 @@ from benchmark.utils import Print
 from benchmark.plot import Ploter, PlotError
 from aws.instance import InstanceManager
 from aws.remote import Bench, BenchError
+import json
 
 
 @task
@@ -14,7 +15,6 @@ def local(ctx):
     bench_params = {
         'nodes': 4,
         'rate': 30_000,
-        'replicas': 3,
         'tx_size': 512,
         'faults': 0,
         'duration': 60,
@@ -24,7 +24,7 @@ def local(ctx):
     node_params = {
         'consensus': {
             'timeout_delay': 5_000,
-            'sync_retry_delay': 20_000,
+            'sync_retry_delay': 10_000,
             'max_payload_size': 500,
             'min_block_delay': 0
         },
@@ -36,8 +36,23 @@ def local(ctx):
         }
     }
     try:
-        ret = LocalBench(bench_params, node_params).run(debug=False).result()
-        print(ret)
+        with open('config.json') as f:
+                config = json.load(f)
+        read = 1 
+            
+        if read == 1:
+            replicas = config['replicas']
+            servers = config['servers']
+            local = config['local'] 
+            duration = config['duration']   
+            rate = config['input_rate'] 
+        f.close()
+        if local == 1:
+            ret = LocalBench(bench_params, node_params).run(debug=False).result()
+            print(ret)
+        if local == 0:
+            ret = LocalBench(bench_params, node_params).run(debug=False)
+            print("Parsing logs locally")
     except BenchError as e:
         Print.error(e)
 
