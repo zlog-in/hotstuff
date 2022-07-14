@@ -41,14 +41,12 @@ def local(ctx):
         read = 1 
             
         if read == 1:
-            replicas = config['replicas']
-            servers = config['servers']
+            
             local = config['local'] 
-            duration = config['duration']   
-            rate = config['input_rate'] 
-        f.close()
+
         if local == 1:
             ret = LocalBench(bench_params, node_params).run(debug=False).result()
+            Print.info('Parsing logs...')
             print(ret)
         if local == 0:
             ret = LocalBench(bench_params, node_params).run(debug=False)

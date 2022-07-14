@@ -7,6 +7,9 @@ from statistics import mean
 
 from benchmark.utils import Print
 
+import sqlite3
+import json
+
 
 class ParseError(Exception):
     pass
@@ -175,6 +178,36 @@ class LogParser:
         consensus_min_block_delay = self.configs[0]['consensus']['min_block_delay']
         mempool_max_payload_size = self.configs[0]['mempool']['max_payload_size']
         mempool_min_block_delay = self.configs[0]['mempool']['min_block_delay']
+
+        with open('config.json') as f:
+            config = json.load(f)
+        
+        local = config['local']
+        servers = config['servers']
+        replicas = config['replicas']
+        faults = config['faults']
+        timeout_delay = config['timeout_delay']
+        sync_retry_delay = config['sync_retry_delay']
+        duration = config['duration']
+        input_rate = config['input_rate']
+        nodes = servers * replicas
+        print(config['local'])
+        print(config['replicas'] * config['servers'])
+        f.close()
+        results_db = sqlite3.connect('./mpc/results.db')
+
+        # # insert_S1Hotstuff_Results = f'INSERT INTO S1Hotstuff VALUES ("{datetime.now()}", {config['local']}, {config['replicas'] * config['servers']}, {config['faults']}, {config['timeout_delay']}, {config['sync_retry_dealy']}, {config['duration']}, {round(consensus_tps)}, {round(consensus_latency)}, {round(end_to_end_latency)})'
+        # #insert_S1Hotstuff_Results = 'INSERT INTO S1Narwhal VALUES ("{datetime.now()}", {replicas * servers}, {faults}, {timeout}, {sync_retry_delay}, {duration}, {round(consensus_tps)}, {round(consensus_latency)}, {round(end_to_end_latency)})'
+        # insert_S1Hotstuff_results = f'INSERT INTO S1Hotstuff VALUES ("{datetime.now()}", {local}, {nodes}, {faults}, {timeout_delay}, {sync_retry_delay}, {duration}, {input_rate} {round(consensus_tps)}, {round(consensus_latency)}, {round(end_to_end_latency)})'
+
+        # results_db.cursor().execute(insert_S1Hotstuff_results)
+        # results_db.commit()
+        # results_db.close()
+
+        insert_S1Hotstuff_results = f'INSERT INTO S1Hotstuff VALUES ("{datetime.now()}", {local}, {nodes}, {faults}, {timeout_delay}, {sync_retry_delay}, {duration}, {input_rate}, {round(consensus_tps)}, {round(consensus_latency)}, {round(end_to_end_latency)})'
+        results_db.cursor().execute(insert_S1Hotstuff_results)
+        results_db.commit()
+        results_db.close()
 
         return (
             '\n'
