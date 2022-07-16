@@ -31,7 +31,7 @@ def local(ctx):
         'mempool': {
             'queue_capacity': 20_000,
             'sync_retry_delay': 500_000,
-            'max_payload_size': 15_000,
+            'max_payload_size': 20_000,
             'min_block_delay': 0
         }
     }
