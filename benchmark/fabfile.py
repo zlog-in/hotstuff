@@ -128,7 +128,7 @@ def remote(ctx):
             'min_block_delay': 100
         },
         'mempool': {
-            'queue_capacity': 100_000,
+            'queue_capacity': 500_000,
             'sync_retry_delay': 100_000,
             'max_payload_size': 500_000,
             'min_block_delay': 100
