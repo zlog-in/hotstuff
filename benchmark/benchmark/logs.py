@@ -186,13 +186,18 @@ class LogParser:
         servers = config['servers']
         replicas = config['replicas']
         faults = config['faults']
-        timeout_delay = config['timeout_delay']
-        sync_retry_delay = config['sync_retry_delay']
+        
         duration = config['duration']
         input_rate = config['input_rate']
         nodes = servers * replicas
-        print(config['local'])
-        print(config['replicas'] * config['servers'])
+        # print(config['local'])
+        # print(config['replicas'] * config['servers'])
+        f.close()
+
+        with open('.parameters.json') as f:
+            parameters = json.load(f)
+        timeout_delay = parameters['consensus']['timeout_delay']
+        sync_retry_delay = parameters['consensus']['sync_retry_delay']
         f.close()
         results_db = sqlite3.connect('./mpc/results.db')
 

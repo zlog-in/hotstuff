@@ -9,7 +9,9 @@ def benchmarking(ctx):
     hosts.run('docker stop narwhal')
     hosts.run('docker start hotstuff')
     hosts.put('/home/z/Sync/Study/DSN/Marc/Code/hotstuff/benchmark/config.json', remote  = '/home/zhan/hotstuff/')
+    hosts.put('/home/z/Sync/Study/DSN/Marc/Code/hotstuff/benchmark/.parameters.json', remote  = '/home/zhan/hotstuff/')
     hosts.run('docker cp hotstuff/config.json hotstuff:/home/hotstuff/benchmark/')
+    hosts.run('docker cp hotstuff/.parameters.json hotstuff:/home/hotstuff/benchmark/')
     hosts.run('docker exec -t hotstuff bash ben.sh')
 
 @task

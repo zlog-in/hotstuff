@@ -59,7 +59,6 @@ class LocalBench:
                 local = config['local'] 
                 duration = config['duration']   
                 rate = config['input_rate']    
-                timeout = config['timeout_delay']
             nodes = replicas * servers
             f.close()
             #print(type(local))
@@ -105,7 +104,7 @@ class LocalBench:
             committee = LocalCommittee(names, self.BASE_PORT, nodes, local, servers)
             committee.print(PathMaker.committee_file())
 
-            self.node_parameters.print(PathMaker.parameters_file())
+            #self.node_parameters.print(PathMaker.parameters_file())
 
             # Do not boot faulty nodes.
             nodes = nodes - self.faults
@@ -114,7 +113,11 @@ class LocalBench:
             addresses = committee.front
             #print(addresses)
             rate_share = ceil(rate / nodes)
+            with open('.parameters.json') as f:
+                paramenters = json.load(f)
+            timeout = paramenters['consensus']['timeout_delay']
             #timeout = self.node_parameters.timeout_delay
+            f.close()
             client_logs = [PathMaker.client_log_file(i) for i in range(nodes)]
             if local == 0:             
                 for addr, log_file in zip(addresses, client_logs):
