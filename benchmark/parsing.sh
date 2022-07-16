@@ -1,3 +1,6 @@
+cd /home/z/Sync/Study/DSN/Marc/Code/hotstuff/benchmark/logs/
+rm *.log
+
 scp mpc-0:/home/zhan/hotstuff/logs/*.log /home/z/Sync/Study/DSN/Marc/Code/hotstuff/benchmark/logs/
 scp mpc-1:/home/zhan/hotstuff/logs/*.log /home/z/Sync/Study/DSN/Marc/Code/hotstuff/benchmark/logs/
 scp mpc-2:/home/zhan/hotstuff/logs/*.log /home/z/Sync/Study/DSN/Marc/Code/hotstuff/benchmark/logs/
