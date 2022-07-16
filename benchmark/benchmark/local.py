@@ -59,6 +59,7 @@ class LocalBench:
                 local = config['local'] 
                 duration = config['duration']   
                 rate = config['input_rate']    
+                timeout = config['timeout_delay']
             nodes = replicas * servers
             f.close()
             #print(type(local))
@@ -113,7 +114,7 @@ class LocalBench:
             addresses = committee.front
             #print(addresses)
             rate_share = ceil(rate / nodes)
-            timeout = self.node_parameters.timeout_delay
+            #timeout = self.node_parameters.timeout_delay
             client_logs = [PathMaker.client_log_file(i) for i in range(nodes)]
             if local == 0:             
                 for addr, log_file in zip(addresses, client_logs):
