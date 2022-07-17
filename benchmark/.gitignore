@@ -1,6 +1,7 @@
 # Byte-compiled / optimized / DLL files
 config.json
 __pycache__/
+/mpc/results.db
 *.py[cod]
 *$py.class
 
