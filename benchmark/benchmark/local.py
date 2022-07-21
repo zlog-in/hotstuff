@@ -6,6 +6,8 @@ from os.path import basename, join, splitext
 from time import sleep
 import json
 
+from threading import Thread
+
 from benchmark.commands import CommandMaker
 from benchmark.config import Key, LocalCommittee, NodeParameters, BenchParameters, ConfigError
 from benchmark.logs import LogParser, ParseError
@@ -36,6 +38,13 @@ class LocalBench:
             subprocess.run(cmd, stderr=subprocess.DEVNULL)
         except subprocess.SubprocessError as e:
             raise BenchError('Failed to kill testbed', e)
+
+    def _kill_faulty(self, id, duration):
+        print(f'replica {id} is faulty and will be crashed after {duration}s execution')
+        sleep(duration)
+        subprocess.run(['tmux', 'kill-session', '-t', f'node-{id}'])
+        subprocess.run(['tmux', 'kill-session', '-t', f'client-{id}'])
+        print(f'and replica {id} crashed after {duration}s exectution')
 
     def run(self, debug=False):
         assert isinstance(debug, bool)
@@ -178,10 +187,22 @@ class LocalBench:
                     print(cmd)
                     self._background_run(cmd, log_file)
 
+
             # Wait for the nodes to synchronize
             Print.info('Waiting for the nodes to synchronize...')
             #sleep(2 * self.node_parameters.timeout_delay / 1000)
             sleep(2 * timeout / 1000)
+
+            with open('faulty.json') as f:
+                faulty_config = json.load(f)
+                f.close()
+            
+            for r in range(replicas):
+                replica_i = node_i + r * servers 
+                flag = faulty_config[f'{replica_i}'][0]
+                if flag == 1:
+                    faulty_duration = faulty_config[f'{replica_i}'][1]
+                    Thread(target=self._kill_faulty, args=(replica_i,faulty_duration)).start()
 
             # Wait for all transactions to be processed.
             Print.info(f'Running benchmark ({duration} sec)...')

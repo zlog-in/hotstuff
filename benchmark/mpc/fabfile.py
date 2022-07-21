@@ -1,6 +1,9 @@
 from fabric import Connection, ThreadingGroup
 from fabric import task
 import subprocess
+from datetime import datetime
+import random
+import json
 
 
 @task
@@ -13,6 +16,21 @@ def benchmarking(ctx):
     hosts.run('docker cp hotstuff/config.json hotstuff:/home/hotstuff/benchmark/')
     hosts.run('docker cp hotstuff/.parameters.json hotstuff:/home/hotstuff/benchmark/')
     hosts.run('docker exec -t hotstuff bash ben.sh')
+
+@task
+def faulty(ctx):
+    hosts = ThreadingGroup('mpc-0','mpc-1','mpc-2','mpc-3','mpc-4','mpc-5','mpc-6','mpc-7','mpc-8','mpc-9')
+    faulty_config()
+    # hosts.run('docker stop narwhal')
+    # hosts.run('docker start hotstuff')
+    # hosts.put('/home/z/Sync/Study/DSN/Marc/Code/hotstuff/benchmark/config.json', remote  = '/home/zhan/hotstuff/')
+    # hosts.put('/home/z/Sync/Study/DSN/Marc/Code/hotstuff/benchmark/.parameters.json', remote  = '/home/zhan/hotstuff/')
+    # hosts.put('/home/z/Sync/Study/DSN/Marc/Code/hotstuff/benchmark/faulty.json', remote  = '/home/zhan/hotstuff/')
+    # hosts.run('docker cp hotstuff/config.json hotstuff:/home/hotstuff/benchmark/')
+    # hosts.run('docker cp hotstuff/.parameters.json hotstuff:/home/hotstuff/benchmark/')
+    # hosts.run('docker cp hotstuff/faulty.json hotstuff:/home/hotstuff/benchmark/')
+    # hosts.run('docker exec -t hotstuff bash ben.sh')
+
 
 @task
 def container(ctx):
@@ -44,3 +62,59 @@ def build(ctx):
     hosts.run('docker rm -f hotstuff')
     hosts.run('docker rmi image_hotstuff')
     hosts.run('docker build -f /home/zhan/hotstuff/Dockerfile -t image_hotstuff .')
+
+
+def faulty_config():
+    with open('../config.json', 'r') as f:
+        config = json.load(f)
+        f.close()
+    faults = config['faults']
+    servers = config['servers']
+    duration = config['duration']
+    replicas = config['replicas']
+    faulty_servers = set()
+    time_seed = datetime.now()
+    random.seed(time_seed)
+    while len(faulty_servers) != faults:
+        faulty_servers.add(random.randrange(1, servers*replicas))
+    print(faulty_servers)
+    
+    with open('../faulty.json', 'w') as f:
+        print("The json for faulty servers is created")
+        json.dump({f'{idx}': [0,0] for idx in range(servers * replicas)}, f, indent=4)
+        f.close()
+
+    
+    with open('../faulty.json', 'r') as f:
+        faulty_config = json.load(f)
+        f.close()
+    # faulty_config['0'][1] = faults
+
+    
+    while len(faulty_servers) != 0:
+        idx = faulty_servers.pop()
+        faulty_config[f'{idx}'][0] = 1
+        faulty_config[f'{idx}'][1] = random.randrange(0,duration)
+    
+    with open('../faulty.json', 'w') as f:
+        json.dump(faulty_config, f, indent=4)
+        f.close()
+
+    write_time(time_seed)
+
+def write_time(seed):
+    with open(f'../faulty.json') as f:
+        faulty_config = json.load(f)
+        f.close()
+    faulty_config.update({'time_seed': f'{seed}'})
+
+    with open('../faulty.json', 'w') as f:
+        json.dump(faulty_config, f, indent=4)
+        f.close()
+
+def read_time():
+    with open(f'../faulty.json') as f:
+        faulty_config = json.load(f)
+        f.close()
+    return faulty_config['time_seed']
+

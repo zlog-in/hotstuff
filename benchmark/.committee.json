@@ -6,44 +6,14 @@
                 "name": "7Ud+cy2kBPRlx7PaT9UB53//j1mF5CXJgmiCFR9ka6E=",
                 "stake": 1
             },
-            "CZksyvyrrNKIAJUCYbPbTLNsGoCJ1NPY+zAE2W/GQ0U=": {
-                "address": "127.0.0.1:9006",
-                "name": "CZksyvyrrNKIAJUCYbPbTLNsGoCJ1NPY+zAE2W/GQ0U=",
-                "stake": 1
-            },
             "DilAq/HE1E3rUflIlYGgEEx4ss9YfqosxTTdxlUqUQQ=": {
                 "address": "127.0.0.1:9002",
                 "name": "DilAq/HE1E3rUflIlYGgEEx4ss9YfqosxTTdxlUqUQQ=",
                 "stake": 1
             },
-            "MP8AJ0zlFrrU2zJoTAk6ikUvJzyW9FHXurTga+stdZQ=": {
-                "address": "127.0.0.1:9005",
-                "name": "MP8AJ0zlFrrU2zJoTAk6ikUvJzyW9FHXurTga+stdZQ=",
-                "stake": 1
-            },
-            "QGBc648dyI7nkQ1ZCwzFBi/9wsrypenMYyzZU4ie/qw=": {
-                "address": "127.0.0.1:9004",
-                "name": "QGBc648dyI7nkQ1ZCwzFBi/9wsrypenMYyzZU4ie/qw=",
-                "stake": 1
-            },
-            "gq+oQhRyKQA2zo9b09n6RL/IBDobJHfLY1Prn1ND4Bw=": {
-                "address": "127.0.0.1:9009",
-                "name": "gq+oQhRyKQA2zo9b09n6RL/IBDobJHfLY1Prn1ND4Bw=",
-                "stake": 1
-            },
-            "mkvUbpB2iIINr4v/yNf02F1DrARWeg3hqQ3t7FNjZd4=": {
-                "address": "127.0.0.1:9008",
-                "name": "mkvUbpB2iIINr4v/yNf02F1DrARWeg3hqQ3t7FNjZd4=",
-                "stake": 1
-            },
             "ncJaZoTKCUZtqhjR4iRxbtyH50lH3mAhPPV8xdoUnyM=": {
                 "address": "127.0.0.1:9001",
                 "name": "ncJaZoTKCUZtqhjR4iRxbtyH50lH3mAhPPV8xdoUnyM=",
-                "stake": 1
-            },
-            "sLFxct2fwXpX3HHRX1vTjowCo6WvKy9868AibqFp1tQ=": {
-                "address": "127.0.0.1:9007",
-                "name": "sLFxct2fwXpX3HHRX1vTjowCo6WvKy9868AibqFp1tQ=",
                 "stake": 1
             },
             "wuOySW4Cmyn7HEO6E607zjyaxx9Am9H7LsUah3uWtA4=": {
@@ -57,53 +27,23 @@
     "mempool": {
         "authorities": {
             "7Ud+cy2kBPRlx7PaT9UB53//j1mF5CXJgmiCFR9ka6E=": {
-                "front_address": "127.0.0.1:9013",
-                "mempool_address": "127.0.0.1:9023",
+                "front_address": "127.0.0.1:9007",
+                "mempool_address": "127.0.0.1:9011",
                 "name": "7Ud+cy2kBPRlx7PaT9UB53//j1mF5CXJgmiCFR9ka6E="
             },
-            "CZksyvyrrNKIAJUCYbPbTLNsGoCJ1NPY+zAE2W/GQ0U=": {
-                "front_address": "127.0.0.1:9016",
-                "mempool_address": "127.0.0.1:9026",
-                "name": "CZksyvyrrNKIAJUCYbPbTLNsGoCJ1NPY+zAE2W/GQ0U="
-            },
             "DilAq/HE1E3rUflIlYGgEEx4ss9YfqosxTTdxlUqUQQ=": {
-                "front_address": "127.0.0.1:9012",
-                "mempool_address": "127.0.0.1:9022",
+                "front_address": "127.0.0.1:9006",
+                "mempool_address": "127.0.0.1:9010",
                 "name": "DilAq/HE1E3rUflIlYGgEEx4ss9YfqosxTTdxlUqUQQ="
             },
-            "MP8AJ0zlFrrU2zJoTAk6ikUvJzyW9FHXurTga+stdZQ=": {
-                "front_address": "127.0.0.1:9015",
-                "mempool_address": "127.0.0.1:9025",
-                "name": "MP8AJ0zlFrrU2zJoTAk6ikUvJzyW9FHXurTga+stdZQ="
-            },
-            "QGBc648dyI7nkQ1ZCwzFBi/9wsrypenMYyzZU4ie/qw=": {
-                "front_address": "127.0.0.1:9014",
-                "mempool_address": "127.0.0.1:9024",
-                "name": "QGBc648dyI7nkQ1ZCwzFBi/9wsrypenMYyzZU4ie/qw="
-            },
-            "gq+oQhRyKQA2zo9b09n6RL/IBDobJHfLY1Prn1ND4Bw=": {
-                "front_address": "127.0.0.1:9019",
-                "mempool_address": "127.0.0.1:9029",
-                "name": "gq+oQhRyKQA2zo9b09n6RL/IBDobJHfLY1Prn1ND4Bw="
-            },
-            "mkvUbpB2iIINr4v/yNf02F1DrARWeg3hqQ3t7FNjZd4=": {
-                "front_address": "127.0.0.1:9018",
-                "mempool_address": "127.0.0.1:9028",
-                "name": "mkvUbpB2iIINr4v/yNf02F1DrARWeg3hqQ3t7FNjZd4="
-            },
             "ncJaZoTKCUZtqhjR4iRxbtyH50lH3mAhPPV8xdoUnyM=": {
-                "front_address": "127.0.0.1:9011",
-                "mempool_address": "127.0.0.1:9021",
+                "front_address": "127.0.0.1:9005",
+                "mempool_address": "127.0.0.1:9009",
                 "name": "ncJaZoTKCUZtqhjR4iRxbtyH50lH3mAhPPV8xdoUnyM="
             },
-            "sLFxct2fwXpX3HHRX1vTjowCo6WvKy9868AibqFp1tQ=": {
-                "front_address": "127.0.0.1:9017",
-                "mempool_address": "127.0.0.1:9027",
-                "name": "sLFxct2fwXpX3HHRX1vTjowCo6WvKy9868AibqFp1tQ="
-            },
             "wuOySW4Cmyn7HEO6E607zjyaxx9Am9H7LsUah3uWtA4=": {
-                "front_address": "127.0.0.1:9010",
-                "mempool_address": "127.0.0.1:9020",
+                "front_address": "127.0.0.1:9004",
+                "mempool_address": "127.0.0.1:9008",
                 "name": "wuOySW4Cmyn7HEO6E607zjyaxx9Am9H7LsUah3uWtA4="
             }
         },
