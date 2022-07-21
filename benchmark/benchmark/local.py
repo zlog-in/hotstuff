@@ -59,7 +59,7 @@ class LocalBench:
             with open('config.json') as f:
                 config = json.load(f)
             read = 1 
-            print(self.nodes)
+            # print(self.nodes)
             nodes, rate, local, servers = self.nodes[0], self.rate[0], self.local, self.servers
             
             if read == 1:
@@ -140,8 +140,8 @@ class LocalBench:
                         self.tx_size,
                         rate_share,
                         timeout)
-                        print("!!!!!!!")
-                        print(cmd)
+                        # print("!!!!!!!")
+                        # print(cmd)
                         self._background_run(cmd, log_file)
 
             if local == 1:
@@ -153,7 +153,7 @@ class LocalBench:
                         rate_share,
                         timeout
                     )
-                    print(cmd)
+                    # print(cmd)
                     self._background_run(cmd, log_file)
 
             # Run the nodes.
@@ -171,7 +171,7 @@ class LocalBench:
                         PathMaker.parameters_file(),
                         debug=debug
                         )
-                        print(cmd)
+                        # print(cmd)
                         self._background_run(cmd, log_file)
                     index = index + 1
 
@@ -184,7 +184,7 @@ class LocalBench:
                         PathMaker.parameters_file(),
                         debug=debug
                     )
-                    print(cmd)
+                    # print(cmd)
                     self._background_run(cmd, log_file)
 
 
