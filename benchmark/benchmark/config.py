@@ -137,7 +137,7 @@ class NodeParameters:
     def print(self, filename):
         assert isinstance(filename, str)
         with open(filename, 'w') as f:
-            dump(self.json, f, indent=4, sort_keys=True)
+            dump(self.json, f,  indent=4, sort_keys=True)
 
 
 class BenchParameters:

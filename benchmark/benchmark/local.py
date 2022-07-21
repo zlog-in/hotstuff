@@ -115,6 +115,7 @@ class LocalBench:
             rate_share = ceil(rate / nodes)
             with open('.parameters.json') as f:
                 paramenters = json.load(f)
+                f.close()
             timeout = paramenters['consensus']['timeout_delay']
             #timeout = self.node_parameters.timeout_delay
             f.close()
