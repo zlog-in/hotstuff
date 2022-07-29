@@ -179,25 +179,25 @@ class LogParser:
         mempool_max_payload_size = self.configs[0]['mempool']['max_payload_size']
         mempool_min_block_delay = self.configs[0]['mempool']['min_block_delay']
 
-        with open('config.json') as f:
-            config = json.load(f)
+        with open('bench_parameters.json') as f:
+            bench_parameters = json.load(f)
         
-        local = config['local']
-        servers = config['servers']
-        replicas = config['replicas']
-        faults = config['faults']
+        local = bench_parameters['local']
+        servers = bench_parameters['servers']
+        replicas = bench_parameters['replicas']
+        faults = bench_parameters['faults']
         
-        duration = config['duration']
-        input_rate = config['input_rate']
+        duration = bench_parameters['duration']
+        input_rate = bench_parameters['rate']
         nodes = servers * replicas
         # print(config['local'])
         # print(config['replicas'] * config['servers'])
         f.close()
 
-        with open('.parameters.json') as f:
-            parameters = json.load(f)
-        timeout_delay = parameters['consensus']['timeout_delay']
-        sync_retry_delay = parameters['consensus']['sync_retry_delay']
+        with open('node_parameters.json') as f:
+            node_parameters = json.load(f)
+        timeout_delay = node_parameters['consensus']['timeout_delay']
+        sync_retry_delay = node_parameters['consensus']['sync_retry_delay']
         f.close()
         with open('faulty.json') as f:
             faulty_config = json.load(f)

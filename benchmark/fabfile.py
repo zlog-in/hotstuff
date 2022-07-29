@@ -36,20 +36,26 @@ def local(ctx):
         }
     }
     try:
-        with open('config.json') as f:
-                config = json.load(f)
-        read = 1 
-            
-        if read == 1:
-            
-            local = config['local'] 
 
-        if local == 1:
-            ret = LocalBench(bench_params, node_params).run(debug=False).result()
+        with open('bench_parameters.json') as f:
+            bench_parameters = json.load(f)
+            f.close()
+        print(type(bench_parameters))
+        print(bench_parameters)
+        with open('node_parameters.json') as f:
+            node_parameters = json.load(f)
+            f.close()
+        print(node_parameters)
+
+       
+        local = bench_parameters['local'] 
+
+        if local == True:
+            ret = LocalBench(bench_parameters, node_parameters).run(debug=False).result()
             Print.info('Parsing logs...')
             print(ret)
-        if local == 0:
-            ret = LocalBench(bench_params, node_params).run(debug=False)
+        if local == False:
+            ret = LocalBench(bench_parameters, node_parameters).run(debug=False)
             print("Parsing logs locally")
     except BenchError as e:
         Print.error(e)

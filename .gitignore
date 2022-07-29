@@ -1,4 +1,6 @@
 .DS_Store
+node_parameters.json
+bench_parameters.json
 
 .db*
 db_*

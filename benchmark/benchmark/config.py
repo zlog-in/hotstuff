@@ -1,3 +1,4 @@
+from http import server
 from json import dump, load
 import re
 from traceback import print_tb
@@ -74,41 +75,39 @@ class Committee:
 
 
 class LocalCommittee(Committee):
-    def __init__(self, names, port, nodes, local, server):
+    def __init__(self, names, port, local, servers):
         assert isinstance(names, list) and all(isinstance(x, str) for x in names)
         assert isinstance(port, int)
         size = len(names)
+
         #print(f'size: {size}')
         #print(f'names: {names}')
         consensus = []
         front = []
         mempool = []
         
-        if local == 1:
+        if local == True:
             consensus = [f'127.0.0.1:{port + i}' for i in range(size)]
             front = [f'127.0.0.1:{port + i + size}' for i in range(size)]
             mempool = [f'127.0.0.1:{port + i + 2*size}' for i in range(size)]
             #print(f'consensus: {consensus}')
             #print(f'front: {front}')
             #print(f'mempool: {mempool}')
-        if local == 0:
+        if local == False:
             for i in range(size):
 
-                if i % 10 != 9:
+                if i % servers != (servers-1):
                     #print('if !9')
                     #consensus[i] = 129.13.88.1{(i % 10) +82}
-                    consensus.append(f'129.13.88.1{(i % 10) +82}:{port }')
-                    front.append(f'129.13.88.1{(i % 10) +82}:{port + 1}')
-                    mempool.append(f'129.13.88.1{(i % 10) +82}:{port + 2}')
-                else:
-                    consensus.append(f'129.13.88.1{(i % 10) +71}:{port}')
-                    front.append(f'129.13.88.1{(i % 10) +71}:{port + 1}')
-                    mempool.append(f'129.13.88.1{(i % 10) +71}:{port +2}')
+                    consensus.append(f'129.13.88.1{(i % servers) +82}:{port }')
+                    front.append(f'129.13.88.1{(i % servers) +82}:{port + 1}')
+                    mempool.append(f'129.13.88.1{(i % servers) +82}:{port + 2}')
+                if i % servers == (servers-1):
+                    consensus.append(f'129.13.88.1{(i % servers) +71}:{port}')
+                    front.append(f'129.13.88.1{(i % servers) +71}:{port + 1}')
+                    mempool.append(f'129.13.88.1{(i % servers) +71}:{port +2}')
                     port = port + 3
         
-        #print(consensus)
-        #print(front)
-        #print(mempool)
         super().__init__(names, consensus, front, mempool)
         
 
@@ -122,7 +121,7 @@ class NodeParameters:
             inputs += [json['consensus']['max_payload_size']]
             inputs += [json['consensus']['min_block_delay']]
             inputs += [json['mempool']['queue_capacity']]
-            inputs += [json['consensus']['sync_retry_delay']]
+            inputs += [json['mempool']['sync_retry_delay']]
             inputs += [json['mempool']['max_payload_size']]
             inputs += [json['mempool']['min_block_delay']]
         except KeyError as e:
@@ -143,8 +142,11 @@ class NodeParameters:
 class BenchParameters:
     def __init__(self, json):
         try:
-            nodes = json['nodes'] 
+            nodes = json['nodes']
+            nodes = json['servers'] * json['replicas']
+            print(f'nodes: {nodes}')
             nodes = nodes if isinstance(nodes, list) else [nodes]
+            print(f'nodes: {nodes}')
             if not nodes or any(x <= 0 for x in nodes):
                 raise ConfigError('Missing or invalid number of nodes')
 
@@ -160,8 +162,10 @@ class BenchParameters:
             self.duration = int(json['duration'])
             self.runs = int(json['runs']) if 'runs' in json else 1
             
-            self.local = int(json['local'])
+            self.local = bool(json['local'])
             self.servers = int(json['servers'])
+            self.replicas = int(json['replicas'])
+            self.parsing = bool(json['parsing'])
         except KeyError as e:
             raise ConfigError(f'Malformed bench parameters: missing key {e}')
 

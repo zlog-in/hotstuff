@@ -20,7 +20,9 @@ class LocalBench:
     def __init__(self, bench_parameters_dict, node_parameters_dict):
         try:
             self.bench_parameters = BenchParameters(bench_parameters_dict)
+            print(self.duration)
             self.node_parameters = NodeParameters(node_parameters_dict)
+            print(self.node_parameters)
         except ConfigError as e:
             raise BenchError('Invalid nodes or bench parameters', e)
 
@@ -56,21 +58,11 @@ class LocalBench:
         try:
             Print.info('Setting up testbed...')
             Print.info('Reading configuration...')
-            with open('config.json') as f:
-                config = json.load(f)
-            read = 1 
+        
             # print(self.nodes)
-            nodes, rate, local, servers = self.nodes[0], self.rate[0], self.local, self.servers
+            nodes, rate, local, servers, replicas, parsing, duration, faults = self.nodes[0], self.rate[0], self.local, self.servers, self.replicas, self.parsing, self.duration, self.faults
             
-            if read == 1:
-                replicas = config['replicas']
-                servers = config['servers']
-                local = config['local'] 
-                duration = config['duration']   
-                rate = config['input_rate']    
-            nodes = replicas * servers
-            f.close()
-            #print(type(local))
+            
             # Cleanup all files.
             cmd = f'{CommandMaker.clean_logs()} ; {CommandMaker.cleanup()}'
             subprocess.run([cmd], shell=True, stderr=subprocess.DEVNULL)
@@ -93,7 +85,10 @@ class LocalBench:
                 #if local == 1:  
                 #    subprocess.run(cmd, check=True)
                 keys += [Key.from_file(filename)]
-            node_i = int(subprocess.check_output(['tail', '-1', 'index.txt']))
+            with open('index.txt') as f:
+                node_i = int(f.readline())
+                f.close()
+            # node_i = int(subprocess.check_output(['tail', '-1', 'index.txt']))
             node_ip = '127.0.0.1'
             
             match node_i:
@@ -110,24 +105,19 @@ class LocalBench:
             #print(node_ip)
             names = [x.name for x in keys]
             #print(f'names: {names}')
-            committee = LocalCommittee(names, self.BASE_PORT, nodes, local, servers)
+            committee = LocalCommittee(names, self.BASE_PORT, local, servers)
             committee.print(PathMaker.committee_file())
 
-            #self.node_parameters.print(PathMaker.parameters_file())
+            self.node_parameters.print(PathMaker.parameters_file())
 
             # Do not boot faulty nodes.
-            nodes = nodes - self.faults
+            # nodes = nodes - self.faults
 
             # Run the clients (they will wait for the nodes to be ready).
             addresses = committee.front
-            #print(addresses)
             rate_share = ceil(rate / nodes)
-            with open('.parameters.json') as f:
-                paramenters = json.load(f)
-                f.close()
-            timeout = paramenters['consensus']['timeout_delay']
-            #timeout = self.node_parameters.timeout_delay
-            f.close()
+          
+            timeout = self.node_parameters.timeout_delay
             client_logs = [PathMaker.client_log_file(i) for i in range(nodes)]
             if local == 0:             
                 for addr, log_file in zip(addresses, client_logs):
