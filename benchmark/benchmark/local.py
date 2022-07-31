@@ -20,9 +20,7 @@ class LocalBench:
     def __init__(self, bench_parameters_dict, node_parameters_dict):
         try:
             self.bench_parameters = BenchParameters(bench_parameters_dict)
-            print(self.duration)
             self.node_parameters = NodeParameters(node_parameters_dict)
-            print(self.node_parameters)
         except ConfigError as e:
             raise BenchError('Invalid nodes or bench parameters', e)
 
@@ -88,7 +86,6 @@ class LocalBench:
             with open('index.txt') as f:
                 node_i = int(f.readline())
                 f.close()
-            # node_i = int(subprocess.check_output(['tail', '-1', 'index.txt']))
             node_ip = '127.0.0.1'
             
             match node_i:
@@ -104,7 +101,6 @@ class LocalBench:
                 case 9: node_ip = '129.13.88.180'
             #print(node_ip)
             names = [x.name for x in keys]
-            #print(f'names: {names}')
             committee = LocalCommittee(names, self.BASE_PORT, local, servers)
             committee.print(PathMaker.committee_file())
 

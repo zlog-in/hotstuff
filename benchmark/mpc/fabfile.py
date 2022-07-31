@@ -79,9 +79,12 @@ def faulty_config():
     faulty_servers = set()
     time_seed = datetime.now()
     random.seed(time_seed)
-    while len(faulty_servers) != faults:
-        faulty_servers.add(random.randrange(0, servers*replicas))
-    print(f'faulty replicas are randomly selected: {faulty_servers}')
+    if faults == True:
+        while len(faulty_servers) != faults:
+            faulty_servers.add(random.randrange(0, servers*replicas))
+        print(f'faulty replicas are randomly selected: {faulty_servers}')
+    else:
+        print("All replicas are non-faulty")
     
     with open('../faulty.json', 'w') as f:
         json.dump({f'{idx}': [0,0] for idx in range(servers * replicas)}, f, indent=4)
