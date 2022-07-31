@@ -80,8 +80,7 @@ class LocalCommittee(Committee):
         assert isinstance(port, int)
         size = len(names)
 
-        #print(f'size: {size}')
-        #print(f'names: {names}')
+
         consensus = []
         front = []
         mempool = []
@@ -90,14 +89,11 @@ class LocalCommittee(Committee):
             consensus = [f'127.0.0.1:{port + i}' for i in range(size)]
             front = [f'127.0.0.1:{port + i + size}' for i in range(size)]
             mempool = [f'127.0.0.1:{port + i + 2*size}' for i in range(size)]
-            #print(f'consensus: {consensus}')
-            #print(f'front: {front}')
-            #print(f'mempool: {mempool}')
+  
         if local == False:
             for i in range(size):
 
                 if i % servers != (servers-1):
-                    #print('if !9')
                     #consensus[i] = 129.13.88.1{(i % 10) +82}
                     consensus.append(f'129.13.88.1{(i % servers) +82}:{port }')
                     front.append(f'129.13.88.1{(i % servers) +82}:{port + 1}')
@@ -144,9 +140,7 @@ class BenchParameters:
         try:
             nodes = json['nodes']
             nodes = json['servers'] * json['replicas']
-            print(f'nodes: {nodes}')
             nodes = nodes if isinstance(nodes, list) else [nodes]
-            print(f'nodes: {nodes}')
             if not nodes or any(x <= 0 for x in nodes):
                 raise ConfigError('Missing or invalid number of nodes')
 

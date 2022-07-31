@@ -69,22 +69,21 @@ def build(ctx):
 
 
 def faulty_config():
-    with open('../config.json', 'r') as f:
-        config = json.load(f)
+    with open('../bench_parameters.json', 'r') as f:
+        bench_parameters = json.load(f)
         f.close()
-    faults = config['faults']
-    servers = config['servers']
-    duration = config['duration']
-    replicas = config['replicas']
+    faults = bench_parameters['faults']
+    servers = bench_parameters['servers']
+    duration = bench_parameters['duration']
+    replicas = bench_parameters['replicas']
     faulty_servers = set()
     time_seed = datetime.now()
     random.seed(time_seed)
     while len(faulty_servers) != faults:
-        faulty_servers.add(random.randrange(1, servers*replicas))
-    print(faulty_servers)
+        faulty_servers.add(random.randrange(0, servers*replicas))
+    print(f'faulty replicas are randomly selected: {faulty_servers}')
     
     with open('../faulty.json', 'w') as f:
-        print("The json for faulty servers is created")
         json.dump({f'{idx}': [0,0] for idx in range(servers * replicas)}, f, indent=4)
         f.close()
 
@@ -92,13 +91,12 @@ def faulty_config():
     with open('../faulty.json', 'r') as f:
         faulty_config = json.load(f)
         f.close()
-    # faulty_config['0'][1] = faults
 
     
     while len(faulty_servers) != 0:
         idx = faulty_servers.pop()
         faulty_config[f'{idx}'][0] = 1
-        faulty_config[f'{idx}'][1] = random.randrange(0,duration)
+        faulty_config[f'{idx}'][1] = random.randrange(10,duration)
     
     with open('../faulty.json', 'w') as f:
         json.dump(faulty_config, f, indent=4)
