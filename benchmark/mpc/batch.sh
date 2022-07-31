@@ -2,6 +2,6 @@
 
 for i in {1..10}
 do
-    fab faulty
+    fab timeout
     fab parsing
 done

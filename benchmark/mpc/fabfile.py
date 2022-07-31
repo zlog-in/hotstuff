@@ -35,6 +35,24 @@ def faulty(ctx):
     # hosts.run('docker cp hotstuff/config.json hotstuff:/home/hotstuff/benchmark/')
     hosts.run('docker exec -t hotstuff bash ben.sh')
 
+@task
+def timeout(ctx):
+    hosts = ThreadingGroup('mpc-0','mpc-1','mpc-2','mpc-3','mpc-4','mpc-5','mpc-6','mpc-7','mpc-8','mpc-9')
+    faulty_config()
+    hosts.run('docker stop narwhal')
+    hosts.run('docker start hotstuff')
+    # hosts.put('/home/z/Sync/Study/DSN/Marc/Code/hotstuff/benchmark/config.json', remote  = '/home/zhan/hotstuff/')
+    # hosts.put('/home/z/Sync/Study/DSN/Marc/Code/hotstuff/benchmark/.parameters.json', remote  = '/home/zhan/hotstuff/')
+    hosts.put('/home/z/Sync/Study/DSN/Marc/Code/hotstuff/benchmark/faulty.json', remote  = '/home/zhan/hotstuff/')
+    hosts.put('/home/z/Sync/Study/DSN/Marc/Code/hotstuff/benchmark/bench_parameters.json', remote  = '/home/zhan/hotstuff/')
+    hosts.put('/home/z/Sync/Study/DSN/Marc/Code/hotstuff/benchmark/node_parameters.json', remote  = '/home/zhan/hotstuff/')
+    hosts.run('docker cp hotstuff/faulty.json hotstuff:/home/hotstuff/benchmark/')
+    hosts.run('docker cp hotstuff/bench_parameters.json hotstuff:/home/hotstuff/benchmark/')
+    hosts.run('docker cp hotstuff/node_parameters.json hotstuff:/home/hotstuff/benchmark/')
+    # hosts.run('docker cp hotstuff/.parameters.json hotstuff:/home/hotstuff/benchmark/')
+    # hosts.run('docker cp hotstuff/config.json hotstuff:/home/hotstuff/benchmark/')
+    hosts.run('docker exec -t hotstuff bash ben.sh')
+
 
 @task
 def container(ctx):
@@ -46,7 +64,7 @@ def container(ctx):
     hosts.put('/home/z/Sync/Study/DSN/Marc/Code/hotstuff/benchmark/mpc/update.sh', remote='/home/zhan/hotstuff')
     hosts.run('docker stop narwhal')
     hosts.run('docker rm -f hotstuff')
-    hosts.run('docker run -itd --name hotstuff -p 9000-9049:9000-9049 --mount type=bind,source=/home/zhan/hotstuff/logs,destination=/home/hotstuff/benchmark/logs image_hotstuff')
+    hosts.run('docker run -itd --cap-add=NET_ADMIN --name hotstuff -p 9000-9049:9000-9049 --mount type=bind,source=/home/zhan/hotstuff/logs,destination=/home/hotstuff/benchmark/logs image_hotstuff')
     
     hosts.run('docker cp index.txt hotstuff:/home/hotstuff/benchmark/')
     hosts.run('docker cp hotstuff/ben.sh hotstuff:/home/hotstuff/benchmark/')
