@@ -3,7 +3,7 @@
         "max_payload_size": 5000,
         "min_block_delay": 100,
         "sync_retry_delay": 20000,
-        "timeout_delay": 10000
+        "timeout_delay": 5000
     },
     "mempool": {
         "max_payload_size": 500000,

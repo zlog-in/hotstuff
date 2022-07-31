@@ -46,7 +46,7 @@ def container(ctx):
     hosts.put('/home/z/Sync/Study/DSN/Marc/Code/hotstuff/benchmark/mpc/update.sh', remote='/home/zhan/hotstuff')
     hosts.run('docker stop narwhal')
     hosts.run('docker rm -f hotstuff')
-    hosts.run('docker run -itd --name hotstuff -p 9000-9049:9000-9049 --mount type=bind,source=/home/zhan/hotstuff/logs,destination=/home/hotstuff/benchmark/logs image_hotstuff')
+    hosts.run('docker run -itd --cap-add=NET_ADMIN --name hotstuff -p 9000-9049:9000-9049 --mount type=bind,source=/home/zhan/hotstuff/logs,destination=/home/hotstuff/benchmark/logs image_hotstuff')
     
     hosts.run('docker cp index.txt hotstuff:/home/hotstuff/benchmark/')
     hosts.run('docker cp hotstuff/ben.sh hotstuff:/home/hotstuff/benchmark/')

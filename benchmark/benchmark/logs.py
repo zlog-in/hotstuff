@@ -213,8 +213,8 @@ class LogParser:
         # results_db.commit()
         # results_db.close()
 
-        insert_S1Hotstuff_results = f'INSERT INTO S1Hotstuff VALUES ("{time_seed}", {local}, {nodes}, {faults}, {timeout_delay}, {sync_retry_delay}, {duration}, {input_rate}, {round(consensus_tps)}, {round(consensus_latency)}, {round(end_to_end_latency)})'
-        results_db.cursor().execute(insert_S1Hotstuff_results)
+        insert_S2Hotstuff_results = f'INSERT INTO S2Hotstuff VALUES ("{time_seed}", {local}, {nodes}, {faults}, {timeout_delay}, {sync_retry_delay}, {duration}, {input_rate}, {round(consensus_tps)}, {round(consensus_latency)}, {round(end_to_end_latency)})'
+        results_db.cursor().execute(insert_S2Hotstuff_results)
         results_db.commit()
         results_db.close()
 

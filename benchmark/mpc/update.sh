@@ -2,4 +2,4 @@ cd /home/hotstuff/benchmark/
 
 
 git pull
-git checkout faulty
+git checkout timeout
