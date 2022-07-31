@@ -79,10 +79,10 @@ def faulty_config():
     faulty_servers = set()
     time_seed = datetime.now()
     random.seed(time_seed)
-    if faults == True:
+    if faults != 0:
         while len(faulty_servers) != faults:
             faulty_servers.add(random.randrange(0, servers*replicas))
-        print(f'faulty replicas are randomly selected: {faulty_servers}')
+        print(f'{faults} out of {replicas*servers} replicas are randomly selected as faulty: {faulty_servers}')
     else:
         print("All replicas are non-faulty")
     
