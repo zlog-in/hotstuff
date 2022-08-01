@@ -181,24 +181,26 @@ class LogParser:
 
         with open('bench_parameters.json') as f:
             bench_parameters = json.load(f)
-        
+            f.close()
         local = bench_parameters['local']
         servers = bench_parameters['servers']
         replicas = bench_parameters['replicas']
         faults = bench_parameters['faults']
+        delay = bench_parameters['delay']
         
         duration = bench_parameters['duration']
         input_rate = bench_parameters['rate']
         nodes = servers * replicas
         # print(config['local'])
         # print(config['replicas'] * config['servers'])
-        f.close()
+        
 
         with open('node_parameters.json') as f:
             node_parameters = json.load(f)
+            f.close()
         timeout_delay = node_parameters['consensus']['timeout_delay']
         sync_retry_delay = node_parameters['consensus']['sync_retry_delay']
-        f.close()
+        
         with open('faulty.json') as f:
             faulty_config = json.load(f)
             time_seed = faulty_config['time_seed']
@@ -212,12 +214,18 @@ class LogParser:
         # results_db.cursor().execute(insert_S1Hotstuff_results)
         # results_db.commit()
         # results_db.close()
-
-        insert_S2Hotstuff_results = f'INSERT INTO S2Hotstuff VALUES ("{time_seed}", {local}, {nodes}, {faults}, {timeout_delay}, {sync_retry_delay}, {duration}, {input_rate}, {round(consensus_tps)}, {round(consensus_latency)}, {round(end_to_end_latency)})'
-        results_db.cursor().execute(insert_S2Hotstuff_results)
-        results_db.commit()
-        results_db.close()
-
+        if faults > 0 and delay == 0:
+            insert_S2Hotstuff_results = f'INSERT INTO S2Hotstuff VALUES ("{time_seed}", {local}, {nodes}, {faults}, {timeout_delay}, {sync_retry_delay}, {duration}, {input_rate}, {round(consensus_tps)}, {round(consensus_latency)}, {round(end_to_end_latency)})'
+            results_db.cursor().execute(insert_S2Hotstuff_results)
+            results_db.commit()
+            results_db.close()
+        
+        if delay > 0 and faults == 0:
+            insert_S3Hotstuff_results = f'INSERT INTO S3Hotstuff VALUES ("{time_seed}", {local}, {nodes}, {faults}, {timeout_delay}, {delay}, {sync_retry_delay}, {duration}, {input_rate}, {round(consensus_tps)}, {round(consensus_latency)}, {round(end_to_end_latency)})'
+            results_db.cursor().execute(insert_S3Hotstuff_results)
+            results_db.commit()
+            results_db.close()
+         
         return (
             '\n'
             '-----------------------------------------\n'

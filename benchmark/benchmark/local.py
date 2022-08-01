@@ -48,7 +48,7 @@ class LocalBench:
 
     def _delay(self, node_i, delay, delay_duration):
         print(f'Communication delay for server {node_i} increases to {delay}ms for duration {delay_duration}s')
-        subprocess.run(f'tc qdisc add dev eth0 root netem delay {delay}ms 100ms distribution nornal', shell = True)
+        subprocess.run(f'tc qdisc add dev eth0 root netem delay {delay}ms {round(delay/10)}ms distribution normal', shell = True)
         sleep(delay_duration)
         subprocess.run('tc qdisc del dev eth0 root', shell=True)
         print(f'Communication delay for server {node_i} ends after {delay_duration}s')
@@ -203,7 +203,8 @@ class LocalBench:
                     delay_config = json.load(f)
                     f.close()
                 if delay_config[f'{node_i}'][0] == 1:
-                    self._delay(node_i, delay_config[f'{node_i}'][1], delay_config[f'{node_i}'][2])
+                    Thread(target=self._delay, args=(node_i, delay_config[f'{node_i}'][1], delay_config[f'{node_i}'][2])).start()
+                    # self._delay(node_i, delay_config[f'{node_i}'][1], delay_config[f'{node_i}'][2])
 
             # Wait for all transactions to be processed.
             Print.info(f'Running benchmark ({duration} sec)...')

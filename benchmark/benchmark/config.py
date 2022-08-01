@@ -161,8 +161,6 @@ class BenchParameters:
             self.replicas = int(json['replicas'])
             self.parsing = bool(json['parsing'])
             self.delay = int(json['delay'])
-            self.offset = int(json['offset'])
-            self.delay = int(json['delay'])
 
         except KeyError as e:
             raise ConfigError(f'Malformed bench parameters: missing key {e}')

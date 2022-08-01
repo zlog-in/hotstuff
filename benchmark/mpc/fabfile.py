@@ -138,7 +138,6 @@ def delay_config():
     servers = bench_parameters['servers']
     duration = bench_parameters['duration']
     delay = bench_parameters['delay']
-    offset = bench_parameters['offset']
     delay_servers = set()
     while len(delay_servers) != servers/2:
         delay_servers.add(random.randrange(0, servers))
@@ -153,8 +152,8 @@ def delay_config():
     while len(delay_servers) != 0 and delay > 0:
         idx = delay_servers.pop()
         delay_config[f'{idx}'][0] = 1
-        delay_config[f'{idx}'][1] = random.randint(100, delay*1000)
-        delay_config[f'{idx}'][2] = random.randint(1, duration)
+        delay_config[f'{idx}'][1] = random.randint(100, delay) if delay > 100 else random.randint(100, 10000)
+        delay_config[f'{idx}'][2] = random.randint(1, duration-1)
 
     with open('../delay.json', 'w') as f:
         json.dump(delay_config, f, indent=4)
