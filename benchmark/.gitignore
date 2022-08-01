@@ -2,6 +2,7 @@
 config.json
 faulty.json
 index.txt
+delay.json
 __pycache__/
 /mpc/results.db
 *.py[cod]

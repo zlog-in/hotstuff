@@ -162,6 +162,7 @@ class BenchParameters:
             self.parsing = bool(json['parsing'])
             self.delay = int(json['delay'])
             self.offset = int(json['offset'])
+            self.timing_violation = bool(json['timing_violation'])
         except KeyError as e:
             raise ConfigError(f'Malformed bench parameters: missing key {e}')
 

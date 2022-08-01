@@ -38,17 +38,21 @@ def faulty(ctx):
 @task
 def timeout(ctx):
     hosts = ThreadingGroup('mpc-0','mpc-1','mpc-2','mpc-3','mpc-4','mpc-5','mpc-6','mpc-7','mpc-8','mpc-9')
-    faulty_config()
+    delay_config()
     hosts.run('docker stop narwhal')
     hosts.run('docker start hotstuff')
-    # hosts.put('/home/z/Sync/Study/DSN/Marc/Code/hotstuff/benchmark/config.json', remote  = '/home/zhan/hotstuff/')
-    # hosts.put('/home/z/Sync/Study/DSN/Marc/Code/hotstuff/benchmark/.parameters.json', remote  = '/home/zhan/hotstuff/')
+    # # hosts.put('/home/z/Sync/Study/DSN/Marc/Code/hotstuff/benchmark/config.json', remote  = '/home/zhan/hotstuff/')
+    # # hosts.put('/home/z/Sync/Study/DSN/Marc/Code/hotstuff/benchmark/.parameters.json', remote  = '/home/zhan/hotstuff/')
     hosts.put('/home/z/Sync/Study/DSN/Marc/Code/hotstuff/benchmark/faulty.json', remote  = '/home/zhan/hotstuff/')
+    hosts.put('/home/z/Sync/Study/DSN/Marc/Code/hotstuff/benchmark/benchmark/local.py', remote  = '/home/zhan/hotstuff/')
     hosts.put('/home/z/Sync/Study/DSN/Marc/Code/hotstuff/benchmark/bench_parameters.json', remote  = '/home/zhan/hotstuff/')
     hosts.put('/home/z/Sync/Study/DSN/Marc/Code/hotstuff/benchmark/node_parameters.json', remote  = '/home/zhan/hotstuff/')
+    hosts.put('/home/z/Sync/Study/DSN/Marc/Code/hotstuff/benchmark/delay.json', remote  = '/home/zhan/hotstuff/')
     hosts.run('docker cp hotstuff/faulty.json hotstuff:/home/hotstuff/benchmark/')
     hosts.run('docker cp hotstuff/bench_parameters.json hotstuff:/home/hotstuff/benchmark/')
     hosts.run('docker cp hotstuff/node_parameters.json hotstuff:/home/hotstuff/benchmark/')
+    hosts.run('docker cp hotstuff/delay.json hotstuff:/home/hotstuff/benchmark/')
+    hosts.run('docker cp hotstuff/local.py hotstuff:/home/hotstuff/benchmark/benchmark/')
     # hosts.run('docker cp hotstuff/.parameters.json hotstuff:/home/hotstuff/benchmark/')
     # hosts.run('docker cp hotstuff/config.json hotstuff:/home/hotstuff/benchmark/')
     hosts.run('docker exec -t hotstuff bash ben.sh')
@@ -87,6 +91,8 @@ def build(ctx):
 
 
 def faulty_config():
+
+
     with open('../bench_parameters.json', 'r') as f:
         bench_parameters = json.load(f)
         f.close()
@@ -124,6 +130,37 @@ def faulty_config():
         f.close()
 
     write_time(time_seed)
+
+def delay_config():
+    with open('../bench_parameters.json', 'r') as f:
+        bench_parameters = json.load(f)
+        f.close()
+    servers = bench_parameters['servers']
+    duration = bench_parameters['duration']
+    delay = bench_parameters['delay']
+    offset = bench_parameters['offset']
+    delay_servers = set()
+    while len(delay_servers) != servers/2:
+        delay_servers.add(random.randrange(0, servers))
+    
+    with open('../delay.json', 'w') as f:
+        json.dump({f'{idx}': [0,0,0] for idx in range(servers)}, f, indent=4)
+        f.close()
+    
+    with open('../delay.json', 'r') as f:
+        delay_config = json.load(f)
+        f.close()
+    while len(delay_servers) != 0:
+        idx = delay_servers.pop()
+        delay_config[f'{idx}'][0] = 1
+        delay_config[f'{idx}'][1] = random.randint(100, delay*1000)
+        delay_config[f'{idx}'][2] = random.randint(1, duration/2)
+
+    with open('../delay.json', 'w') as f:
+        json.dump(delay_config, f, indent=4)
+        f.close()
+    
+
 
 def write_time(seed):
     with open(f'../faulty.json') as f:

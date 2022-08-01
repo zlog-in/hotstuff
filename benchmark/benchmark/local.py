@@ -46,6 +46,13 @@ class LocalBench:
         subprocess.run(['tmux', 'kill-session', '-t', f'client-{id}'])
         print(f'and replica {id} crashed after {duration}s exectution')
 
+    def _delay(self, delay, delay_duration):
+        print("Communication delay increases")
+        subprocess.run(f'tc qdisc add dev eth0 root netem delay {delay}ms 100ms 25%', shell = True)
+        sleep(delay_duration)
+        subprocess.run('tc qdisc del dev eth0 root', shell=True)
+        print("Communication delay ends")
+
     def run(self, debug=False):
         assert isinstance(debug, bool)
         Print.heading('Starting local benchmark')
@@ -58,7 +65,7 @@ class LocalBench:
             Print.info('Reading configuration...')
         
             # print(self.nodes)
-            nodes, rate, local, servers, replicas, parsing, duration, faults = self.nodes[0], self.rate[0], self.local, self.servers, self.replicas, self.parsing, self.duration, self.faults
+            nodes, rate, local, servers, replicas, parsing, duration, faults, timing_violation = self.nodes[0], self.rate[0], self.local, self.servers, self.replicas, self.parsing, self.duration, self.faults, self.timing_violation
             
             
             # Cleanup all files.
@@ -178,25 +185,33 @@ class LocalBench:
             Print.info('Waiting for the nodes to synchronize...')
             #sleep(2 * self.node_parameters.timeout_delay / 1000)
             sleep(2 * timeout / 1000)
-
-            # with open('faulty.json') as f:
-            #     faulty_config = json.load(f)
-            #     f.close()
             
-            # for r in range(replicas):
-            #     replica_i = node_i + r * servers 
-            #     flag = faulty_config[f'{replica_i}'][0]
-            #     if flag == 1:
-            #         faulty_duration = faulty_config[f'{replica_i}'][1]
-            #         Thread(target=self._kill_faulty, args=(replica_i,faulty_duration)).start()
+            if faults > 0:
+                with open('faulty.json') as f:
+                    faulty_config = json.load(f)
+                    f.close()
+                
+                for r in range(replicas):
+                    replica_i = node_i + r * servers 
+                    flag = faulty_config[f'{replica_i}'][0]
+                    if flag == 1:
+                        faulty_duration = faulty_config[f'{replica_i}'][1]
+                        Thread(target=self._kill_faulty, args=(replica_i,faulty_duration)).start()
 
-            subprocess.run('tc qdisc add dev eth0 root netem delay 5000ms 1000ms 25%', shell=True)
+            if timing_violation == True:
+                with open('delay.json') as f:
+                    delay_config = json.load(f)
+                    f.close()
+                if delay_config[node_i][0] == 1:
+                    self._delay(delay_config[node_i][1], delay_config[2])
 
             # Wait for all transactions to be processed.
             Print.info(f'Running benchmark ({duration} sec)...')
+
+            # Thread(target=self._delay,args=(3000,1000,5)).start()
             sleep(duration)
             self._kill_nodes()
-            subprocess.run('tc qdisc del dev eth0 root', shell=True)
+            
 
             # Parse logs and return the parser.
             
