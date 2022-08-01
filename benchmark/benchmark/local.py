@@ -179,16 +179,18 @@ class LocalBench:
             #sleep(2 * self.node_parameters.timeout_delay / 1000)
             sleep(2 * timeout / 1000)
 
-            with open('faulty.json') as f:
-                faulty_config = json.load(f)
-                f.close()
+            # with open('faulty.json') as f:
+            #     faulty_config = json.load(f)
+            #     f.close()
             
-            for r in range(replicas):
-                replica_i = node_i + r * servers 
-                flag = faulty_config[f'{replica_i}'][0]
-                if flag == 1:
-                    faulty_duration = faulty_config[f'{replica_i}'][1]
-                    Thread(target=self._kill_faulty, args=(replica_i,faulty_duration)).start()
+            # for r in range(replicas):
+            #     replica_i = node_i + r * servers 
+            #     flag = faulty_config[f'{replica_i}'][0]
+            #     if flag == 1:
+            #         faulty_duration = faulty_config[f'{replica_i}'][1]
+            #         Thread(target=self._kill_faulty, args=(replica_i,faulty_duration)).start()
+
+            subprocess.run('tc qdisc add dev eth0 root netem delay 5000ms 1000ms 25%', shell=TRUE)
 
             # Wait for all transactions to be processed.
             Print.info(f'Running benchmark ({duration} sec)...')
