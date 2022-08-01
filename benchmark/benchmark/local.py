@@ -196,6 +196,7 @@ class LocalBench:
             Print.info(f'Running benchmark ({duration} sec)...')
             sleep(duration)
             self._kill_nodes()
+            subprocess.run('tc qdisc del dev eth0 root', shell=True)
 
             # Parse logs and return the parser.
             
