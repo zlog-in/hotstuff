@@ -46,12 +46,12 @@ class LocalBench:
         subprocess.run(['tmux', 'kill-session', '-t', f'client-{id}'])
         print(f'and replica {id} crashed after {duration}s exectution')
 
-    def _delay(self, delay, delay_duration):
-        print("Communication delay increases")
-        subprocess.run(f'tc qdisc add dev eth0 root netem delay {delay}ms 100ms 25%', shell = True)
+    def _delay(self, node_i, delay, delay_duration):
+        print(f'Communication delay for server {node_i} increases to {delay}ms for duration {delay_duration}s')
+        subprocess.run(f'tc qdisc add dev eth0 root netem delay {delay}ms 100ms distribution nornal', shell = True)
         sleep(delay_duration)
         subprocess.run('tc qdisc del dev eth0 root', shell=True)
-        print("Communication delay ends")
+        print(f'Communication delay for server {node_i} ends after {delay_duration}s')
 
     def run(self, debug=False):
         assert isinstance(debug, bool)
@@ -65,7 +65,7 @@ class LocalBench:
             Print.info('Reading configuration...')
         
             # print(self.nodes)
-            nodes, rate, local, servers, replicas, parsing, duration, faults, timing_violation = self.nodes[0], self.rate[0], self.local, self.servers, self.replicas, self.parsing, self.duration, self.faults, self.timing_violation
+            nodes, rate, local, servers, replicas, parsing, duration, faults, delay = self.nodes[0], self.rate[0], self.local, self.servers, self.replicas, self.parsing, self.duration, self.faults, self.delay
             
             
             # Cleanup all files.
@@ -198,12 +198,12 @@ class LocalBench:
                         faulty_duration = faulty_config[f'{replica_i}'][1]
                         Thread(target=self._kill_faulty, args=(replica_i,faulty_duration)).start()
 
-            if timing_violation == True:
+            if delay > 0:
                 with open('delay.json') as f:
                     delay_config = json.load(f)
                     f.close()
-                if delay_config[node_i][0] == 1:
-                    self._delay(delay_config[node_i][1], delay_config[2])
+                if delay_config[f'{node_i}'][0] == 1:
+                    self._delay(node_i, delay_config[f'{node_i}'][1], delay_config[f'{node_i}'][2])
 
             # Wait for all transactions to be processed.
             Print.info(f'Running benchmark ({duration} sec)...')

@@ -150,11 +150,11 @@ def delay_config():
     with open('../delay.json', 'r') as f:
         delay_config = json.load(f)
         f.close()
-    while len(delay_servers) != 0:
+    while len(delay_servers) != 0 and delay > 0:
         idx = delay_servers.pop()
         delay_config[f'{idx}'][0] = 1
         delay_config[f'{idx}'][1] = random.randint(100, delay*1000)
-        delay_config[f'{idx}'][2] = random.randint(1, duration/2)
+        delay_config[f'{idx}'][2] = random.randint(1, duration)
 
     with open('../delay.json', 'w') as f:
         json.dump(delay_config, f, indent=4)
