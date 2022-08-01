@@ -190,7 +190,7 @@ class LocalBench:
             #         faulty_duration = faulty_config[f'{replica_i}'][1]
             #         Thread(target=self._kill_faulty, args=(replica_i,faulty_duration)).start()
 
-            subprocess.run('tc qdisc add dev eth0 root netem delay 5000ms 1000ms 25%', shell=TRUE)
+            subprocess.run('tc qdisc add dev eth0 root netem delay 5000ms 1000ms 25%', shell=True)
 
             # Wait for all transactions to be processed.
             Print.info(f'Running benchmark ({duration} sec)...')
