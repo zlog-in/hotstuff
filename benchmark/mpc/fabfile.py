@@ -1,9 +1,10 @@
-from fabric import Connection, ThreadingGroup
+from fabric import ThreadingGroup
 from fabric import task
 import subprocess
 from datetime import datetime
 import random
 import json
+import os
 
 
 @task
@@ -11,8 +12,8 @@ def benchmarking(ctx):
     hosts = ThreadingGroup('mpc-0','mpc-1','mpc-2','mpc-3','mpc-4','mpc-5','mpc-6','mpc-7','mpc-8','mpc-9')
     hosts.run('docker stop narwhal')
     hosts.run('docker start hotstuff')
-    hosts.put('/home/z/Sync/Study/DSN/Marc/Code/hotstuff/benchmark/config.json', remote  = '/home/zhan/hotstuff/')
-    hosts.put('/home/z/Sync/Study/DSN/Marc/Code/hotstuff/benchmark/.parameters.json', remote  = '/home/zhan/hotstuff/')
+    hosts.put(f'{os.pardir}/config.json', remote  = '/home/zhan/hotstuff/')
+    hosts.put(f'{os.pardir}/.parameters.json', remote  = '/home/zhan/hotstuff/')
     hosts.run('docker cp hotstuff/config.json hotstuff:/home/hotstuff/benchmark/')
     hosts.run('docker cp hotstuff/.parameters.json hotstuff:/home/hotstuff/benchmark/')
     hosts.run('docker exec -t hotstuff bash ben.sh')
@@ -23,11 +24,11 @@ def faulty(ctx):
     faulty_config()
     hosts.run('docker stop narwhal')
     hosts.run('docker start hotstuff')
-    # hosts.put('/home/z/Sync/Study/DSN/Marc/Code/hotstuff/benchmark/config.json', remote  = '/home/zhan/hotstuff/')
-    # hosts.put('/home/z/Sync/Study/DSN/Marc/Code/hotstuff/benchmark/.parameters.json', remote  = '/home/zhan/hotstuff/')
-    hosts.put('/home/z/Sync/Study/DSN/Marc/Code/hotstuff/benchmark/faulty.json', remote  = '/home/zhan/hotstuff/')
-    hosts.put('/home/z/Sync/Study/DSN/Marc/Code/hotstuff/benchmark/bench_parameters.json', remote  = '/home/zhan/hotstuff/')
-    hosts.put('/home/z/Sync/Study/DSN/Marc/Code/hotstuff/benchmark/node_parameters.json', remote  = '/home/zhan/hotstuff/')
+    # hosts.put(f'{os.pardir}/config.json', remote  = '/home/zhan/hotstuff/')
+    # hosts.put(f'{os.pardir}/.parameters.json', remote  = '/home/zhan/hotstuff/')
+    hosts.put(f'{os.pardir}/faulty.json', remote  = '/home/zhan/hotstuff/')
+    hosts.put(f'{os.pardir}/bench_parameters.json', remote  = '/home/zhan/hotstuff/')
+    hosts.put(f'{os.pardir}/node_parameters.json', remote  = '/home/zhan/hotstuff/')
     hosts.run('docker cp hotstuff/faulty.json hotstuff:/home/hotstuff/benchmark/')
     hosts.run('docker cp hotstuff/bench_parameters.json hotstuff:/home/hotstuff/benchmark/')
     hosts.run('docker cp hotstuff/node_parameters.json hotstuff:/home/hotstuff/benchmark/')
@@ -41,18 +42,18 @@ def timeout(ctx):
     delay_config()
     hosts.run('docker stop narwhal')
     hosts.run('docker start hotstuff')
-    # # hosts.put('/home/z/Sync/Study/DSN/Marc/Code/hotstuff/benchmark/config.json', remote  = '/home/zhan/hotstuff/')
-    # # hosts.put('/home/z/Sync/Study/DSN/Marc/Code/hotstuff/benchmark/.parameters.json', remote  = '/home/zhan/hotstuff/')
-    hosts.put('/home/z/Sync/Study/DSN/Marc/Code/hotstuff/benchmark/faulty.json', remote  = '/home/zhan/hotstuff/')
-    hosts.put('/home/z/Sync/Study/DSN/Marc/Code/hotstuff/benchmark/benchmark/local.py', remote  = '/home/zhan/hotstuff/')
-    hosts.put('/home/z/Sync/Study/DSN/Marc/Code/hotstuff/benchmark/bench_parameters.json', remote  = '/home/zhan/hotstuff/')
-    hosts.put('/home/z/Sync/Study/DSN/Marc/Code/hotstuff/benchmark/node_parameters.json', remote  = '/home/zhan/hotstuff/')
-    hosts.put('/home/z/Sync/Study/DSN/Marc/Code/hotstuff/benchmark/delay.json', remote  = '/home/zhan/hotstuff/')
+    # # hosts.put(f'{os.pardir}/config.json', remote  = '/home/zhan/hotstuff/')
+    # # hosts.put(f'{os.pardir}/.parameters.json', remote  = '/home/zhan/hotstuff/')
+    hosts.put(f'{os.pardir}/faulty.json', remote  = '/home/zhan/hotstuff/')
+    
+    hosts.put(f'{os.pardir}/bench_parameters.json', remote  = '/home/zhan/hotstuff/')
+    hosts.put(f'{os.pardir}/node_parameters.json', remote  = '/home/zhan/hotstuff/')
+    hosts.put(f'{os.pardir}/delay.json', remote  = '/home/zhan/hotstuff/')
     hosts.run('docker cp hotstuff/faulty.json hotstuff:/home/hotstuff/benchmark/')
     hosts.run('docker cp hotstuff/bench_parameters.json hotstuff:/home/hotstuff/benchmark/')
     hosts.run('docker cp hotstuff/node_parameters.json hotstuff:/home/hotstuff/benchmark/')
     hosts.run('docker cp hotstuff/delay.json hotstuff:/home/hotstuff/benchmark/')
-    hosts.run('docker cp hotstuff/local.py hotstuff:/home/hotstuff/benchmark/benchmark/')
+    
     # hosts.run('docker cp hotstuff/.parameters.json hotstuff:/home/hotstuff/benchmark/')
     # hosts.run('docker cp hotstuff/config.json hotstuff:/home/hotstuff/benchmark/')
     hosts.run('docker exec -t hotstuff bash ben.sh')
@@ -63,9 +64,11 @@ def container(ctx):
     hosts = ThreadingGroup('mpc-0','mpc-1','mpc-2','mpc-3','mpc-4','mpc-5','mpc-6','mpc-7','mpc-8','mpc-9')
     hosts.run('rm -rf hotstuff/logs/')
     hosts.run('mkdir -p hotstuff/logs')
-
-    hosts.put('/home/z/Sync/Study/DSN/Marc/Code/hotstuff/benchmark/mpc/ben.sh', remote='/home/zhan/hotstuff')
-    hosts.put('/home/z/Sync/Study/DSN/Marc/Code/hotstuff/benchmark/mpc/update.sh', remote='/home/zhan/hotstuff')
+    cwd = os.getcwd()
+    print(cwd)
+    
+    hosts.put(f'{cwd}/ben.sh', remote='/home/zhan/hotstuff')
+    hosts.put(f'{cwd}/update.sh', remote='/home/zhan/hotstuff')
     hosts.run('docker stop narwhal')
     hosts.run('docker rm -f hotstuff')
     hosts.run('docker run -itd --cap-add=NET_ADMIN --name hotstuff -p 9000-9049:9000-9049 --mount type=bind,source=/home/zhan/hotstuff/logs,destination=/home/hotstuff/benchmark/logs image_hotstuff')
@@ -80,11 +83,16 @@ def parsing(ctx):
     subprocess.call(['bash', '../parsing.sh'])
 
 @task
+def getlogs(ctx):
+    hosts = ThreadingGroup('mpc-0','mpc-1','mpc-2','mpc-3','mpc-4','mpc-5','mpc-6','mpc-7','mpc-8','mpc-9')
+
+@task
 def build(ctx):
     hosts = ThreadingGroup('mpc-0','mpc-1','mpc-2','mpc-3','mpc-4','mpc-5','mpc-6','mpc-7','mpc-8','mpc-9')
     hosts.run('rm -rf hotstuff/')
     hosts.run('mkdir  hotstuff/')
-    hosts.put('/home/z/Sync/Study/DSN/Marc/Code/hotstuff/benchmark/mpc/Dockerfile', remote='/home/zhan/hotstuff')
+    
+    hosts.put(f'{os.getcwd()}/Dockerfile', remote='/home/zhan/hotstuff')
     hosts.run('docker rm -f hotstuff')
     hosts.run('docker rmi image_hotstuff')
     hosts.run('docker build -f /home/zhan/hotstuff/Dockerfile -t image_hotstuff .')
@@ -139,6 +147,8 @@ def delay_config():
     duration = bench_parameters['duration']
     delay = bench_parameters['delay']
     delay_servers = set()
+    time_seed = datetime.now()
+    random.seed(time_seed)
     while len(delay_servers) != servers/2:
         delay_servers.add(random.randrange(0, servers))
     
@@ -153,7 +163,16 @@ def delay_config():
         idx = delay_servers.pop()
         delay_config[f'{idx}'][0] = 1
         delay_config[f'{idx}'][1] = random.randint(100, delay) if delay > 100 else random.randint(100, 10000)
-        delay_config[f'{idx}'][2] = random.randint(1, duration-1)
+        delay_config[f'{idx}'][2] = random.randint(1, duration-10)
+
+    with open('../delay.json', 'w') as f:
+        json.dump(delay_config, f, indent=4)
+        f.close()
+
+    with open(f'../delay.json') as f:
+        delay_config = json.load(f)
+        f.close()
+    delay_config.update({'time_seed': f'{time_seed}'})
 
     with open('../delay.json', 'w') as f:
         json.dump(delay_config, f, indent=4)

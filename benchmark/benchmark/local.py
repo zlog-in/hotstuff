@@ -47,8 +47,9 @@ class LocalBench:
         print(f'and replica {id} crashed after {duration}s exectution')
 
     def _delay(self, node_i, delay, delay_duration):
+        sleep(5)
         print(f'Communication delay for server {node_i} increases to {delay}ms for duration {delay_duration}s')
-        subprocess.run(f'tc qdisc add dev eth0 root netem delay {delay}ms {round(delay/10)}ms distribution normal', shell = True)
+        subprocess.run(f'tc qdisc add dev eth0 root netem delay {delay}ms {round(delay/10)}ms distribution normal', shell = True)# specification about delay distribution 
         sleep(delay_duration)
         subprocess.run('tc qdisc del dev eth0 root', shell=True)
         print(f'Communication delay for server {node_i} ends after {delay_duration}s')
@@ -185,8 +186,10 @@ class LocalBench:
             Print.info('Waiting for the nodes to synchronize...')
             #sleep(2 * self.node_parameters.timeout_delay / 1000)
             sleep(2 * timeout / 1000)
+            # Wait for all transactions to be processed.
+            Print.info(f'Running benchmark ({duration} sec)...')
             
-            if faults > 0:
+            if faults > 0 and delay == 0:
                 with open('faulty.json') as f:
                     faulty_config = json.load(f)
                     f.close()
@@ -198,7 +201,7 @@ class LocalBench:
                         faulty_duration = faulty_config[f'{replica_i}'][1]
                         Thread(target=self._kill_faulty, args=(replica_i,faulty_duration)).start()
 
-            if delay > 0:
+            if delay > 0 and faults == 0:
                 with open('delay.json') as f:
                     delay_config = json.load(f)
                     f.close()
@@ -206,8 +209,7 @@ class LocalBench:
                     Thread(target=self._delay, args=(node_i, delay_config[f'{node_i}'][1], delay_config[f'{node_i}'][2])).start()
                     # self._delay(node_i, delay_config[f'{node_i}'][1], delay_config[f'{node_i}'][2])
 
-            # Wait for all transactions to be processed.
-            Print.info(f'Running benchmark ({duration} sec)...')
+            
 
             # Thread(target=self._delay,args=(3000,1000,5)).start()
             sleep(duration)

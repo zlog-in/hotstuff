@@ -201,10 +201,7 @@ class LogParser:
         timeout_delay = node_parameters['consensus']['timeout_delay']
         sync_retry_delay = node_parameters['consensus']['sync_retry_delay']
         
-        with open('faulty.json') as f:
-            faulty_config = json.load(f)
-            time_seed = faulty_config['time_seed']
-            f.close()
+        
         results_db = sqlite3.connect('./mpc/results.db')
 
         # # insert_S1Hotstuff_Results = f'INSERT INTO S1Hotstuff VALUES ("{datetime.now()}", {config['local']}, {config['replicas'] * config['servers']}, {config['faults']}, {config['timeout_delay']}, {config['sync_retry_dealy']}, {config['duration']}, {round(consensus_tps)}, {round(consensus_latency)}, {round(end_to_end_latency)})'
@@ -214,13 +211,30 @@ class LogParser:
         # results_db.cursor().execute(insert_S1Hotstuff_results)
         # results_db.commit()
         # results_db.close()
+
+        if faults == 0 and delay == 0:
+            # insert_S1Hotstuff_results = f'INSERT INTO S1Hotstuff VALUES ("{datetime.now()}", {local}, {nodes}, {faults}, {timeout_delay}, {sync_retry_delay}, {duration}, {input_rate} {round(consensus_tps)}, {round(consensus_latency)}, {round(end_to_end_latency)})'
+            # results_db.cursor().execute(insert_S1Hotstuff_results)
+            insert_S1Hotstuff_results = f'INSERT INTO S1Hotstuff VALUES ("{datetime.now()}", {local}, {nodes}, {faults}, {timeout_delay}, {sync_retry_delay}, {duration}, {input_rate}, {round(consensus_tps)}, {round(consensus_latency)}, {round(end_to_end_latency)})'
+            results_db.cursor().execute(insert_S1Hotstuff_results)
+            results_db.commit()
+            results_db.close()
+
         if faults > 0 and delay == 0:
+            with open('faulty.json') as f:
+                faulty_config = json.load(f)
+                f.close()
+            time_seed = faulty_config['time_seed']
             insert_S2Hotstuff_results = f'INSERT INTO S2Hotstuff VALUES ("{time_seed}", {local}, {nodes}, {faults}, {timeout_delay}, {sync_retry_delay}, {duration}, {input_rate}, {round(consensus_tps)}, {round(consensus_latency)}, {round(end_to_end_latency)})'
             results_db.cursor().execute(insert_S2Hotstuff_results)
             results_db.commit()
             results_db.close()
         
         if delay > 0 and faults == 0:
+            with open('delay.json') as f:
+                delay_config = json.load(f)
+                f.close()
+            time_seed = delay_config['time_seed']
             insert_S3Hotstuff_results = f'INSERT INTO S3Hotstuff VALUES ("{time_seed}", {local}, {nodes}, {faults}, {timeout_delay}, {delay}, {sync_retry_delay}, {duration}, {input_rate}, {round(consensus_tps)}, {round(consensus_latency)}, {round(end_to_end_latency)})'
             results_db.cursor().execute(insert_S3Hotstuff_results)
             results_db.commit()
