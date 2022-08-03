@@ -9,7 +9,7 @@ bench_parameters = {
     "rate": 30000,
     "tx_size": 512,
     "faults": 0,
-    "duration": 10,
+    "duration": 100,
     "delay": 0,
     "local": False,
     "parsing": False,
@@ -38,11 +38,11 @@ with open('../node_parameters.json', 'w') as f:
 
 
 
-replicas = [1, 2]
+replicas = [1, 2, 3, 4, 5]
 
-rates = [20000, 30000]
+rates = [40000, 50000, 60000]
 
-round = 2
+round = 20
 
 
 # for i in range(10):

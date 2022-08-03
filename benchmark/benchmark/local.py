@@ -95,7 +95,6 @@ class LocalBench:
                 node_i = int(f.readline())
                 f.close()
             node_ip = '127.0.0.1'
-            
             match node_i:
                 case 0: node_ip = '129.13.88.182'
                 case 1: node_ip = '129.13.88.183'
@@ -107,6 +106,7 @@ class LocalBench:
                 case 7: node_ip = '129.13.88.189'
                 case 8: node_ip = '129.13.88.190' 
                 case 9: node_ip = '129.13.88.180'
+                case _: print("No IP matched for this server")
             #print(node_ip)
             names = [x.name for x in keys]
             committee = LocalCommittee(names, self.BASE_PORT, local, servers)
