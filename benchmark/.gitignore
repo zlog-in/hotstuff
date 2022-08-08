@@ -5,6 +5,7 @@ index.txt
 delay.json
 __pycache__/
 /mpc/results.db
+/mpc/results/*
 *.py[cod]
 *$py.class
 

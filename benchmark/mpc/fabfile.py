@@ -1,4 +1,5 @@
-from fabric import ThreadingGroup
+
+from fabric import ThreadingGroup, Connection
 from fabric import task
 import subprocess
 from datetime import datetime
@@ -83,8 +84,9 @@ def parsing(ctx):
     subprocess.call(['bash', '../parsing.sh'])
 
 @task
-def getlogs(ctx):
-    hosts = ThreadingGroup('mpc-0','mpc-1','mpc-2','mpc-3','mpc-4','mpc-5','mpc-6','mpc-7','mpc-8','mpc-9')
+def getdb(ctx):
+    host = Connection('checker')
+    host.get('/home/zhan/hotstuff/benchmark/mpc/results.db', local = f'{os.getcwd()}/results/')
 
 @task
 def build(ctx):
@@ -96,6 +98,14 @@ def build(ctx):
     hosts.run('docker rm -f hotstuff')
     hosts.run('docker rmi image_hotstuff')
     hosts.run('docker build -f /home/zhan/hotstuff/Dockerfile -t image_hotstuff .')
+
+
+@task
+def checker(ctx):
+    host = Connection('checker')
+    host.put('./checker.py', remote='hotstuff/benchmark/mpc/')
+   
+
 
 
 def faulty_config():
