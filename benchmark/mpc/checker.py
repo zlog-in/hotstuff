@@ -38,13 +38,14 @@ with open('../node_parameters.json', 'w') as f:
     f.close()
 
 
-scenario = "S3"
+scenario = "S1"
 
 
 if scenario == "S1":
-    replicas = [1,2,3,4,5,6,7,8,9,10]
-    rates = [20000,30000,40000,50000, 60000, 70000, 80000, 90000, 100000]
-    round = 10
+    replicas = [1]
+    rates = [20000,30000]
+    round = 1
+    durations = [20, 40]
 
     # replicas = [1,2,3,4,5,6]
     # rates = [20000, 30000, 40000, 50000,60000]
@@ -55,12 +56,15 @@ if scenario == "S1":
         bench_parameters['replicas'] = rep
         for rat in rates:
             bench_parameters['rate'] = rat
-            with open('../bench_parameters.json', 'w') as f:
-                    json.dump(bench_parameters, f, indent=4)
-                    f.close()
-            for r in range(round):
-                os.system('fab timeout')
-                os.system('fab parsing')
+
+            for dur in durations:
+                bench_parameters['duration'] = dur
+                with open('../bench_parameters.json', 'w') as f:
+                        json.dump(bench_parameters, f, indent=4)
+                        f.close()
+                for r in range(round):
+                    os.system('fab faulty')
+                    os.system('fab parsing')
 
 if scenario == "S2":
     replicas = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
