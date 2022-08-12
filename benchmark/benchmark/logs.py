@@ -31,7 +31,7 @@ class LogParser:
         assert all(isinstance(x, str) for y in inputs for x in y)
         assert all(x for x in inputs)
 
-        print(faults)
+        # print(faults)
         self.faults = faults
         self.committee_size = len(nodes) + faults
 
@@ -43,6 +43,8 @@ class LogParser:
             raise ParseError(f'Failed to parse client logs: {e}')
         self.size, self.rate, self.start, misses, self.sent_samples \
             = zip(*results)
+        print(len(self.sent_samples[0]), len(self.sent_samples[1]))
+        # print(self.sent_samples)
         self.misses = sum(misses)
 
         # Parse the nodes logs.
@@ -53,11 +55,19 @@ class LogParser:
             raise ParseError(f'Failed to parse node logs: {e}')
         proposals, commits, sizes, self.received_samples, timeouts, self.configs \
             = zip(*results)
+        
         self.proposals = self._merge_results([x.items() for x in proposals])
         self.commits = self._merge_results([x.items() for x in commits])
+        
+
+        print("Here is commits:")
+        print(self.commits)
+
         self.sizes = {
             k: v for x in sizes for k, v in x.items() if k in self.commits
         }
+
+        print(len(self.sizes))
         self.timeouts = max(timeouts)
 
         # Check whether clients missed their target rate.
@@ -93,7 +103,7 @@ class LogParser:
         misses = len(findall(r'rate too high', log))
 
         tmp = findall(r'\[(.*Z) .* sample transaction (\d+)', log)
-        samples = {int(s): self._to_posix(t) for t, s in tmp}
+        samples = {int(s): self._to_posix(t) for t, s in tmp}  # sampe = {tx: time}
 
         return size, rate, start, misses, samples
 
@@ -169,7 +179,7 @@ class LogParser:
         if PARSING == False:
             latency = [c - self.proposals[d] for d, c in self.commits.items()]
         if PARSING == True:
-            latency = [c - self.proposals[d] for d, c in self.commits.items()] # if d in self.proposals
+            latency = [c - self.proposals[d] for d, c in self.commits.items() if d in self.proposals] # if d in self.proposals
             with open(f'./logs/result-{NODE_I}.json') as f:
                 result = json.load(f)
                 f.close()
