@@ -195,7 +195,7 @@ def summary(ctx):
     results_db = sqlite3.connect('./results.db')
     if faults == 0 and delay == 0:
         time_seed = datetime.now()
-        insert_S1Hotstuff_results = f'INSERT INTO S1Hotstuff VALUES ("{time_seed}", {local}, {nodes}, {faults}, {duration}, {rate}, {round(consensus_tps)}, {round(consensus_latency)}, {round(end2end_latency)})'
+        insert_S1Hotstuff_results = f'INSERT INTO S1Hotstuff VALUES ("{time_seed}", {local}, {nodes}, {faults}, {time_out}, {sync_retry}, {duration}, {rate}, {round(consensus_tps)}, {round(consensus_latency)}, {round(end2end_latency)})'
         results_db.cursor().execute(insert_S1Hotstuff_results)
         results_db.commit()
         results_db.close()

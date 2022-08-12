@@ -13,4 +13,5 @@ scp mpc-7:/home/zhan/hotstuff/logs/*.json ./
 scp mpc-8:/home/zhan/hotstuff/logs/*.json ./
 scp mpc-9:/home/zhan/hotstuff/logs/*.json ./
 
+cd ../mpc/
 fab summary

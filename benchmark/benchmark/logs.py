@@ -169,7 +169,7 @@ class LogParser:
         if PARSING == False:
             latency = [c - self.proposals[d] for d, c in self.commits.items()]
         if PARSING == True:
-            latency = [c - self.proposals[d] for d, c in self.commits.items() if d in self.proposals]
+            latency = [c - self.proposals[d] for d, c in self.commits.items()] # if d in self.proposals
             with open(f'./logs/result-{NODE_I}.json') as f:
                 result = json.load(f)
                 f.close()
@@ -326,8 +326,9 @@ class LogParser:
             json.dump({'consensus': {'consensus_max_payload_size': int(consensus_max_payload_size), 'consensus_min_block_delay': int(consensus_min_block_delay)}, 'mempool': {'mempool_max_payload_size': int(mempool_max_payload_size), 'mempool_min_block_delay': int(mempool_min_block_delay)}}, f, indent=4)
             f.close()
 
-        self._consensus_latency()
         self._consensus_throughput()
+        self._consensus_latency()
+        
         self._end_to_end_throughput()
         self._end_to_end_latency()
 
