@@ -47,13 +47,18 @@ def local(ctx):
        
         local = bench_parameters['local'] 
 
-        if local == True:
+       
+      
+        if bench_parameters['local'] == True:
             ret = LocalBench(bench_parameters, node_parameters).run(debug=False).result()
             Print.info('Parsing logs...')
             print(ret)
-        if local == False:
-            ret = LocalBench(bench_parameters, node_parameters).run(debug=False)
+        elif bench_parameters['local'] == False and bench_parameters['parsing'] == False:
+            LocalBench(bench_parameters, node_parameters).run(debug=False)
             print("Parsing logs locally")
+        elif bench_parameters['local'] == False and bench_parameters['parsing'] == True:
+            LocalBench(bench_parameters, node_parameters).run(debug=False)
+            print("Parsing logs remotely")
     except BenchError as e:
         Print.error(e)
 
@@ -172,5 +177,22 @@ def logs(ctx):
     ''' Print a summary of the logs '''
     try:
         print(LogParser.process('./logs').result())
+    except ParseError as e:
+        Print.error(BenchError('Failed to parse logs', e))
+
+@task 
+def parsing_remote(ctx):
+    ''' Parsing logs remotely '''
+    try:
+        with open('bench_parameters.json') as f:
+            benchmar_parameters = json.load(f)
+            f.close()
+        if benchmar_parameters['parsing'] == True:
+            print(LogParser.process('./logs', faults=0).remote_result())
+            print("Remote parsing completed")
+        else:
+            print("No remote parsing happened.")
+        # print(LogParser.process('./logs', node_i, faults='?').result())
+    
     except ParseError as e:
         Print.error(BenchError('Failed to parse logs', e))

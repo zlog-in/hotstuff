@@ -25,16 +25,14 @@ def faulty(ctx):
     faulty_config()
     hosts.run('docker stop narwhal')
     hosts.run('docker start hotstuff')
-    # hosts.put(f'{os.pardir}/config.json', remote  = '/home/zhan/hotstuff/')
-    # hosts.put(f'{os.pardir}/.parameters.json', remote  = '/home/zhan/hotstuff/')
+
     hosts.put(f'{os.pardir}/faulty.json', remote  = '/home/zhan/hotstuff/')
     hosts.put(f'{os.pardir}/bench_parameters.json', remote  = '/home/zhan/hotstuff/')
     hosts.put(f'{os.pardir}/node_parameters.json', remote  = '/home/zhan/hotstuff/')
     hosts.run('docker cp hotstuff/faulty.json hotstuff:/home/hotstuff/benchmark/')
     hosts.run('docker cp hotstuff/bench_parameters.json hotstuff:/home/hotstuff/benchmark/')
     hosts.run('docker cp hotstuff/node_parameters.json hotstuff:/home/hotstuff/benchmark/')
-    # hosts.run('docker cp hotstuff/.parameters.json hotstuff:/home/hotstuff/benchmark/')
-    # hosts.run('docker cp hotstuff/config.json hotstuff:/home/hotstuff/benchmark/')
+
     hosts.run('docker exec -t hotstuff bash ben.sh')
 
 @task
@@ -66,7 +64,6 @@ def container(ctx):
     hosts.run('rm -rf hotstuff/logs/')
     hosts.run('mkdir -p hotstuff/logs')
     cwd = os.getcwd()
-    print(cwd)
     
     hosts.put(f'{cwd}/ben.sh', remote='/home/zhan/hotstuff')
     hosts.put(f'{cwd}/update.sh', remote='/home/zhan/hotstuff')
@@ -141,7 +138,7 @@ def faulty_config():
     while len(faulty_servers) != 0:
         idx = faulty_servers.pop()
         faulty_config[f'{idx}'][0] = 1
-        faulty_config[f'{idx}'][1] = random.randrange(10,duration)
+        faulty_config[f'{idx}'][1] = random.randrange(10,duration) #duration - 10
     
     with open('../faulty.json', 'w') as f:
         json.dump(faulty_config, f, indent=4)

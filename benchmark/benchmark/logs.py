@@ -10,6 +10,15 @@ from benchmark.utils import Print
 import sqlite3
 import json
 
+with open('index.txt') as f:
+    NODE_I = int(f.readline())
+    f.close()
+
+with open('bench_parameters.json') as f:
+    bench_parameters = json.load(f)
+    f.close()
+PARSING = bench_parameters['parsing']
+
 
 class ParseError(Exception):
     pass
@@ -22,6 +31,7 @@ class LogParser:
         assert all(isinstance(x, str) for y in inputs for x in y)
         assert all(x for x in inputs)
 
+        print(faults)
         self.faults = faults
         self.committee_size = len(nodes) + faults
 
@@ -141,10 +151,32 @@ class LogParser:
         bytes = sum(self.sizes.values())
         bps = bytes / duration
         tps = bps / self.size[0]
+
+        if PARSING == True:
+            with open(f'./logs/result-{NODE_I}.json') as f:
+                result = json.load(f)
+                f.close()
+            result.update({'consensus_start': start, 'consensus_end': end, 'consensus_bytes': bytes, 'consensus_size': self.size[0], 'consensus_bps': bps, 'consensus_tps': tps})
+
+            with open(f'./logs/result-{NODE_I}.json', 'w') as f:
+                json.dump(result, f, indent=4)
+                f.close()
+
         return tps, bps, duration
 
     def _consensus_latency(self):
-        latency = [c - self.proposals[d] for d, c in self.commits.items()]
+        
+        if PARSING == False:
+            latency = [c - self.proposals[d] for d, c in self.commits.items()]
+        if PARSING == True:
+            latency = [c - self.proposals[d] for d, c in self.commits.items() if d in self.proposals]
+            with open(f'./logs/result-{NODE_I}.json') as f:
+                result = json.load(f)
+                f.close()
+                result.update({'consensus_latency': mean(latency) * 1000})
+            with open(f'./logs/result-{NODE_I}.json', 'w') as f:
+                json.dump(result, f, indent=4)
+                f.close()
         return mean(latency) if latency else 0
 
     def _end_to_end_throughput(self):
@@ -155,6 +187,15 @@ class LogParser:
         bytes = sum(self.sizes.values())
         bps = bytes / duration
         tps = bps / self.size[0]
+        if PARSING == True:
+            with open(f'./logs/result-{NODE_I}.json') as f:
+                result = json.load(f)
+                f.close()
+            result.update({'end2end_start': start, 'end2end_end': end, 'end2end_bytes': bytes, 'end2end_size': self.size[0], 'end2end_bps': bps, 'end2end_tps':tps})
+
+            with open(f'./logs/result-{NODE_I}.json', 'w') as f:
+                json.dump(result, f, indent=4)
+                f.close()
         return tps, bps, duration
 
     def _end_to_end_latency(self):
@@ -166,6 +207,18 @@ class LogParser:
                     start = sent[tx_id]
                     end = self.commits[batch_id]
                     latency += [end-start]
+        
+        
+
+        if PARSING == True:
+            with open(f'./logs/result-{NODE_I}.json') as f:
+                result = json.load(f)
+                f.close()
+            result.update({'end2end_latency': mean(latency)*1000})
+            
+            with open(f'./logs/result-{NODE_I}.json', 'w') as f:
+                json.dump(result, f, indent=4)
+                f.close()
         return mean(latency) if latency else 0
 
     def result(self):
@@ -203,14 +256,6 @@ class LogParser:
         
         
         results_db = sqlite3.connect('./mpc/results.db')
-
-        # # insert_S1Hotstuff_Results = f'INSERT INTO S1Hotstuff VALUES ("{datetime.now()}", {config['local']}, {config['replicas'] * config['servers']}, {config['faults']}, {config['timeout_delay']}, {config['sync_retry_dealy']}, {config['duration']}, {round(consensus_tps)}, {round(consensus_latency)}, {round(end_to_end_latency)})'
-        # #insert_S1Hotstuff_Results = 'INSERT INTO S1Narwhal VALUES ("{datetime.now()}", {replicas * servers}, {faults}, {timeout}, {sync_retry_delay}, {duration}, {round(consensus_tps)}, {round(consensus_latency)}, {round(end_to_end_latency)})'
-        # insert_S1Hotstuff_results = f'INSERT INTO S1Hotstuff VALUES ("{datetime.now()}", {local}, {nodes}, {faults}, {timeout_delay}, {sync_retry_delay}, {duration}, {input_rate} {round(consensus_tps)}, {round(consensus_latency)}, {round(end_to_end_latency)})'
-
-        # results_db.cursor().execute(insert_S1Hotstuff_results)
-        # results_db.commit()
-        # results_db.close()
 
         if faults == 0 and delay == 0:
             # insert_S1Hotstuff_results = f'INSERT INTO S1Hotstuff VALUES ("{datetime.now()}", {local}, {nodes}, {faults}, {timeout_delay}, {sync_retry_delay}, {duration}, {input_rate} {round(consensus_tps)}, {round(consensus_latency)}, {round(end_to_end_latency)})'
@@ -268,6 +313,27 @@ class LogParser:
             '-----------------------------------------\n'
         )
 
+    def remote_result(self):
+        # print("reults printed")
+        
+        consensus_max_payload_size = self.configs[0]['consensus']['max_payload_size']
+        consensus_min_block_delay = self.configs[0]['consensus']['min_block_delay']
+        mempool_max_payload_size = self.configs[0]['mempool']['max_payload_size']
+        mempool_min_block_delay = self.configs[0]['mempool']['min_block_delay']
+        
+
+        with open(f'./logs/result-{NODE_I}.json', 'w') as f:
+            json.dump({'consensus': {'consensus_max_payload_size': int(consensus_max_payload_size), 'consensus_min_block_delay': int(consensus_min_block_delay)}, 'mempool': {'mempool_max_payload_size': int(mempool_max_payload_size), 'mempool_min_block_delay': int(mempool_min_block_delay)}}, f, indent=4)
+            f.close()
+
+        self._consensus_latency()
+        self._consensus_throughput()
+        self._end_to_end_throughput()
+        self._end_to_end_latency()
+
+
+        print('Remote results are summarized into json file')
+
     def print(self, filename):
         assert isinstance(filename, str)
         with open(filename, 'a') as f:
@@ -285,5 +351,4 @@ class LogParser:
         for filename in sorted(glob(join(directory, 'node-*.log'))):
             with open(filename, 'r') as f:
                 nodes += [f.read()]
-
         return cls(clients, nodes, faults=faults)
