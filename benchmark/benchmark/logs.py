@@ -60,8 +60,8 @@ class LogParser:
         self.commits = self._merge_results([x.items() for x in commits])
         
 
-        print("Here is commits:")
-        print(self.commits)
+        # print("Here is commits:")
+        # print(self.commits)
 
         self.sizes = {
             k: v for x in sizes for k, v in x.items() if k in self.commits
@@ -179,7 +179,11 @@ class LogParser:
         if PARSING == False:
             latency = [c - self.proposals[d] for d, c in self.commits.items()]
         if PARSING == True:
-            latency = [c - self.proposals[d] for d, c in self.commits.items() if d in self.proposals] # if d in self.proposals
+            # print(self.proposals)
+            latency = [c - self.proposals[d] for d, c in self.commits.items() if d in self.proposals and c > self.proposals[d]] # 
+            # print(latency)
+            # print(min(latency))
+            # print(mean(latency))
             with open(f'./logs/result-{NODE_I}.json') as f:
                 result = json.load(f)
                 f.close()
