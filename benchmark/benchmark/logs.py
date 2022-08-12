@@ -180,7 +180,7 @@ class LogParser:
             latency = [c - self.proposals[d] for d, c in self.commits.items()]
         if PARSING == True:
             # print(self.proposals)
-            latency = [c - self.proposals[d] for d, c in self.commits.items() if d in self.proposals and c > self.proposals[d]] # 
+            latency = [abs(c - self.proposals[d]) for d, c in self.commits.items() if d in self.proposals] # 
             # print(latency)
             # print(min(latency))
             # print(mean(latency))
