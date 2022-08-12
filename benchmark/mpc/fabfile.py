@@ -7,6 +7,8 @@ import random
 import json
 import os
 
+import sqlite3
+from statistics import mean
 
 @task
 def benchmarking(ctx):
@@ -102,8 +104,114 @@ def checker(ctx):
     host = Connection('checker')
     host.put('./checker.py', remote='hotstuff/benchmark/mpc/')
    
+@task
+def getresult(ctx):
+    subprocess.call(['bash', '../getresult.sh'])
 
 
+@task
+def summary(ctx):
+    with open('../bench_parameters.json') as f:
+        bench_parameters = json.load(f)
+        f.close()
+
+    with open('../node_parameters.json') as f:
+        node_parameters = json.load(f)
+        f.close()
+    consensus_bytes_list = []
+    consensus_start_list = []
+    consensus_end_list = []
+    consensus_latency_list = []
+    consensus_size_list = []
+    consensus_bps_list = []
+    consensus_tps_list = []
+    end2end_bytes_list = []
+    end2end_start_list = []
+    end2end_end_list = []
+    end2end_latency_list = []
+    end2end_size_list = []
+    end2end_bps_list = []
+    end2end_tps_list = []
+
+    for node_i in range(bench_parameters['servers']):
+        with open(f'../logs/result-{node_i}.json') as f:
+            result = json.load(f)
+            f.close()
+            consensus_bytes_list.append(result['consensus_bytes'])
+            consensus_start_list.append(result['consensus_start'])
+            consensus_end_list.append(result['consensus_end'])
+            consensus_latency_list.append(result['consensus_latency'])
+            consensus_size_list.append(result['consensus_size'])
+            consensus_bps_list.append(result['consensus_bps'])
+            consensus_tps_list.append(result['consensus_tps'])
+            end2end_bytes_list.append(result['end2end_bytes'])
+            end2end_start_list.append(result['end2end_start'])
+            end2end_end_list.append(result['end2end_end'])
+            end2end_latency_list.append(result['end2end_latency'])
+            end2end_size_list.append(result['end2end_size'])
+            end2end_bps_list.append(result['end2end_bps'])
+            end2end_tps_list.append(result['end2end_tps'])
+    
+    # print(consensus_bytes_list)
+    # print(end2end_bytes_list)
+
+    consensus_duration = max(consensus_end_list) - min(consensus_start_list)
+    end2end_duration = max(end2end_end_list) - min(end2end_start_list)
+    # print(consensus_duration)
+    # print(end2end_duration)
+    
+    # consensus_bps = (sum(consensus_bytes_list)) / consensus_duration
+    # end2end_bps = (sum(end2end_bytes_list)) / end2end_duration
+    # consensus_tps = consensus_bps / result['consensus_size']
+    # end2end_tps = end2end_bps / result['end2end_size']
+    # print(consensus_bps_list)
+    # print(consensus_tps_list)
+    consensus_bps = sum(consensus_bps_list)
+    consensus_tps = sum(consensus_tps_list)
+    end2end_bps = sum(end2end_bps_list)
+    end2end_tps = sum(end2end_tps_list)
+    # print(round(consensus_bps), round(consensus_tps))
+    # print(round(end2end_bps), round(end2end_tps))
+
+    consensus_latency = mean(consensus_latency_list)
+    end2end_latency = mean(end2end_latency_list)
+    # print(round(consensus_latency), round(end2end_latency))
+
+
+
+    replicas = bench_parameters['replicas']
+    servers = bench_parameters['servers']
+    local = bench_parameters['local'] 
+    duration = bench_parameters['duration']  
+    rate = bench_parameters['rate'] 
+    faults = bench_parameters['faults']
+    delay = bench_parameters['delay']
+    
+    nodes = replicas * servers
+    time_out = node_parameters['consensus']['timeout_delay']
+    sync_retry = node_parameters['mempool']['sync_retry_delay']
+    
+    
+    results_db = sqlite3.connect('./results.db')
+    if faults == 0 and delay == 0:
+        time_seed = datetime.now()
+        insert_S1Hotstuff_results = f'INSERT INTO S1Hotstuff VALUES ("{time_seed}", {local}, {nodes}, {faults}, {duration}, {rate}, {round(consensus_tps)}, {round(consensus_latency)}, {round(end2end_latency)})'
+        results_db.cursor().execute(insert_S1Hotstuff_results)
+        results_db.commit()
+        results_db.close()
+    
+    elif faults > 0 and delay ==0:
+        with open('../faulty.json') as f:
+            faulty_config = json.load(f)
+            f.close()
+        time_seed = faulty_config['time_seed']
+        insert_S2Hotstuff_results = f'INSERT INTO S2Hotstuff VALUES ("{time_seed}", {local}, {nodes}, {faults}, {time_out}, {sync_retry}, {duration}, {rate}, {round(consensus_tps)}, {round(consensus_latency)}, {round(end2end_latency)})'
+        results_db.cursor().execute(insert_S2Hotstuff_results)
+        results_db.commit()
+        results_db.close()
+    
+    elif delay > 0 and faults == 0:
+        print("S3")
 
 def faulty_config():
 
