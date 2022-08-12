@@ -43,7 +43,7 @@ class LogParser:
             raise ParseError(f'Failed to parse client logs: {e}')
         self.size, self.rate, self.start, misses, self.sent_samples \
             = zip(*results)
-        print(len(self.sent_samples[0]), len(self.sent_samples[1]))
+        # print(len(self.sent_samples[0]), len(self.sent_samples[1]))
         # print(self.sent_samples)
         self.misses = sum(misses)
 
