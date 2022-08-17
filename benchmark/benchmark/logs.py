@@ -10,14 +10,6 @@ from benchmark.utils import Print
 import sqlite3
 import json
 
-with open('index.txt') as f:
-    NODE_I = int(f.readline())
-    f.close()
-
-with open('bench_parameters.json') as f:
-    bench_parameters = json.load(f)
-    f.close()
-PARSING = bench_parameters['parsing']
 
 
 class ParseError(Exception):
@@ -31,7 +23,7 @@ class LogParser:
         assert all(isinstance(x, str) for y in inputs for x in y)
         assert all(x for x in inputs)
 
-        # print(faults)
+        
         self.faults = faults
         self.committee_size = len(nodes) + faults
 
@@ -43,8 +35,6 @@ class LogParser:
             raise ParseError(f'Failed to parse client logs: {e}')
         self.size, self.rate, self.start, misses, self.sent_samples \
             = zip(*results)
-        # print(len(self.sent_samples[0]), len(self.sent_samples[1]))
-        # print(self.sent_samples)
         self.misses = sum(misses)
 
         # Parse the nodes logs.
@@ -60,14 +50,11 @@ class LogParser:
         self.commits = self._merge_results([x.items() for x in commits])
         
 
-        # print("Here is commits:")
-        # print(self.commits)
-
         self.sizes = {
             k: v for x in sizes for k, v in x.items() if k in self.commits
         }
 
-        print(len(self.sizes))
+        
         self.timeouts = max(timeouts)
 
         # Check whether clients missed their target rate.
@@ -158,41 +145,19 @@ class LogParser:
             return 0, 0, 0
         start, end = min(self.proposals.values()), max(self.commits.values())
         duration = end - start
+        print(f'consensus duration: {duration}')
         bytes = sum(self.sizes.values())
         bps = bytes / duration
         tps = bps / self.size[0]
-
-        if PARSING == True:
-            with open(f'./logs/result-{NODE_I}.json') as f:
-                result = json.load(f)
-                f.close()
-            result.update({'consensus_start': start, 'consensus_end': end, 'consensus_bytes': bytes, 'consensus_size': self.size[0], 'consensus_bps': bps, 'consensus_tps': tps})
-
-            with open(f'./logs/result-{NODE_I}.json', 'w') as f:
-                json.dump(result, f, indent=4)
-                f.close()
 
         return tps, bps, duration
 
     def _consensus_latency(self):
         
-        if PARSING == False:
-            latency = [c - self.proposals[d] for d, c in self.commits.items()]
+     
+        latency = [c - self.proposals[d] for d, c in self.commits.items()]
             # print(latency)
-        if PARSING == True:
-            # print(self.proposals)
-            latency = [c - self.proposals[d] for d, c in self.commits.items() if d in self.proposals] # 
-            
-            # print(latency)
-            # print(min(latency))
-            # print(mean(latency))
-            with open(f'./logs/result-{NODE_I}.json') as f:
-                result = json.load(f)
-                f.close()
-                result.update({'consensus_latency': mean(latency) * 1000})
-            with open(f'./logs/result-{NODE_I}.json', 'w') as f:
-                json.dump(result, f, indent=4)
-                f.close()
+      
         return mean(latency) if latency else 0
 
     def _end_to_end_throughput(self):
@@ -200,18 +165,11 @@ class LogParser:
             return 0, 0, 0
         start, end = min(self.start), max(self.commits.values())
         duration = end - start
+        print(f'end2end duration: {duration}')
         bytes = sum(self.sizes.values())
         bps = bytes / duration
         tps = bps / self.size[0]
-        if PARSING == True:
-            with open(f'./logs/result-{NODE_I}.json') as f:
-                result = json.load(f)
-                f.close()
-            result.update({'end2end_start': start, 'end2end_end': end, 'end2end_bytes': bytes, 'end2end_size': self.size[0], 'end2end_bps': bps, 'end2end_tps':tps})
 
-            with open(f'./logs/result-{NODE_I}.json', 'w') as f:
-                json.dump(result, f, indent=4)
-                f.close()
         return tps, bps, duration
 
     def _end_to_end_latency(self):
@@ -226,15 +184,6 @@ class LogParser:
         
         
 
-        if PARSING == True:
-            with open(f'./logs/result-{NODE_I}.json') as f:
-                result = json.load(f)
-                f.close()
-            result.update({'end2end_latency': mean(latency)*1000})
-            
-            with open(f'./logs/result-{NODE_I}.json', 'w') as f:
-                json.dump(result, f, indent=4)
-                f.close()
         return mean(latency) if latency else 0
 
     def result(self):
@@ -260,8 +209,7 @@ class LogParser:
         duration = bench_parameters['duration']
         input_rate = bench_parameters['rate']
         nodes = servers * replicas
-        # print(config['local'])
-        # print(config['replicas'] * config['servers'])
+      
         
 
         with open('node_parameters.json') as f:
@@ -276,12 +224,13 @@ class LogParser:
         if faults == 0 and delay == 0:
             # insert_S1Hotstuff_results = f'INSERT INTO S1Hotstuff VALUES ("{datetime.now()}", {local}, {nodes}, {faults}, {timeout_delay}, {sync_retry_delay}, {duration}, {input_rate} {round(consensus_tps)}, {round(consensus_latency)}, {round(end_to_end_latency)})'
             # results_db.cursor().execute(insert_S1Hotstuff_results)
-            insert_S1Hotstuff_results = f'INSERT INTO S1Hotstuff VALUES ("{datetime.now()}", {local}, {nodes}, {faults}, {timeout_delay}, {sync_retry_delay}, {duration}, {input_rate}, {round(consensus_tps)}, {round(consensus_latency)}, {round(end_to_end_latency)})'
+            time_seed = datetime.now()
+            insert_S1Hotstuff_results = f'INSERT INTO S1Hotstuff VALUES ("{time_seed}", {local}, {nodes}, {faults}, {timeout_delay}, {sync_retry_delay}, {duration}, {input_rate}, {round(consensus_tps)}, {round(consensus_latency)}, {round(end_to_end_latency)})'
             results_db.cursor().execute(insert_S1Hotstuff_results)
             results_db.commit()
             results_db.close()
 
-        if faults > 0 and delay == 0:
+        elif faults > 0 and delay == 0:
             with open('faulty.json') as f:
                 faulty_config = json.load(f)
                 f.close()
@@ -291,7 +240,7 @@ class LogParser:
             results_db.commit()
             results_db.close()
         
-        if delay > 0 and faults == 0:
+        elif delay > 0 and faults == 0:
             with open('delay.json') as f:
                 delay_config = json.load(f)
                 f.close()

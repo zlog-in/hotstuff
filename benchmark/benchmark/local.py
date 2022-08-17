@@ -1,10 +1,10 @@
 
-from audioop import add
 import subprocess
 from math import ceil
 from os.path import basename, join, splitext
 from time import sleep
 import json
+import os
 
 from threading import Thread
 
@@ -45,14 +45,29 @@ class LocalBench:
         subprocess.run(['tmux', 'kill-session', '-t', f'node-{id}'])
         subprocess.run(['tmux', 'kill-session', '-t', f'client-{id}'])
         print(f'and replica {id} crashed after {duration}s exectution')
-
+    
     def _delay(self, node_i, delay, delay_duration):
-        sleep(5)
+        sleep(5)  # grace period
         print(f'Communication delay for server {node_i} increases to {delay}ms for duration {delay_duration}s')
         subprocess.run(f'tc qdisc add dev eth0 root netem delay {delay}ms {round(delay/10)}ms distribution normal', shell = True)# specification about delay distribution 
+        # subprocess.run(f'tc qdisc add dev lo root netem delay {delay}ms {round(delay/10)}ms distribution normal', shell = True)# specification about delay distribution 
         sleep(delay_duration)
         subprocess.run('tc qdisc del dev eth0 root', shell=True)
+        # subprocess.run('tc qdisc del dev lo root', shell=True)
         print(f'Communication delay for server {node_i} ends after {delay_duration}s')
+    
+    def _partition(self, targets, start, end):
+        print(f'{start}s normal network before partition')
+        sleep(start)
+        print(f'Partition into two networks happened for {end}s ')
+        
+        # os.popen('tc qdisc del dev eth0 root')
+        os.popen('tc qdisc add dev eth0 root handle 1: prio')
+        os.popen('tc qdisc add dev eth0 parent 1:3 handle 30: netem loss 100%')
+        for tar in targets:
+            os.popen(f'tc filter add dev eth0 protocol ip parent 1:0 prio 3 u32 match ip dst {tar} flowid 1:3')
+        sleep(end)
+        os.popen('tc qdisc del dev eth0 root')
 
     def run(self, debug=False):
         assert isinstance(debug, bool)
@@ -66,7 +81,7 @@ class LocalBench:
             Print.info('Reading configuration...')
         
             # print(self.nodes)
-            nodes, rate, local, servers, replicas, parsing, duration, faults, delay = self.nodes[0], self.rate[0], self.local, self.servers, self.replicas, self.parsing, self.duration, self.faults, self.delay
+            nodes, rate, local, servers, replicas, parsing, duration, faults, delay, partition = self.nodes[0], self.rate[0], self.local, self.servers, self.replicas, self.parsing, self.duration, self.faults, self.delay, self.partition
             
             
             # Cleanup all files.
@@ -95,19 +110,30 @@ class LocalBench:
                 node_i = int(f.readline())
                 f.close()
             node_ip = '127.0.0.1'
-            match node_i:
-                case 0: node_ip = '129.13.88.182'
-                case 1: node_ip = '129.13.88.183'
-                case 2: node_ip = '129.13.88.184'
-                case 3: node_ip = '129.13.88.185'
-                case 4: node_ip = '129.13.88.186'
-                case 5: node_ip = '129.13.88.187'
-                case 6: node_ip = '129.13.88.188'
-                case 7: node_ip = '129.13.88.189'
-                case 8: node_ip = '129.13.88.190' 
-                case 9: node_ip = '129.13.88.180'
-                case _: print("No IP matched for this server")
-            #print(node_ip)
+            if node_i == 0:
+                node_ip = '129.13.88.182'
+            elif node_i == 1:
+                node_ip = '129.13.88.183'
+            elif node_i == 2 :
+                node_ip = '129.13.88.184'
+            elif node_i == 3:
+                node_ip = '129.13.88.185'
+            elif node_i == 4:
+                node_ip = '129.13.88.186'
+            elif node_i == 5:
+                node_ip = '129.13.88.187'
+            elif node_i == 6:
+                node_ip = '129.13.88.188'
+            elif node_i == 7:
+                node_ip = '129.13.88.189'
+            elif node_i == 8:
+                node_ip = '129.13.88.190'
+            elif node_i == 9:
+                node_ip = '129.13.88.180'
+            ips = ['129.13.88.182', '129.13.88.183', '129.13.88.184', '129.13.88.185', '129.13.88.186', '129.13.88.187', '129.13.88.188', '129.13.88.189', '129.13.88.190', '129.13.88.180']
+
+            # node_ip = ips[node_i]
+
             names = [x.name for x in keys]
             committee = LocalCommittee(names, self.BASE_PORT, local, servers)
             committee.print(PathMaker.committee_file())
@@ -189,7 +215,7 @@ class LocalBench:
             # Wait for all transactions to be processed.
             Print.info(f'Running benchmark ({duration} sec)...')
             
-            if faults > 0 and delay == 0:
+            if faults > 0 and delay == 0 and partition == False:
                 with open('faulty.json') as f:
                     faulty_config = json.load(f)
                     f.close()
@@ -201,15 +227,23 @@ class LocalBench:
                         faulty_duration = faulty_config[f'{replica_i}'][1]
                         Thread(target=self._kill_faulty, args=(replica_i,faulty_duration)).start()
 
-            if delay > 0 and faults == 0:
+            elif delay > 0 and faults == 0 and partition == False:
                 with open('delay.json') as f:
                     delay_config = json.load(f)
                     f.close()
                 if delay_config[f'{node_i}'][0] == 1:
                     Thread(target=self._delay, args=(node_i, delay_config[f'{node_i}'][1], delay_config[f'{node_i}'][2])).start()
                     # self._delay(node_i, delay_config[f'{node_i}'][1], delay_config[f'{node_i}'][2])
-
-            
+        
+            elif partition == True and faults == 0 and delay == 0:
+                with open('partition.json') as f:
+                    partition_config = json.load(f)
+                    f.close()
+                    targets = []
+                    for node in range(servers):
+                        if partition_config[f'{node_i}'][0] != partition_config[f'{node}'][0]:
+                            targets.append(ips[node])
+                    Thread(target=self._partition, args=(targets, partition_config[f'{node_i}'][1], partition_config[f'{node_i}'][2])).start()
 
             # Thread(target=self._delay,args=(3000,1000,5)).start()
             sleep(duration)

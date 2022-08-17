@@ -10,6 +10,7 @@ import os
 import sqlite3
 from statistics import mean
 
+
 @task
 def benchmarking(ctx):
     hosts = ThreadingGroup('mpc-0','mpc-1','mpc-2','mpc-3','mpc-4','mpc-5','mpc-6','mpc-7','mpc-8','mpc-9')
@@ -29,9 +30,11 @@ def faulty(ctx):
     hosts.run('docker start hotstuff')
 
     hosts.put(f'{os.pardir}/faulty.json', remote  = '/home/zhan/hotstuff/')
+    hosts.put(f'{os.pardir}/delay.json', remote  = '/home/zhan/hotstuff/')
     hosts.put(f'{os.pardir}/bench_parameters.json', remote  = '/home/zhan/hotstuff/')
     hosts.put(f'{os.pardir}/node_parameters.json', remote  = '/home/zhan/hotstuff/')
     hosts.run('docker cp hotstuff/faulty.json hotstuff:/home/hotstuff/benchmark/')
+    hosts.run('docker cp hotstuff/delay.json hotstuff:/home/hotstuff/benchmark/')
     hosts.run('docker cp hotstuff/bench_parameters.json hotstuff:/home/hotstuff/benchmark/')
     hosts.run('docker cp hotstuff/node_parameters.json hotstuff:/home/hotstuff/benchmark/')
 
@@ -45,19 +48,42 @@ def timeout(ctx):
     hosts.run('docker start hotstuff')
     # # hosts.put(f'{os.pardir}/config.json', remote  = '/home/zhan/hotstuff/')
     # # hosts.put(f'{os.pardir}/.parameters.json', remote  = '/home/zhan/hotstuff/')
-    hosts.put(f'{os.pardir}/faulty.json', remote  = '/home/zhan/hotstuff/')
+    # hosts.put(f'{os.pardir}/faulty.json', remote  = '/home/zhan/hotstuff/')
     
     hosts.put(f'{os.pardir}/bench_parameters.json', remote  = '/home/zhan/hotstuff/')
     hosts.put(f'{os.pardir}/node_parameters.json', remote  = '/home/zhan/hotstuff/')
     hosts.put(f'{os.pardir}/delay.json', remote  = '/home/zhan/hotstuff/')
-    hosts.run('docker cp hotstuff/faulty.json hotstuff:/home/hotstuff/benchmark/')
+    hosts.put(f'{os.pardir}/faulty.json', remote  = '/home/zhan/hotstuff/')
+    # hosts.run('docker cp hotstuff/faulty.json hotstuff:/home/hotstuff/benchmark/')
     hosts.run('docker cp hotstuff/bench_parameters.json hotstuff:/home/hotstuff/benchmark/')
     hosts.run('docker cp hotstuff/node_parameters.json hotstuff:/home/hotstuff/benchmark/')
     hosts.run('docker cp hotstuff/delay.json hotstuff:/home/hotstuff/benchmark/')
+    hosts.run('docker cp hotstuff/faulty.json hotstuff:/home/hotstuff/benchmark/')
     
-    # hosts.run('docker cp hotstuff/.parameters.json hotstuff:/home/hotstuff/benchmark/')
-    # hosts.run('docker cp hotstuff/config.json hotstuff:/home/hotstuff/benchmark/')
+
     hosts.run('docker exec -t hotstuff bash ben.sh')
+
+@task
+def partition(ctx):
+    hosts = ThreadingGroup('mpc-0','mpc-1','mpc-2','mpc-3','mpc-4','mpc-5','mpc-6','mpc-7','mpc-8','mpc-9')
+    partition_config()
+    # hosts.run('docker stop narwhal')
+    # hosts.run('docker start hotstuff')
+   
+    
+    # hosts.put(f'{os.pardir}/bench_parameters.json', remote  = '/home/zhan/hotstuff/')
+    # hosts.put(f'{os.pardir}/node_parameters.json', remote  = '/home/zhan/hotstuff/')
+    # hosts.put(f'{os.pardir}/delay.json', remote  = '/home/zhan/hotstuff/')
+    # hosts.put(f'{os.pardir}/faulty.json', remote  = '/home/zhan/hotstuff/')
+    # hosts.put(f'{os.pardir}/partition.json', remote  = '/home/zhan/hotstuff/')
+    
+    # hosts.run('docker cp hotstuff/bench_parameters.json hotstuff:/home/hotstuff/benchmark/')
+    # hosts.run('docker cp hotstuff/node_parameters.json hotstuff:/home/hotstuff/benchmark/')
+    # hosts.run('docker cp hotstuff/delay.json hotstuff:/home/hotstuff/benchmark/')
+    # hosts.run('docker cp hotstuff/faulty.json hotstuff:/home/hotstuff/benchmark/')
+    # hosts.run('docker cp hotstuff/partition.json hotstuff:/home/hotstuff/benchmark/')
+
+    # hosts.run('docker exec -t hotstuff bash ben.sh')
 
 
 @task
@@ -123,16 +149,13 @@ def summary(ctx):
     consensus_end_list = []
     consensus_latency_list = []
     consensus_size_list = []
-    consensus_bps_list = []
-    consensus_tps_list = []
+    
     end2end_bytes_list = []
     end2end_start_list = []
     end2end_end_list = []
     end2end_latency_list = []
     end2end_size_list = []
-    end2end_bps_list = []
-    end2end_tps_list = []
-
+    
     for node_i in range(bench_parameters['servers']):
         with open(f'../logs/result-{node_i}.json') as f:
             result = json.load(f)
@@ -142,40 +165,32 @@ def summary(ctx):
             consensus_end_list.append(result['consensus_end'])
             consensus_latency_list.append(result['consensus_latency'])
             consensus_size_list.append(result['consensus_size'])
-            consensus_bps_list.append(result['consensus_bps'])
-            consensus_tps_list.append(result['consensus_tps'])
+    
             end2end_bytes_list.append(result['end2end_bytes'])
             end2end_start_list.append(result['end2end_start'])
             end2end_end_list.append(result['end2end_end'])
             end2end_latency_list.append(result['end2end_latency'])
             end2end_size_list.append(result['end2end_size'])
-            end2end_bps_list.append(result['end2end_bps'])
-            end2end_tps_list.append(result['end2end_tps'])
+            
     
-    # print(consensus_bytes_list)
-    # print(end2end_bytes_list)
+    
 
     consensus_duration = max(consensus_end_list) - min(consensus_start_list)
     end2end_duration = max(end2end_end_list) - min(end2end_start_list)
-    # print(consensus_duration)
-    # print(end2end_duration)
+    print(f'total consensus duration: {consensus_duration}')
+    print(f'total end2edn duration: {end2end_duration}')
     
-    # consensus_bps = (sum(consensus_bytes_list)) / consensus_duration
-    # end2end_bps = (sum(end2end_bytes_list)) / end2end_duration
-    # consensus_tps = consensus_bps / result['consensus_size']
-    # end2end_tps = end2end_bps / result['end2end_size']
-    # print(consensus_bps_list)
-    # print(consensus_tps_list)
-    consensus_bps = sum(consensus_bps_list)
-    consensus_tps = sum(consensus_tps_list)
-    end2end_bps = sum(end2end_bps_list)
-    end2end_tps = sum(end2end_tps_list)
-    # print(round(consensus_bps), round(consensus_tps))
-    # print(round(end2end_bps), round(end2end_tps))
+    consensus_bps = (sum(consensus_bytes_list)) / consensus_duration
+    end2end_bps = (sum(end2end_bytes_list)) / end2end_duration
+
+    consensus_tps = consensus_bps / mean(consensus_size_list)
+    end2end_tps = end2end_bps / mean(end2end_size_list)
+ 
+
 
     consensus_latency = mean(consensus_latency_list)
     end2end_latency = mean(end2end_latency_list)
-    # print(round(consensus_latency), round(end2end_latency))
+  
 
 
 
@@ -246,7 +261,7 @@ def faulty_config():
     while len(faulty_servers) != 0:
         idx = faulty_servers.pop()
         faulty_config[f'{idx}'][0] = 1
-        faulty_config[f'{idx}'][1] = random.randrange(10,duration) #duration - 10
+        faulty_config[f'{idx}'][1] = random.randrange(5,duration-10) #duration - 10
     
     with open('../faulty.json', 'w') as f:
         json.dump(faulty_config, f, indent=4)
@@ -261,39 +276,82 @@ def delay_config():
     servers = bench_parameters['servers']
     duration = bench_parameters['duration']
     delay = bench_parameters['delay']
-    delay_servers = set()
-    time_seed = datetime.now()
-    random.seed(time_seed)
-    while len(delay_servers) != servers/2:
-        delay_servers.add(random.randrange(0, servers))
-    
-    with open('../delay.json', 'w') as f:
-        json.dump({f'{idx}': [0,0,0] for idx in range(servers)}, f, indent=4)
-        f.close()
-    
-    with open('../delay.json', 'r') as f:
-        delay_config = json.load(f)
-        f.close()
-    while len(delay_servers) != 0 and delay > 0:
-        idx = delay_servers.pop()
-        delay_config[f'{idx}'][0] = 1
-        # delay_config[f'{idx}'][1] = random.randint(100, delay) if delay > 100 else random.randint(100, 10000)
-        delay_config[f'{idx}'][1] = random.randint(round(delay/2), round(delay*3/2))
-        delay_config[f'{idx}'][2] = random.randint(1, duration-10)
+    if delay == 0:
+        print("no delay")
+    elif delay > 0:
+        delay_servers = set()
+        time_seed = datetime.now()
+        random.seed(time_seed)
+        while len(delay_servers) != servers/2:
+            delay_servers.add(random.randrange(0, servers))
+        
+        with open('../delay.json', 'w') as f:
+            json.dump({f'{idx}': [0,0,0] for idx in range(servers)}, f, indent=4)
+            f.close()
+        
+        with open('../delay.json', 'r') as f:
+            delay_config = json.load(f)
+            f.close()
+        while len(delay_servers) != 0 and delay > 0:
+            idx = delay_servers.pop()
+            delay_config[f'{idx}'][0] = 1
+            # delay_config[f'{idx}'][1] = random.randint(100, delay) if delay > 100 else random.randint(100, 10000)
+            delay_config[f'{idx}'][1] = random.randint(round(delay/2), round(delay*3/2))
+            delay_config[f'{idx}'][2] = random.randint(10, duration)   # at least 10s for delay duration
 
-    with open('../delay.json', 'w') as f:
-        json.dump(delay_config, f, indent=4)
-        f.close()
+        with open('../delay.json', 'w') as f:
+            json.dump(delay_config, f, indent=4)
+            f.close()
 
-    with open(f'../delay.json') as f:
-        delay_config = json.load(f)
-        f.close()
-    delay_config.update({'time_seed': f'{time_seed}'})
+        with open(f'../delay.json') as f:
+            delay_config = json.load(f)
+            f.close()
+        delay_config.update({'time_seed': f'{time_seed}'})
 
-    with open('../delay.json', 'w') as f:
-        json.dump(delay_config, f, indent=4)
-        f.close()
+        with open('../delay.json', 'w') as f:
+            json.dump(delay_config, f, indent=4)
+            f.close()
+        print("delay configuration done")
     
+def partition_config():
+    with open('../bench_parameters.json', 'r') as f:
+        bench_parameters = json.load(f)
+        f.close()
+    servers = bench_parameters['servers']
+    duration = bench_parameters['duration']
+    partition = bench_parameters['partition']
+
+    
+
+    if partition == False:
+        print("No network partitions!")
+    else:
+
+        time_seed = datetime.now()
+        random.seed(time_seed)
+        subnet = set()
+        start = random.randrange(5, duration-10)
+        end = random.randrange(10, duration - start)
+        with open('../partition.json', 'w') as f:
+            json.dump({f'{idx}': [0, start, end] for idx in range(servers)}, f, indent=4)
+            f.close()
+
+        
+
+        while len(subnet) != servers/2:
+            subnet.add(random.randrange(0, servers))
+
+        with open('../partition.json') as f:
+            partition_config = json.load(f)
+            f.close()
+            partition_config.update({'time_seed': f'{time_seed}'})
+        
+        for sub in subnet:
+            partition_config[f'{sub}'][0] = 1
+
+        with open('../partition.json', 'w')  as f:
+            json.dump(partition_config, f, indent= 4)
+        
 
 
 def write_time(seed):

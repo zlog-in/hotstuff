@@ -10,12 +10,13 @@ bench_parameters = {
     "rate": 30000,
     "tx_size": 512,
     "faults": 0,
-    "duration": 100,
+    "replicas": 5,
+    "servers": 10,
+    "duration": 50,
     "delay": 0,
     "local": False,
     "parsing": False,
-    "servers": 10,
-    "replicas": 5
+    "partition": False
 }
 
 node_parameters = {
@@ -23,7 +24,7 @@ node_parameters = {
         "max_payload_size": 5000,
         "min_block_delay": 100,
         "sync_retry_delay": 10000,
-        "timeout_delay": 5000
+        "timeout_delay": 10000
     },
     "mempool": {
         "max_payload_size": 500000,
@@ -38,14 +39,13 @@ with open('../node_parameters.json', 'w') as f:
     f.close()
 
 
-scenario = "S1"
+scenario = "S2"
 
 
 if scenario == "S1":
-    replicas = [1]
-    rates = [20000,30000]
-    round = 1
-    durations = [20, 40]
+    replicas = [10]
+    rates = [100000]
+    round = 10
 
     # replicas = [1,2,3,4,5,6]
     # rates = [20000, 30000, 40000, 50000,60000]
@@ -56,19 +56,17 @@ if scenario == "S1":
         bench_parameters['replicas'] = rep
         for rat in rates:
             bench_parameters['rate'] = rat
-
-            for dur in durations:
-                bench_parameters['duration'] = dur
-                with open('../bench_parameters.json', 'w') as f:
-                        json.dump(bench_parameters, f, indent=4)
-                        f.close()
-                for r in range(round):
-                    os.system('fab faulty')
-                    os.system('fab parsing')
+          
+            with open('../bench_parameters.json', 'w') as f:
+                    json.dump(bench_parameters, f, indent=4)
+                    f.close()
+            for r in range(round):
+                os.system('fab faulty')
+                os.system('fab parsing')
 
 if scenario == "S2":
-    replicas = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-    rates = [20000,30000, 40000, 50000, 60000, 70000, 80000, 90000, 100000]
+    replicas = [10]
+    rates = [100000]
     round = 10
     # replicas = [1,2,3,4,5,6]
     # rates = [20000, 30000, 40000, 50000,60000]
@@ -98,8 +96,8 @@ if scenario == "S3":
     round = 20                              
     # replicas = [3,4,5,6]
     # rates = [30000, 40000, 50000,60000]
-    # delay = [3000, 4000, 50000, 60000, 70000]
-    # rate = 20
+    # delay = [3000, 4000, 5000, 6000, 7000]
+    # round = 20
     # time = 44 Hour
 
     for rep in replicas:
