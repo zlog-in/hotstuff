@@ -1,7 +1,7 @@
 
 import os
 import json
-from time import sleep
+
 
 
 
@@ -12,7 +12,7 @@ bench_parameters = {
     "faults": 0,
     "replicas": 5,
     "servers": 10,
-    "duration": 50,
+    "duration": 20,
     "delay": 0,
     "local": False,
     "parsing": False,
@@ -21,14 +21,14 @@ bench_parameters = {
 
 node_parameters = {
     "consensus": {
-        "max_payload_size": 5000,
-        "min_block_delay": 100,
+        "max_payload_size": 2048,
+        "min_block_delay": 1000,
         "sync_retry_delay": 10000,
         "timeout_delay": 10000
     },
     "mempool": {
-        "max_payload_size": 500000,
-        "min_block_delay": 100,
+        "max_payload_size": 2048,
+        "min_block_delay": 1000,
         "queue_capacity": 100000,
         "sync_retry_delay": 10000
     }
@@ -39,13 +39,15 @@ with open('../node_parameters.json', 'w') as f:
     f.close()
 
 
-scenario = "S2"
+scenario = "S1"
 
 
 if scenario == "S1":
     replicas = [10]
-    rates = [100000]
-    round = 10
+    rates = [2500]
+    round = 2
+    bench_parameters['delay'] = 0
+    bench_parameters['faults'] = 0
 
     # replicas = [1,2,3,4,5,6]
     # rates = [20000, 30000, 40000, 50000,60000]
@@ -65,9 +67,9 @@ if scenario == "S1":
                 os.system('fab parsing')
 
 if scenario == "S2":
-    replicas = [10]
-    rates = [100000]
-    round = 10
+    replicas = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    rates = [500, 1000, 1500, 2000, 2500, 3000, 3500, 4000]
+    round = 20
     # replicas = [1,2,3,4,5,6]
     # rates = [20000, 30000, 40000, 50000,60000]
     # rate = 20

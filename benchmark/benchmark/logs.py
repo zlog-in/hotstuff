@@ -15,6 +15,11 @@ import json
 class ParseError(Exception):
     pass
 
+with open('bench_parameters.json') as f:
+    bench_parameters = json.load(f)
+    f.close()
+
+DURATION = bench_parameters['duration']
 
 class LogParser:
     def __init__(self, clients, nodes, faults=0):
@@ -144,7 +149,8 @@ class LogParser:
         if not self.commits:
             return 0, 0, 0
         start, end = min(self.proposals.values()), max(self.commits.values())
-        duration = end - start
+        # duration = end - start
+        duration = DURATION
         print(f'consensus duration: {duration}')
         bytes = sum(self.sizes.values())
         bps = bytes / duration
@@ -164,7 +170,8 @@ class LogParser:
         if not self.commits:
             return 0, 0, 0
         start, end = min(self.start), max(self.commits.values())
-        duration = end - start
+        # duration = end - start
+        duration = DURATION
         print(f'end2end duration: {duration}')
         bytes = sum(self.sizes.values())
         bps = bytes / duration
