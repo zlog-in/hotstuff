@@ -40,7 +40,7 @@ with open('../node_parameters.json', 'w') as f:
     f.close()
 
 
-scenarios = ["S2", "S2f"]
+scenarios = ["S1", "S2", "S2f"]
 
 for scenario in scenarios:
 

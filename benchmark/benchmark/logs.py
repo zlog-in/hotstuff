@@ -211,6 +211,7 @@ class LogParser:
         servers = bench_parameters['servers']
         replicas = bench_parameters['replicas']
         faults = bench_parameters['faults']
+        S2f = bench_parameters['S2f']
         delay = bench_parameters['delay']
         
         duration = bench_parameters['duration']
@@ -228,12 +229,32 @@ class LogParser:
         
         results_db = sqlite3.connect('./mpc/results.db')
 
-        if faults == 0 and delay == 0:
+        if faults == 0 and delay == 0 and S2f == False:
             # insert_S1Hotstuff_results = f'INSERT INTO S1Hotstuff VALUES ("{datetime.now()}", {local}, {nodes}, {faults}, {timeout_delay}, {sync_retry_delay}, {duration}, {input_rate} {round(consensus_tps)}, {round(consensus_latency)}, {round(end_to_end_latency)})'
             # results_db.cursor().execute(insert_S1Hotstuff_results)
             time_seed = datetime.now()
             insert_S1Hotstuff_results = f'INSERT INTO S1Hotstuff VALUES ("{time_seed}", {local}, {nodes}, {faults}, {timeout_delay}, {sync_retry_delay}, {duration}, {input_rate}, {round(consensus_tps)}, {round(consensus_latency)}, {round(end_to_end_latency)})'
             results_db.cursor().execute(insert_S1Hotstuff_results)
+            results_db.commit()
+            results_db.close()
+
+        elif faults > 0 and delay == 0 and S2f == False:
+            with open('faulty.json') as f:
+                faulty_config = json.load(f)
+                f.close()
+            time_seed = faulty_config['time_seed']
+            insert_S2Hotstuff_results = f'INSERT INTO S2Hotstuff VALUES ("{time_seed}", {local}, {nodes}, {faults}, {timeout_delay}, {sync_retry_delay}, {duration}, {input_rate}, {round(consensus_tps)}, {round(consensus_latency)}, {round(end_to_end_latency)})'
+            results_db.cursor().execute(insert_S2Hotstuff_results)
+            results_db.commit()
+            results_db.close()
+
+        elif faults >= 0 and delay == 0 and S2f == True:
+            with open('faulty.json') as f:
+                faulty_config = json.load(f)
+                f.close()
+            time_seed = faulty_config['time_seed']
+            insert_S2FHotstuff_results = f'INSERT INTO S2FHotstuff VALUES ("{time_seed}", {local}, {nodes}, {faults}, {timeout_delay}, {sync_retry_delay}, {duration}, {input_rate}, {round(consensus_tps)}, {round(consensus_latency)}, {round(end_to_end_latency)})'
+            results_db.cursor().execute(insert_S2FHotstuff_results)
             results_db.commit()
             results_db.close()
 
