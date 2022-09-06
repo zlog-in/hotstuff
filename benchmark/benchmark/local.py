@@ -81,7 +81,7 @@ class LocalBench:
             Print.info('Reading configuration...')
         
             # print(self.nodes)
-            nodes, rate, local, servers, replicas, parsing, duration, faults, delay, partition = self.nodes[0], self.rate[0], self.local, self.servers, self.replicas, self.parsing, self.duration, self.faults, self.delay, self.partition
+            nodes, rate, local, servers, replicas, parsing, duration, faults, S2f, delay, partition = self.nodes[0], self.rate[0], self.local, self.servers, self.replicas, self.parsing, self.duration, self.faults, self.S2f, self.delay, self.partition
             
             
             # Cleanup all files.
@@ -159,7 +159,7 @@ class LocalBench:
                         addr,
                         self.tx_size,
                         rate_share,
-                        timeout)
+                        timeout)   # check this in rust
                         # print("!!!!!!!")
                         # print(cmd)
                         self._background_run(cmd, log_file)
@@ -215,7 +215,7 @@ class LocalBench:
             # Wait for all transactions to be processed.
             Print.info(f'Running benchmark ({duration} sec)...')
             
-            if faults > 0 and delay == 0 and partition == False:
+            if faults > 0 and S2f == False and delay == 0 and partition == False:
                 with open('faulty.json') as f:
                     faulty_config = json.load(f)
                     f.close()
@@ -226,6 +226,21 @@ class LocalBench:
                     if flag == 1:
                         faulty_duration = faulty_config[f'{replica_i}'][1]
                         Thread(target=self._kill_faulty, args=(replica_i,faulty_duration)).start()
+
+            if faults >= 0 and S2f == True and delay == 0 and partition == False:
+                if faults > 0:
+                    with open('faulty.json') as f:
+                        faulty_config = json.load(f)
+                        f.close()
+                    
+                    for r in range(replicas):
+                        replica_i = node_i + r * servers 
+                        flag = faulty_config[f'{replica_i}'][0]
+                        if flag == 1:
+                            faulty_duration = 5
+                            Thread(target=self._kill_faulty, args=(replica_i,faulty_duration)).start()
+                else:
+                    print("All replicas are correct")
 
             elif delay > 0 and faults == 0 and partition == False:
                 with open('delay.json') as f:

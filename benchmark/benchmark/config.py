@@ -153,6 +153,7 @@ class BenchParameters:
             self.rate = [int(x) for x in rate]
             self.tx_size = int(json['tx_size'])
             self.faults = int(json['faults'])
+            self.S2f = bool(json['S2f'])
             self.duration = int(json['duration'])
             self.runs = int(json['runs']) if 'runs' in json else 1
             
