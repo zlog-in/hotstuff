@@ -12,7 +12,7 @@ bench_parameters = {
     "faults": 0,
     "replicas": 5,
     "servers": 10,
-    "duration": 50,
+    "duration": 20,
     "delay": 0,
     "local": False,
     "parsing": False,
@@ -40,7 +40,7 @@ with open('../node_parameters.json', 'w') as f:
     f.close()
 
 
-scenarios = ["S2", "S2f"]
+scenarios = ["S3"]
 
 for scenario in scenarios:
 
@@ -125,9 +125,9 @@ for scenario in scenarios:
 
 
     elif scenario == "S3":
-        replicas = [1]
+        replicas = [1, 10]
         rates = [10000]
-        delay = [10, 100, 1000]  # lower delay, timeout:5000
+        delay = [100, 500, 1000, 5000, 10000, 100000]  # lower delay, timeout:5000
         round = 2                              
         # replicas = [3,4,5,6]
         # rates = [30000, 40000, 50000,60000]
