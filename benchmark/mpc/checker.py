@@ -12,7 +12,7 @@ bench_parameters = {
     "faults": 0,
     "replicas": 5,
     "servers": 10,
-    "duration": 20,
+    "duration": 50,
     "delay": 0,
     "local": False,
     "parsing": False,
@@ -25,7 +25,7 @@ node_parameters = {
         "max_payload_size": 32,     # digest of the transaction
         "min_block_delay": 0,
         "sync_retry_delay": 1000,
-        "timeout_delay": 3000
+        "timeout_delay": 1000
     },
     "mempool": {
         "max_payload_size": 500000,         
@@ -125,10 +125,11 @@ for scenario in scenarios:
 
 
     elif scenario == "S3":
-        replicas = [1, 10]
+        replicas = [1, 5, 10]
         rates = [10000]
-        delay = [100, 500, 1000, 5000, 10000, 100000]  # lower delay, timeout:5000
-        round = 2                              
+        # delay = [10, 25, 50, 100, 250, 500, 1000, 2000, 3000, 4000, 5000]  # lower delay, timeout:5000
+        delay = [10, 50, 500, 1000, 5000]
+        round = 3                            
         # replicas = [3,4,5,6]
         # rates = [30000, 40000, 50000,60000]
         # delay = [3000, 4000, 5000, 6000, 7000]
