@@ -12,7 +12,7 @@ bench_parameters = {
     "faults": 0,
     "replicas": 5,
     "servers": 10,
-    "duration": 20,
+    "duration": 50,
     "delay": 0,
     "local": False,
     "parsing": False,
@@ -40,12 +40,12 @@ with open('../node_parameters.json', 'w') as f:
     f.close()
 
 
-scenarios = ["S1", "S2", "S2f"]
+scenarios = ["S2", "S2f"]
 
 for scenario in scenarios:
 
     if scenario == "S1":
-        replicas = [1]
+        replicas = [1, 5]
         rates = [10000]
         round = 1
 
@@ -70,9 +70,9 @@ for scenario in scenarios:
                     os.system('fab parsing')
 
     elif scenario == "S2":
-        replicas = [1]
+        replicas = [1, 5, 10]
         rates = [10000]
-        round = 1
+        round = 20
         # replicas = [1,2,3,4,5,6]
         # rates = [20000, 30000, 40000, 50000,60000]
         # rate = 20
@@ -101,9 +101,9 @@ for scenario in scenarios:
 
     elif scenario == "S2f":
 
-        replicas = [1]
+        replicas = [1, 5, 10]
         rates = [10000]
-        round = 1
+        round = 20
         bench_parameters['delay'] = 0
         bench_parameters['S2f'] = True
 
@@ -124,13 +124,11 @@ for scenario in scenarios:
                             os.system('fab parsing')
 
 
-
-
     elif scenario == "S3":
-        replicas = [1, 2, 3, 4, 5]
-        rates = [20000, 30000, 40000, 50000]
-        delay = [3000, 4000, 5000, 6000, 7000]  # lower delay, timeout:5000
-        round = 20                              
+        replicas = [1]
+        rates = [10000]
+        delay = [10, 100, 1000]  # lower delay, timeout:5000
+        round = 2                              
         # replicas = [3,4,5,6]
         # rates = [30000, 40000, 50000,60000]
         # delay = [3000, 4000, 5000, 6000, 7000]
@@ -140,16 +138,15 @@ for scenario in scenarios:
         # 1, 5, 10
         # 10 k
         # 10 25 50 100 250 500 1000 2000 3000 4000 5000
-
+        bench_parameters['faults'] = 0
+        bench_parameters['S2f'] = False
         for rep in replicas:
             bench_parameters['replicas'] = rep
-            bench_parameters['faults'] = 0
-            
             for rat in rates:
                     bench_parameters['rate'] = rat
                     
-                    for da in delay:
-                        bench_parameters['delay'] = da
+                    for de in delay:
+                        bench_parameters['delay'] = de
                         with open('../bench_parameters.json', 'w') as f:
                                 json.dump(bench_parameters, f, indent=4)
                                 f.close()

@@ -242,11 +242,12 @@ class LocalBench:
                 else:
                     print("All replicas are correct")
 
-            elif delay > 0 and faults == 0 and partition == False:
+            elif delay > 0 and faults == 0 and S2f == False and partition == False:
                 with open('delay.json') as f:
                     delay_config = json.load(f)
                     f.close()
                 if delay_config[f'{node_i}'][0] == 1:
+                    # Thread(target=self._delay, args=(node_i, delay_config[f'{node_i}'][1], delay_config[f'{node_i}'][2])).start()
                     Thread(target=self._delay, args=(node_i, delay_config[f'{node_i}'][1], delay_config[f'{node_i}'][2])).start()
                     # self._delay(node_i, delay_config[f'{node_i}'][1], delay_config[f'{node_i}'][2])
         
