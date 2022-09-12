@@ -12,7 +12,7 @@ bench_parameters = {
     "faults": 0,
     "replicas": 5,
     "servers": 10,
-    "duration": 100,
+    "duration": 50,
     "delay": 0,
     "local": False,
     "parsing": False,
@@ -130,10 +130,10 @@ for scenario in scenarios:
 
     elif scenario == "S3":
 
-        replicas = [1,2]
+        replicas = [10]
         rates = [10000]
-        delays = [50000, 60000, 70000]
-        round = 1          
+        delays = [10, 25, 50, 100, 250, 500, 1000, 2000, 3000, 4000, 5000]
+        round = 5        
     
 
         # 1, 5, 10

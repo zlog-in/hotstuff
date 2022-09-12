@@ -46,15 +46,25 @@ class LocalBench:
         subprocess.run(['tmux', 'kill-session', '-t', f'client-{id}'])
         print(f'and replica {id} crashed after {duration}s exectution')
     
-    def _delay(self, node_i, delay, delay_duration):
-        sleep(5)  # grace period
-        print(f'Communication delay for server {node_i} increases to {delay}ms for duration {delay_duration}s')
+    # def _delay(self, node_i, delay, delay_duration):
+    #     sleep(10)  # grace period
+    #     print(f'Communication delay for server {node_i} increases to {delay}ms for duration {delay_duration}s')
+    #     subprocess.run(f'tc qdisc add dev eth0 root netem delay {delay}ms', shell = True)# specification about delay distribution 
+    #     # subprocess.run(f'tc qdisc add dev lo root netem delay {delay}ms {round(delay/10)}ms distribution normal', shell = True)# specification about delay distribution 
+    #     sleep(delay_duration)
+    #     subprocess.run('tc qdisc del dev eth0 root', shell=True)
+    #     # subprocess.run('tc qdisc del dev lo root', shell=True)
+    #     print(f'Communication delay for server {node_i} ends after {delay_duration}s')
+
+    def _delay(self, node_i, delay, delay_start, duration):
+        sleep(delay_start)  # grace period
+        print(f'Communication delay for server {node_i} increases to {delay}ms for {delay_start}s')
         subprocess.run(f'tc qdisc add dev eth0 root netem delay {delay}ms', shell = True)# specification about delay distribution 
         # subprocess.run(f'tc qdisc add dev lo root netem delay {delay}ms {round(delay/10)}ms distribution normal', shell = True)# specification about delay distribution 
-        sleep(delay_duration)
+        sleep(duration - delay_start)
         subprocess.run('tc qdisc del dev eth0 root', shell=True)
         # subprocess.run('tc qdisc del dev lo root', shell=True)
-        print(f'Communication delay for server {node_i} ends after {delay_duration}s')
+        print(f'Communication delay for server {node_i} ends')    
     
     def _partition(self, targets, start, end):
         print(f'{start}s normal network before partition')
@@ -248,7 +258,7 @@ class LocalBench:
                     f.close()
                 if delay_config[f'{node_i}'][0] == 1:
                     # Thread(target=self._delay, args=(node_i, delay_config[f'{node_i}'][1], delay_config[f'{node_i}'][2])).start()
-                    Thread(target=self._delay, args=(node_i, delay_config[f'{node_i}'][1], delay_config[f'{node_i}'][2])).start()
+                    Thread(target=self._delay, args=(node_i, delay_config[f'{node_i}'][1], delay_config[f'{node_i}'][2], duration)).start()
                     # self._delay(node_i, delay_config[f'{node_i}'][1], delay_config[f'{node_i}'][2])
         
             elif partition == True and faults == 0 and delay == 0:

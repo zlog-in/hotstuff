@@ -149,9 +149,9 @@ class LogParser:
         if not self.commits:
             return 0, 0, 0
         start, end = min(self.proposals.values()), max(self.commits.values())
-        # duration = end - start
-        duration = DURATION
+        duration = end - start
         print(f'consensus duration: {duration}')
+        duration = DURATION
         bytes = sum(self.sizes.values())
         bps = bytes / duration
         tps = bps / self.size[0]
@@ -170,9 +170,10 @@ class LogParser:
         if not self.commits:
             return 0, 0, 0
         start, end = min(self.start), max(self.commits.values())
-        # duration = end - start
-        duration = DURATION
+        duration = end - start
         print(f'end2end duration: {duration}')
+        duration = DURATION
+        
         bytes = sum(self.sizes.values())
         bps = bytes / duration
         tps = bps / self.size[0]
