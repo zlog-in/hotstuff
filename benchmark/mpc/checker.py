@@ -12,7 +12,7 @@ bench_parameters = {
     "faults": 0,
     "replicas": 5,
     "servers": 10,
-    "duration": 50,
+    "duration": 100,
     "delay": 0,
     "local": False,
     "parsing": False,
@@ -104,7 +104,7 @@ for scenario in scenarios:
 
     elif scenario == "S2f":
 
-        replicas = [1]
+        replicas = [1, 5, 10]
         rates = [10000]
         round = 1
         bench_parameters['delay'] = 0
@@ -129,16 +129,12 @@ for scenario in scenarios:
 
 
     elif scenario == "S3":
-        replicas = [1]
+
+        replicas = [1,2]
         rates = [10000]
-        # delay = [10, 25, 50, 100, 250, 500, 1000, 2000, 3000, 4000, 5000]  # lower delay, timeout:5000
-        delay = [0, 10, 25]
-        round = 2                        
-        # replicas = [3,4,5,6]
-        # rates = [30000, 40000, 50000,60000]
-        # delay = [3000, 4000, 5000, 6000, 7000]
-        # round = 20
-        # time = 44 Hour
+        delays = [50000, 60000, 70000]
+        round = 1          
+    
 
         # 1, 5, 10
         # 10 k
@@ -151,7 +147,7 @@ for scenario in scenarios:
             for rat in rates:
                     bench_parameters['rate'] = rat
                     
-                    for de in delay:
+                    for de in delays:
                         bench_parameters['delay'] = de
                         with open('../bench_parameters.json', 'w') as f:
                                 json.dump(bench_parameters, f, indent=4)
