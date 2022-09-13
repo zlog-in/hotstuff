@@ -162,6 +162,7 @@ class BenchParameters:
             self.replicas = int(json['replicas'])
             self.parsing = bool(json['parsing'])
             self.delay = int(json['delay'])
+            self.S3_delay = bool(json['S3_delay'])
             self.partition = bool(json['partition'])
 
         except KeyError as e:

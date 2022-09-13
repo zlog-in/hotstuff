@@ -276,42 +276,40 @@ def delay_config():
     servers = bench_parameters['servers']
     duration = bench_parameters['duration']
     delay = bench_parameters['delay']
-    if delay == 0:
-        print("no delay")
-    elif delay > 0:
-        delay_servers = set()
-        time_seed = datetime.now()
-        random.seed(time_seed)
-        while len(delay_servers) != servers:
-            delay_servers.add(random.randrange(0, servers))
-        
-        with open('../delay.json', 'w') as f:
-            json.dump({f'{idx}': [0,0,0] for idx in range(servers)}, f, indent=4)
-            f.close()
-        
-        with open('../delay.json', 'r') as f:
-            delay_config = json.load(f)
-            f.close()
-        while len(delay_servers) != 0 and delay > 0:
-            idx = delay_servers.pop()
-            delay_config[f'{idx}'][0] = 1
-            # delay_config[f'{idx}'][1] = random.randint(100, delay) if delay > 100 else random.randint(100, 10000)
-            delay_config[f'{idx}'][1] = delay   # random.randint(round(delay/2), round(delay*3/2))
-            delay_config[f'{idx}'][2] = 15   #random.randint(10, int(duration/2))
+    
+    delay_servers = set()
+    time_seed = datetime.now()
+    random.seed(time_seed)
+    while len(delay_servers) != servers:
+        delay_servers.add(random.randrange(0, servers))
+    
+    with open('../delay.json', 'w') as f:
+        json.dump({f'{idx}': [0,0,0] for idx in range(servers)}, f, indent=4)
+        f.close()
+    
+    with open('../delay.json', 'r') as f:
+        delay_config = json.load(f)
+        f.close()
+    while len(delay_servers) != 0 and delay >= 0:
+        idx = delay_servers.pop()
+        delay_config[f'{idx}'][0] = 1
+        # delay_config[f'{idx}'][1] = random.randint(100, delay) if delay > 100 else random.randint(100, 10000)
+        delay_config[f'{idx}'][1] = delay   # random.randint(round(delay/2), round(delay*3/2))
+        delay_config[f'{idx}'][2] = 15   #random.randint(10, int(duration/2))
 
-        with open('../delay.json', 'w') as f:
-            json.dump(delay_config, f, indent=4)
-            f.close()
+    with open('../delay.json', 'w') as f:
+        json.dump(delay_config, f, indent=4)
+        f.close()
 
-        with open(f'../delay.json') as f:
-            delay_config = json.load(f)
-            f.close()
-        delay_config.update({'time_seed': f'{time_seed}'})
+    with open(f'../delay.json') as f:
+        delay_config = json.load(f)
+        f.close()
+    delay_config.update({'time_seed': f'{time_seed}'})
 
-        with open('../delay.json', 'w') as f:
-            json.dump(delay_config, f, indent=4)
-            f.close()
-        print("delay configuration done")
+    with open('../delay.json', 'w') as f:
+        json.dump(delay_config, f, indent=4)
+        f.close()
+    print("delay configuration done")
     
 def partition_config():
     with open('../bench_parameters.json', 'r') as f:

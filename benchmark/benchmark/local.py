@@ -57,14 +57,17 @@ class LocalBench:
     #     print(f'Communication delay for server {node_i} ends after {delay_duration}s')
 
     def _delay(self, node_i, delay, delay_start, duration):
-        sleep(delay_start)  # grace period
-        print(f'Communication delay for server {node_i} increases to {delay}ms after {delay_start}s')
-        subprocess.run(f'tc qdisc add dev eth0 root netem delay {delay}ms', shell = True)# specification about delay distribution 
-        # subprocess.run(f'tc qdisc add dev lo root netem delay {delay}ms {round(delay/10)}ms distribution normal', shell = True)# specification about delay distribution 
-        sleep(duration - delay_start)
-        subprocess.run('tc qdisc del dev eth0 root', shell=True)
-        # subprocess.run('tc qdisc del dev lo root', shell=True)
-        print(f'Communication delay for server {node_i} ends')    
+        if delay > 0:
+            sleep(delay_start)  # grace period
+            print(f'Communication delay for server {node_i} increases to {delay}ms after {delay_start}s')
+            subprocess.run(f'tc qdisc add dev eth0 root netem delay {delay}ms', shell = True)# specification about delay distribution 
+            # subprocess.run(f'tc qdisc add dev lo root netem delay {delay}ms {round(delay/10)}ms distribution normal', shell = True)# specification about delay distribution 
+            sleep(duration - delay_start)
+            subprocess.run('tc qdisc del dev eth0 root', shell=True)
+            # subprocess.run('tc qdisc del dev lo root', shell=True)
+            print(f'Communication delay for server {node_i} ends') 
+        else:
+            print("zero delay")   
     
     def _partition(self, targets, start, end):
         print(f'{start}s normal network before partition')
@@ -91,7 +94,7 @@ class LocalBench:
             Print.info('Reading configuration...')
         
             # print(self.nodes)
-            nodes, rate, local, servers, replicas, parsing, duration, faults, S2f, delay, partition = self.nodes[0], self.rate[0], self.local, self.servers, self.replicas, self.parsing, self.duration, self.faults, self.S2f, self.delay, self.partition
+            nodes, rate, local, servers, replicas, parsing, duration, faults, S2f, delay, S3_delay,  partition = self.nodes[0], self.rate[0], self.local, self.servers, self.replicas, self.parsing, self.duration, self.faults, self.S2f, self.delay, self.S3_delay, self.partition
             
             
             # Cleanup all files.
@@ -225,7 +228,7 @@ class LocalBench:
             # Wait for all transactions to be processed.
             Print.info(f'Running benchmark ({duration} sec)...')
             
-            if faults > 0 and S2f == False and delay == 0 and partition == False:
+            if faults > 0 and S2f == False and delay == 0 and partition == False and S3_delay == False:
                 with open('faulty.json') as f:
                     faulty_config = json.load(f)
                     f.close()
@@ -237,7 +240,7 @@ class LocalBench:
                         faulty_duration = faulty_config[f'{replica_i}'][1]
                         Thread(target=self._kill_faulty, args=(replica_i,faulty_duration)).start()
 
-            if faults >= 0 and S2f == True and delay == 0 and partition == False:
+            if faults >= 0 and S2f == True and delay == 0 and partition == False and S3_delay == False:
                 if faults > 0:
                     with open('faulty.json') as f:
                         faulty_config = json.load(f)
@@ -252,7 +255,7 @@ class LocalBench:
                 else:
                     print("All replicas are correct")
 
-            elif delay > 0 and faults == 0 and S2f == False and partition == False:
+            elif delay >= 0 and faults == 0 and S2f == False and partition == False and S3_delay == True:
                 with open('delay.json') as f:
                     delay_config = json.load(f)
                     f.close()
