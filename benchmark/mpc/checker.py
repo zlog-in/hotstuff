@@ -131,8 +131,8 @@ for scenario in scenarios:
     elif scenario == "S3":
 
         replicas = [1]
-        rates = [4000]
-        delays = [512, 1024, 2048, 4096]
+        rates = [40000]
+        delays = [350, 400, 450, 500, 501]
         round = 1
     
 

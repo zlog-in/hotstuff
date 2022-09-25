@@ -1,0 +1,1971 @@
+delay configuration done
+narwhal
+narwhal
+narwhal
+narwhal
+narwhal
+narwhal
+narwhal
+narwhal
+narwhal
+narwhal
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+Waiting for the nodes to synchronize...
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Running benchmark (50 sec)...
+zero delay
+Running benchmark (50 sec)...
+zero delay
+Running benchmark (50 sec)...
+zero delay
+Running benchmark (50 sec)...
+zero delay
+Running benchmark (50 sec)...
+zero delay
+Running benchmark (50 sec)...
+zero delay
+Running benchmark (50 sec)...
+zero delay
+Running benchmark (50 sec)...
+zero delay
+Running benchmark (50 sec)...
+zero delay
+Running benchmark (50 sec)...
+zero delay
+Parsing logs locally
+Parsing logs locally
+Parsing logs locally
+Parsing logs locally
+Parsing logs locally
+Parsing logs locally
+Parsing logs locally
+Parsing logs locally
+Parsing logs locally
+Parsing logs locally
+/home/zhan/hotstuff/benchmark/logs
+consensus duration: 50.07200002670288
+end2end duration: 50.11300015449524
+consensus latency: 31.398875294712976
+end2end latency: 85.82427313798802
+0
+85.82427313798802
+
+-----------------------------------------
+ SUMMARY:
+-----------------------------------------
+ + CONFIG:
+ Committee size: 10 nodes
+ Input rate: 4,000 tx/s
+ Transaction size: 512 B
+ Faults: 0 nodes
+ Execution time: 50 s
+
+ Consensus max payloads size: 32 B
+ Consensus min block delay: 0 ms
+ Mempool max payloads size: 500,000 B
+ Mempool min block delay: 0 ms
+
+ + RESULTS:
+ Consensus TPS: 3,995 tx/s
+ Consensus BPS: 2,045,338 B/s
+ Consensus latency: 31 ms
+
+ End-to-end TPS: 3,995 tx/s
+ End-to-end BPS: 2,045,338 B/s
+ End-to-end latency: 86 ms
+-----------------------------------------
+
+delay configuration done
+narwhal
+narwhal
+narwhal
+narwhal
+narwhal
+narwhal
+narwhal
+narwhal
+narwhal
+narwhal
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Communication delay for server 0 increases to 1ms after 15s
+Communication delay for server 1 increases to 1ms after 15s
+Communication delay for server 4 increases to 1ms after 15s
+Communication delay for server 3 increases to 1ms after 15s
+Communication delay for server 2 increases to 1ms after 15s
+Communication delay for server 9 increases to 1ms after 15s
+Communication delay for server 6 increases to 1ms after 15s
+Communication delay for server 8 increases to 1ms after 15s
+Communication delay for server 5 increases to 1ms after 15s
+Communication delay for server 7 increases to 1ms after 15s
+Communication delay for server 0 ends
+Communication delay for server 2 ends
+Communication delay for server 9 ends
+Communication delay for server 1 ends
+Communication delay for server 6 ends
+Communication delay for server 3 ends
+Communication delay for server 4 ends
+Communication delay for server 5 ends
+Communication delay for server 8 ends
+Communication delay for server 7 ends
+Parsing logs locally
+Parsing logs locally
+Parsing logs locally
+Parsing logs locally
+Parsing logs locally
+Parsing logs locally
+Parsing logs locally
+Parsing logs locally
+Parsing logs locally
+Parsing logs locally
+/home/zhan/hotstuff/benchmark/logs
+consensus duration: 50.026999950408936
+end2end duration: 50.0460000038147
+consensus latency: 33.32072857572169
+end2end latency: 95.44285482841076
+1
+95.44285482841076
+
+-----------------------------------------
+ SUMMARY:
+-----------------------------------------
+ + CONFIG:
+ Committee size: 10 nodes
+ Input rate: 4,000 tx/s
+ Transaction size: 512 B
+ Faults: 0 nodes
+ Execution time: 50 s
+
+ Consensus max payloads size: 32 B
+ Consensus min block delay: 0 ms
+ Mempool max payloads size: 500,000 B
+ Mempool min block delay: 0 ms
+
+ + RESULTS:
+ Consensus TPS: 3,997 tx/s
+ Consensus BPS: 2,046,362 B/s
+ Consensus latency: 33 ms
+
+ End-to-end TPS: 3,997 tx/s
+ End-to-end BPS: 2,046,362 B/s
+ End-to-end latency: 95 ms
+-----------------------------------------
+
+delay configuration done
+narwhal
+narwhal
+narwhal
+narwhal
+narwhal
+narwhal
+narwhal
+narwhal
+narwhal
+narwhal
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Communication delay for server 2 increases to 2ms after 15s
+Communication delay for server 1 increases to 2ms after 15s
+Communication delay for server 9 increases to 2ms after 15s
+Communication delay for server 0 increases to 2ms after 15s
+Communication delay for server 4 increases to 2ms after 15s
+Communication delay for server 7 increases to 2ms after 15s
+Communication delay for server 8 increases to 2ms after 15s
+Communication delay for server 6 increases to 2ms after 15s
+Communication delay for server 5 increases to 2ms after 15s
+Communication delay for server 3 increases to 2ms after 15s
+Communication delay for server 2 ends
+Communication delay for server 7 ends
+Communication delay for server 9 ends
+Communication delay for server 4 ends
+Communication delay for server 1 ends
+Communication delay for server 0 ends
+Communication delay for server 6 ends
+Communication delay for server 5 ends
+Communication delay for server 8 ends
+Communication delay for server 3 ends
+Parsing logs locally
+Parsing logs locally
+Parsing logs locally
+Parsing logs locally
+Parsing logs locally
+Parsing logs locally
+Parsing logs locally
+Parsing logs locally
+Parsing logs locally
+Parsing logs locally
+/home/zhan/hotstuff/benchmark/logs
+consensus duration: 50.009000062942505
+end2end duration: 50.056999921798706
+consensus latency: 35.32865651297371
+end2end latency: 100.66596306491162
+2
+100.66596306491162
+
+-----------------------------------------
+ SUMMARY:
+-----------------------------------------
+ + CONFIG:
+ Committee size: 10 nodes
+ Input rate: 4,000 tx/s
+ Transaction size: 512 B
+ Faults: 0 nodes
+ Execution time: 50 s
+
+ Consensus max payloads size: 32 B
+ Consensus min block delay: 0 ms
+ Mempool max payloads size: 500,000 B
+ Mempool min block delay: 0 ms
+
+ + RESULTS:
+ Consensus TPS: 3,995 tx/s
+ Consensus BPS: 2,045,338 B/s
+ Consensus latency: 35 ms
+
+ End-to-end TPS: 3,995 tx/s
+ End-to-end BPS: 2,045,338 B/s
+ End-to-end latency: 101 ms
+-----------------------------------------
+
+delay configuration done
+narwhal
+narwhal
+narwhal
+narwhal
+narwhal
+narwhal
+narwhal
+narwhal
+narwhal
+narwhal
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Communication delay for server 1 increases to 4ms after 15s
+Communication delay for server 3 increases to 4ms after 15s
+Communication delay for server 9 increases to 4ms after 15s
+Communication delay for server 2 increases to 4ms after 15s
+Communication delay for server 8 increases to 4ms after 15s
+Communication delay for server 7 increases to 4ms after 15s
+Communication delay for server 4 increases to 4ms after 15s
+Communication delay for server 6 increases to 4ms after 15s
+Communication delay for server 5 increases to 4ms after 15s
+Communication delay for server 0 increases to 4ms after 15s
+Communication delay for server 1 ends
+Communication delay for server 3 ends
+Communication delay for server 7 ends
+Communication delay for server 8 ends
+Communication delay for server 9 ends
+Communication delay for server 2 ends
+Communication delay for server 5 ends
+Communication delay for server 4 ends
+Communication delay for server 6 ends
+Communication delay for server 0 ends
+Parsing logs locally
+Parsing logs locally
+Parsing logs locally
+Parsing logs locally
+Parsing logs locally
+Parsing logs locally
+Parsing logs locally
+Parsing logs locally
+Parsing logs locally
+Parsing logs locally
+/home/zhan/hotstuff/benchmark/logs
+consensus duration: 50.05299997329712
+end2end duration: 50.0789999961853
+consensus latency: 38.95783652558699
+end2end latency: 111.27617047972949
+4
+111.27617047972949
+
+-----------------------------------------
+ SUMMARY:
+-----------------------------------------
+ + CONFIG:
+ Committee size: 10 nodes
+ Input rate: 4,000 tx/s
+ Transaction size: 512 B
+ Faults: 0 nodes
+ Execution time: 50 s
+
+ Consensus max payloads size: 32 B
+ Consensus min block delay: 0 ms
+ Mempool max payloads size: 500,000 B
+ Mempool min block delay: 0 ms
+
+ + RESULTS:
+ Consensus TPS: 3,994 tx/s
+ Consensus BPS: 2,044,867 B/s
+ Consensus latency: 39 ms
+
+ End-to-end TPS: 3,994 tx/s
+ End-to-end BPS: 2,044,867 B/s
+ End-to-end latency: 111 ms
+-----------------------------------------
+
+delay configuration done
+narwhal
+narwhal
+narwhal
+narwhal
+narwhal
+narwhal
+narwhal
+narwhal
+narwhal
+narwhal
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Communication delay for server 4 increases to 8ms after 15s
+Communication delay for server 6 increases to 8ms after 15s
+Communication delay for server 3 increases to 8ms after 15s
+Communication delay for server 1 increases to 8ms after 15s
+Communication delay for server 5 increases to 8ms after 15s
+Communication delay for server 2 increases to 8ms after 15s
+Communication delay for server 9 increases to 8ms after 15s
+Communication delay for server 0 increases to 8ms after 15s
+Communication delay for server 7 increases to 8ms after 15s
+Communication delay for server 8 increases to 8ms after 15s
+Communication delay for server 4 ends
+Communication delay for server 1 ends
+Communication delay for server 6 ends
+Communication delay for server 3 ends
+Communication delay for server 9 ends
+Communication delay for server 2 ends
+Communication delay for server 0 ends
+Communication delay for server 5 ends
+Communication delay for server 7 ends
+Communication delay for server 8 ends
+Parsing logs locally
+Parsing logs locally
+Parsing logs locally
+Parsing logs locally
+Parsing logs locally
+Parsing logs locally
+Parsing logs locally
+Parsing logs locally
+Parsing logs locally
+Parsing logs locally
+/home/zhan/hotstuff/benchmark/logs
+consensus duration: 50.03600001335144
+end2end duration: 50.056999921798706
+consensus latency: 63.91417329580011
+end2end latency: 278.52895922423994
+8
+278.52895922423994
+
+-----------------------------------------
+ SUMMARY:
+-----------------------------------------
+ + CONFIG:
+ Committee size: 10 nodes
+ Input rate: 4,000 tx/s
+ Transaction size: 512 B
+ Faults: 0 nodes
+ Execution time: 50 s
+
+ Consensus max payloads size: 32 B
+ Consensus min block delay: 0 ms
+ Mempool max payloads size: 500,000 B
+ Mempool min block delay: 0 ms
+
+ + RESULTS:
+ Consensus TPS: 3,978 tx/s
+ Consensus BPS: 2,036,941 B/s
+ Consensus latency: 64 ms
+
+ End-to-end TPS: 3,978 tx/s
+ End-to-end BPS: 2,036,941 B/s
+ End-to-end latency: 279 ms
+-----------------------------------------
+
+delay configuration done
+narwhal
+narwhal
+narwhal
+narwhal
+narwhal
+narwhal
+narwhal
+narwhal
+narwhal
+narwhal
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+[92mStarting local benchmark[0m
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Communication delay for server 9 increases to 16ms after 15s
+Communication delay for server 4 increases to 16ms after 15s
+Communication delay for server 2 increases to 16ms after 15s
+Communication delay for server 1 increases to 16ms after 15s
+Communication delay for server 7 increases to 16ms after 15s
+Communication delay for server 0 increases to 16ms after 15s
+Communication delay for server 6 increases to 16ms after 15s
+Communication delay for server 5 increases to 16ms after 15s
+Communication delay for server 8 increases to 16ms after 15s
+Communication delay for server 3 increases to 16ms after 15s
+Communication delay for server 9 ends
+Communication delay for server 4 ends
+Communication delay for server 1 ends
+Communication delay for server 2 ends
+Communication delay for server 7 ends
+Communication delay for server 0 ends
+Communication delay for server 6 ends
+Communication delay for server 5 ends
+Communication delay for server 8 ends
+Communication delay for server 3 ends
+Parsing logs locally
+Parsing logs locally
+Parsing logs locally
+Parsing logs locally
+Parsing logs locally
+Parsing logs locally
+Parsing logs locally
+Parsing logs locally
+Parsing logs locally
+Parsing logs locally
+/home/zhan/hotstuff/benchmark/logs
+consensus duration: 50.02500009536743
+end2end duration: 50.04200005531311
+consensus latency: 84.02084580058494
+end2end latency: 1030.6116921177038
+16
+1030.6116921177038
+
+-----------------------------------------
+ SUMMARY:
+-----------------------------------------
+ + CONFIG:
+ Committee size: 10 nodes
+ Input rate: 4,000 tx/s
+ Transaction size: 512 B
+ Faults: 0 nodes
+ Execution time: 50 s
+
+ Consensus max payloads size: 32 B
+ Consensus min block delay: 0 ms
+ Mempool max payloads size: 500,000 B
+ Mempool min block delay: 0 ms
+
+ + RESULTS:
+ Consensus TPS: 3,902 tx/s
+ Consensus BPS: 1,997,937 B/s
+ Consensus latency: 84 ms
+
+ End-to-end TPS: 3,902 tx/s
+ End-to-end BPS: 1,997,937 B/s
+ End-to-end latency: 1,031 ms
+-----------------------------------------
+
+delay configuration done
+narwhal
+narwhal
+narwhal
+narwhal
+narwhal
+narwhal
+narwhal
+narwhal
+narwhal
+narwhal
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+For the first running, compilation halts a little longer
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Communication delay for server 1 increases to 32ms after 15s
+Communication delay for server 0 increases to 32ms after 15s
+Communication delay for server 4 increases to 32ms after 15s
+Communication delay for server 8 increases to 32ms after 15s
+Communication delay for server 3 increases to 32ms after 15s
+Communication delay for server 5 increases to 32ms after 15s
+Communication delay for server 2 increases to 32ms after 15s
+Communication delay for server 6 increases to 32ms after 15s
+Communication delay for server 9 increases to 32ms after 15s
+Communication delay for server 7 increases to 32ms after 15s
+Communication delay for server 0 ends
+Communication delay for server 1 ends
+Communication delay for server 4 ends
+Communication delay for server 8 ends
+Communication delay for server 3 ends
+Communication delay for server 5 ends
+Communication delay for server 2 ends
+Communication delay for server 6 ends
+Parsing logs locally
+Communication delay for server 7 ends
+Communication delay for server 9 ends
+Parsing logs locally
+Parsing logs locally
+Parsing logs locally
+Parsing logs locally
+Parsing logs locally
+Parsing logs locally
+Parsing logs locally
+Parsing logs locally
+Parsing logs locally
+/home/zhan/hotstuff/benchmark/logs
+consensus duration: 49.85899996757507
+end2end duration: 49.88700008392334
+consensus latency: 81.58120755905978
+end2end latency: 1461.4132661905053
+32
+1461.4132661905053
+
+-----------------------------------------
+ SUMMARY:
+-----------------------------------------
+ + CONFIG:
+ Committee size: 10 nodes
+ Input rate: 4,000 tx/s
+ Transaction size: 512 B
+ Faults: 0 nodes
+ Execution time: 50 s
+
+ Consensus max payloads size: 32 B
+ Consensus min block delay: 0 ms
+ Mempool max payloads size: 500,000 B
+ Mempool min block delay: 0 ms
+
+ + RESULTS:
+ Consensus TPS: 3,834 tx/s
+ Consensus BPS: 1,962,772 B/s
+ Consensus latency: 82 ms
+
+ End-to-end TPS: 3,834 tx/s
+ End-to-end BPS: 1,962,772 B/s
+ End-to-end latency: 1,461 ms
+-----------------------------------------
+
+delay configuration done
+narwhal
+narwhal
+narwhal
+narwhal
+narwhal
+narwhal
+narwhal
+narwhal
+narwhal
+narwhal
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+For the first running, compilation halts a little longer
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Communication delay for server 2 increases to 64ms after 15s
+Communication delay for server 0 increases to 64ms after 15s
+Communication delay for server 1 increases to 64ms after 15s
+Communication delay for server 5 increases to 64ms after 15s
+Communication delay for server 3 increases to 64ms after 15s
+Communication delay for server 8 increases to 64ms after 15s
+Communication delay for server 4 increases to 64ms after 15s
+Communication delay for server 6 increases to 64ms after 15s
+Communication delay for server 7 increases to 64ms after 15s
+Communication delay for server 9 increases to 64ms after 15s
+Communication delay for server 2 ends
+Communication delay for server 1 ends
+Communication delay for server 0 ends
+Communication delay for server 5 ends
+Communication delay for server 8 ends
+Communication delay for server 3 ends
+Communication delay for server 4 ends
+Communication delay for server 6 ends
+Communication delay for server 7 ends
+[1m[93mWARN[0m: Nodes timed out 2 time(s)
+Parsing logs locally
+[1m[93mWARN[0m: Nodes timed out 2 time(s)
+Parsing logs locally
+Communication delay for server 9 ends
+[1m[93mWARN[0m: Nodes timed out 2 time(s)
+Parsing logs locally
+[1m[93mWARN[0m: Nodes timed out 2 time(s)
+Parsing logs locally
+[1m[93mWARN[0m: Nodes timed out 2 time(s)
+Parsing logs locally
+[1m[93mWARN[0m: Nodes timed out 2 time(s)
+Parsing logs locally
+Parsing logs locally
+[1m[93mWARN[0m: Nodes timed out 2 time(s)
+Parsing logs locally
+Parsing logs locally
+Parsing logs locally
+/home/zhan/hotstuff/benchmark/logs
+[1m[93mWARN[0m: Nodes timed out 2 time(s)
+consensus duration: 50.092000007629395
+end2end duration: 50.128000020980835
+consensus latency: 84.12209211317078
+end2end latency: 2147.2029077438588
+64
+2147.2029077438588
+
+-----------------------------------------
+ SUMMARY:
+-----------------------------------------
+ + CONFIG:
+ Committee size: 10 nodes
+ Input rate: 4,000 tx/s
+ Transaction size: 512 B
+ Faults: 0 nodes
+ Execution time: 50 s
+
+ Consensus max payloads size: 32 B
+ Consensus min block delay: 0 ms
+ Mempool max payloads size: 500,000 B
+ Mempool min block delay: 0 ms
+
+ + RESULTS:
+ Consensus TPS: 3,685 tx/s
+ Consensus BPS: 1,886,679 B/s
+ Consensus latency: 212 ms
+
+ End-to-end TPS: 3,685 tx/s
+ End-to-end BPS: 1,886,679 B/s
+ End-to-end latency: 2,147 ms
+-----------------------------------------
+
+delay configuration done
+narwhal
+narwhal
+narwhal
+narwhal
+narwhal
+narwhal
+narwhal
+narwhal
+narwhal
+narwhal
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Communication delay for server 3 increases to 128ms after 15s
+Communication delay for server 6 increases to 128ms after 15s
+Communication delay for server 7 increases to 128ms after 15s
+Communication delay for server 2 increases to 128ms after 15s
+Communication delay for server 9 increases to 128ms after 15s
+Communication delay for server 1 increases to 128ms after 15s
+Communication delay for server 5 increases to 128ms after 15s
+Communication delay for server 8 increases to 128ms after 15s
+Communication delay for server 0 increases to 128ms after 15s
+Communication delay for server 4 increases to 128ms after 15s
+Communication delay for server 6 ends
+Communication delay for server 3 ends
+Communication delay for server 2 ends
+Communication delay for server 9 ends
+Communication delay for server 7 ends
+Communication delay for server 5 ends
+Communication delay for server 1 ends
+Communication delay for server 8 ends
+Communication delay for server 0 ends
+Communication delay for server 4 ends
+[1m[93mWARN[0m: Nodes timed out 3 time(s)
+Parsing logs locally
+[1m[93mWARN[0m: Nodes timed out 3 time(s)
+Parsing logs locally
+[1m[93mWARN[0m: Nodes timed out 2 time(s)
+[1m[93mWARN[0m: Nodes timed out 3 time(s)
+Parsing logs locally
+[1m[93mWARN[0m: Nodes timed out 3 time(s)
+Parsing logs locally
+Parsing logs locally
+[1m[93mWARN[0m: Clients missed their target rate 9 time(s)
+[1m[93mWARN[0m: Nodes timed out 3 time(s)
+Parsing logs locally
+[1m[93mWARN[0m: Nodes timed out 3 time(s)
+Parsing logs locally
+[1m[93mWARN[0m: Nodes timed out 2 time(s)
+Parsing logs locally
+[1m[93mWARN[0m: Nodes timed out 3 time(s)
+Parsing logs locally
+[1m[93mWARN[0m: Nodes timed out 3 time(s)
+Parsing logs locally
+/home/zhan/hotstuff/benchmark/logs
+[1m[93mWARN[0m: Clients missed their target rate 9 time(s)
+[1m[93mWARN[0m: Nodes timed out 3 time(s)
+consensus duration: 49.88100004196167
+end2end duration: 49.924999952316284
+consensus latency: 118.82450417796746
+end2end latency: 3397.8887086545806
+128
+3397.8887086545806
+
+-----------------------------------------
+ SUMMARY:
+-----------------------------------------
+ + CONFIG:
+ Committee size: 10 nodes
+ Input rate: 4,000 tx/s
+ Transaction size: 512 B
+ Faults: 0 nodes
+ Execution time: 50 s
+
+ Consensus max payloads size: 32 B
+ Consensus min block delay: 0 ms
+ Mempool max payloads size: 500,000 B
+ Mempool min block delay: 0 ms
+
+ + RESULTS:
+ Consensus TPS: 3,070 tx/s
+ Consensus BPS: 1,571,860 B/s
+ Consensus latency: 375 ms
+
+ End-to-end TPS: 3,070 tx/s
+ End-to-end BPS: 1,571,860 B/s
+ End-to-end latency: 3,398 ms
+-----------------------------------------
+
+delay configuration done
+narwhal
+narwhal
+narwhal
+narwhal
+narwhal
+narwhal
+narwhal
+narwhal
+narwhal
+narwhal
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Communication delay for server 3 increases to 512ms after 15s
+Communication delay for server 1 increases to 512ms after 15s
+Communication delay for server 8 increases to 512ms after 15s
+Communication delay for server 2 increases to 512ms after 15s
+Communication delay for server 0 increases to 512ms after 15s
+Communication delay for server 4 increases to 512ms after 15s
+Communication delay for server 6 increases to 512ms after 15s
+Communication delay for server 9 increases to 512ms after 15s
+Communication delay for server 7 increases to 512ms after 15s
+Communication delay for server 5 increases to 512ms after 15s
+Communication delay for server 3 ends
+Communication delay for server 1 ends
+Communication delay for server 0 ends
+Communication delay for server 8 ends
+Communication delay for server 2 ends
+Communication delay for server 4 ends
+Communication delay for server 6 ends
+Communication delay for server 9 ends
+Communication delay for server 5 ends
+[1m[93mWARN[0m: Clients missed their target rate 1 time(s)
+[1m[93mWARN[0m: Nodes timed out 31 time(s)
+Parsing logs locally
+Communication delay for server 7 ends
+[1m[93mWARN[0m: Clients missed their target rate 1 time(s)
+[1m[93mWARN[0m: Nodes timed out 31 time(s)
+Parsing logs locally
+[1m[93mWARN[0m: Clients missed their target rate 2 time(s)
+[1m[93mWARN[0m: Nodes timed out 30 time(s)
+Parsing logs locally
+[1m[93mWARN[0m: Clients missed their target rate 1 time(s)
+[1m[93mWARN[0m: Nodes timed out 32 time(s)
+Parsing logs locally
+[1m[93mWARN[0m: Clients missed their target rate 5 time(s)
+[1m[93mWARN[0m: Nodes timed out 30 time(s)
+Parsing logs locally
+[1m[93mWARN[0m: Clients missed their target rate 1 time(s)
+[1m[93mWARN[0m: Nodes timed out 30 time(s)
+Parsing logs locally
+[1m[93mWARN[0m: Clients missed their target rate 3 time(s)
+[1m[93mWARN[0m: Nodes timed out 31 time(s)
+Parsing logs locally
+[1m[93mWARN[0m: Clients missed their target rate 8 time(s)
+[1m[93mWARN[0m: Nodes timed out 31 time(s)
+Parsing logs locally
+[1m[93mWARN[0m: Clients missed their target rate 7 time(s)
+[1m[93mWARN[0m: Nodes timed out 29 time(s)
+Parsing logs locally
+[1m[93mWARN[0m: Clients missed their target rate 2 time(s)
+[1m[93mWARN[0m: Nodes timed out 31 time(s)
+Parsing logs locally
+/home/zhan/hotstuff/benchmark/logs
+[1m[93mWARN[0m: Clients missed their target rate 31 time(s)
+[1m[93mWARN[0m: Nodes timed out 32 time(s)
+consensus duration: 15.541999816894531
+end2end duration: 15.554999828338623
+consensus latency: 31.599303488116647
+end2end latency: 86.21150295099261
+512
+86.21150295099261
+
+-----------------------------------------
+ SUMMARY:
+-----------------------------------------
+ + CONFIG:
+ Committee size: 10 nodes
+ Input rate: 4,000 tx/s
+ Transaction size: 512 B
+ Faults: 0 nodes
+ Execution time: 50 s
+
+ Consensus max payloads size: 32 B
+ Consensus min block delay: 0 ms
+ Mempool max payloads size: 500,000 B
+ Mempool min block delay: 0 ms
+
+ + RESULTS:
+ Consensus TPS: 1,195 tx/s
+ Consensus BPS: 611,942 B/s
+ Consensus latency: 1,056 ms
+
+ End-to-end TPS: 1,195 tx/s
+ End-to-end BPS: 611,942 B/s
+ End-to-end latency: 1,110 ms
+-----------------------------------------
+
+delay configuration done
+narwhal
+narwhal
+narwhal
+narwhal
+narwhal
+narwhal
+narwhal
+narwhal
+narwhal
+narwhal
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+For the first running, compilation halts a little longer
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Communication delay for server 1 increases to 1024ms after 15s
+Communication delay for server 5 increases to 1024ms after 15s
+Communication delay for server 4 increases to 1024ms after 15s
+Communication delay for server 6 increases to 1024ms after 15s
+Communication delay for server 8 increases to 1024ms after 15s
+Communication delay for server 0 increases to 1024ms after 15s
+Communication delay for server 2 increases to 1024ms after 15s
+Communication delay for server 7 increases to 1024ms after 15s
+Communication delay for server 3 increases to 1024ms after 15s
+Communication delay for server 9 increases to 1024ms after 15s
+Communication delay for server 1 ends
+Communication delay for server 5 ends
+Communication delay for server 6 ends
+Communication delay for server 4 ends
+Communication delay for server 2 ends
+Communication delay for server 8 ends
+Communication delay for server 0 ends
+[1m[93mWARN[0m: Clients missed their target rate 4 time(s)
+[1m[93mWARN[0m: Nodes timed out 32 time(s)
+Parsing logs locally
+Communication delay for server 7 ends
+Communication delay for server 3 ends
+[1m[93mWARN[0m: Clients missed their target rate 3 time(s)
+[1m[93mWARN[0m: Nodes timed out 32 time(s)
+Parsing logs locally
+Communication delay for server 9 ends
+[1m[93mWARN[0m: Clients missed their target rate 4 time(s)
+[1m[93mWARN[0m: Nodes timed out 31 time(s)
+Parsing logs locally
+[1m[93mWARN[0m: Clients missed their target rate 4 time(s)
+[1m[93mWARN[0m: Nodes timed out 35 time(s)
+Parsing logs locally
+[1m[93mWARN[0m: Clients missed their target rate 3 time(s)
+[1m[93mWARN[0m: Nodes timed out 33 time(s)
+Parsing logs locally
+[1m[93mWARN[0m: Clients missed their target rate 4 time(s)
+[1m[93mWARN[0m: Nodes timed out 34 time(s)
+Parsing logs locally
+[1m[93mWARN[0m: Clients missed their target rate 4 time(s)
+[1m[93mWARN[0m: Nodes timed out 34 time(s)
+Parsing logs locally
+[1m[93mWARN[0m: Clients missed their target rate 4 time(s)
+[1m[93mWARN[0m: Nodes timed out 31 time(s)
+Parsing logs locally
+[1m[93mWARN[0m: Clients missed their target rate 4 time(s)
+[1m[93mWARN[0m: Nodes timed out 33 time(s)
+Parsing logs locally
+[1m[93mWARN[0m: Clients missed their target rate 4 time(s)
+[1m[93mWARN[0m: Nodes timed out 33 time(s)
+Parsing logs locally
+/home/zhan/hotstuff/benchmark/logs
+[1m[93mWARN[0m: Clients missed their target rate 38 time(s)
+[1m[93mWARN[0m: Nodes timed out 35 time(s)
+consensus duration: 17.270999908447266
+end2end duration: 17.27900004386902
+consensus latency: 32.34385494999306
+end2end latency: 86.22545684801673
+1024
+86.22545684801673
+
+-----------------------------------------
+ SUMMARY:
+-----------------------------------------
+ + CONFIG:
+ Committee size: 10 nodes
+ Input rate: 4,000 tx/s
+ Transaction size: 512 B
+ Faults: 0 nodes
+ Execution time: 50 s
+
+ Consensus max payloads size: 32 B
+ Consensus min block delay: 0 ms
+ Mempool max payloads size: 500,000 B
+ Mempool min block delay: 0 ms
+
+ + RESULTS:
+ Consensus TPS: 1,194 tx/s
+ Consensus BPS: 611,328 B/s
+ Consensus latency: 2,080 ms
+
+ End-to-end TPS: 1,194 tx/s
+ End-to-end BPS: 611,328 B/s
+ End-to-end latency: 2,134 ms
+-----------------------------------------
+
+delay configuration done
+narwhal
+narwhal
+narwhal
+narwhal
+narwhal
+narwhal
+narwhal
+narwhal
+narwhal
+narwhal
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+Waiting for the nodes to synchronize...
+For the first running, compilation halts a little longer
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Communication delay for server 1 increases to 2048ms after 15s
+Communication delay for server 4 increases to 2048ms after 15s
+Communication delay for server 9 increases to 2048ms after 15s
+Communication delay for server 0 increases to 2048ms after 15s
+Communication delay for server 6 increases to 2048ms after 15s
+Communication delay for server 2 increases to 2048ms after 15s
+Communication delay for server 3 increases to 2048ms after 15s
+Communication delay for server 5 increases to 2048ms after 15s
+Communication delay for server 8 increases to 2048ms after 15s
+Communication delay for server 7 increases to 2048ms after 15s
+Communication delay for server 1 ends
+Communication delay for server 0 ends
+Communication delay for server 4 ends
+Communication delay for server 9 ends
+Communication delay for server 2 ends
+Communication delay for server 6 ends
+Communication delay for server 3 ends
+[1m[93mWARN[0m: Clients missed their target rate 5 time(s)
+[1m[93mWARN[0m: Nodes timed out 35 time(s)
+Parsing logs locally
+Communication delay for server 5 ends
+Communication delay for server 8 ends
+[1m[93mWARN[0m: Clients missed their target rate 6 time(s)
+[1m[93mWARN[0m: Nodes timed out 35 time(s)
+Parsing logs locally
+[1m[93mWARN[0m: Clients missed their target rate 6 time(s)
+[1m[93mWARN[0m: Nodes timed out 35 time(s)
+Parsing logs locally
+[1m[93mWARN[0m: Clients missed their target rate 6 time(s)
+[1m[93mWARN[0m: Nodes timed out 35 time(s)
+Parsing logs locally
+[1m[93mWARN[0m: Clients missed their target rate 6 time(s)
+[1m[93mWARN[0m: Nodes timed out 35 time(s)
+Parsing logs locally
+Communication delay for server 7 ends
+[1m[93mWARN[0m: Clients missed their target rate 6 time(s)
+[1m[93mWARN[0m: Nodes timed out 35 time(s)
+Parsing logs locally
+[1m[93mWARN[0m: Clients missed their target rate 5 time(s)
+[1m[93mWARN[0m: Nodes timed out 35 time(s)
+Parsing logs locally
+[1m[93mWARN[0m: Clients missed their target rate 6 time(s)
+[1m[93mWARN[0m: Nodes timed out 34 time(s)
+Parsing logs locally
+[1m[93mWARN[0m: Clients missed their target rate 6 time(s)
+[1m[93mWARN[0m: Nodes timed out 34 time(s)
+Parsing logs locally
+[1m[93mWARN[0m: Clients missed their target rate 5 time(s)
+[1m[93mWARN[0m: Nodes timed out 34 time(s)
+Parsing logs locally
+/home/zhan/hotstuff/benchmark/logs
+[1m[93mWARN[0m: Clients missed their target rate 57 time(s)
+[1m[93mWARN[0m: Nodes timed out 35 time(s)
+consensus duration: 17.045000076293945
+end2end duration: 17.092999935150146
+consensus latency: 31.886022967593476
+end2end latency: 84.55071849969865
+2048
+84.55071849969865
+
+-----------------------------------------
+ SUMMARY:
+-----------------------------------------
+ + CONFIG:
+ Committee size: 10 nodes
+ Input rate: 4,000 tx/s
+ Transaction size: 512 B
+ Faults: 0 nodes
+ Execution time: 50 s
+
+ Consensus max payloads size: 32 B
+ Consensus min block delay: 0 ms
+ Mempool max payloads size: 500,000 B
+ Mempool min block delay: 0 ms
+
+ + RESULTS:
+ Consensus TPS: 1,195 tx/s
+ Consensus BPS: 611,738 B/s
+ Consensus latency: 4,128 ms
+
+ End-to-end TPS: 1,195 tx/s
+ End-to-end BPS: 611,738 B/s
+ End-to-end latency: 4,181 ms
+-----------------------------------------
+
+delay configuration done
+narwhal
+narwhal
+narwhal
+narwhal
+narwhal
+narwhal
+narwhal
+narwhal
+narwhal
+narwhal
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+hotstuff
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+[92mStarting local benchmark[0m
+Setting up testbed...
+Reading configuration...
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+For the first running, compilation halts a little longer
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Waiting for the nodes to synchronize...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Running benchmark (50 sec)...
+Communication delay for server 7 increases to 4096ms after 15s
+Communication delay for server 6 increases to 4096ms after 15s
+Communication delay for server 9 increases to 4096ms after 15s
+Communication delay for server 8 increases to 4096ms after 15s
+Communication delay for server 4 increases to 4096ms after 15s
+Communication delay for server 0 increases to 4096ms after 15s
+Communication delay for server 2 increases to 4096ms after 15s
+Communication delay for server 3 increases to 4096ms after 15s
+Communication delay for server 1 increases to 4096ms after 15s
+Communication delay for server 5 increases to 4096ms after 15s
+Communication delay for server 6 ends
+Communication delay for server 7 ends
+Communication delay for server 9 ends
+Communication delay for server 8 ends
+Communication delay for server 4 ends
+Communication delay for server 0 ends
+Communication delay for server 2 ends
+Communication delay for server 3 ends
+Communication delay for server 1 ends
+[1m[93mWARN[0m: Clients missed their target rate 9 time(s)
+[1m[93mWARN[0m: Nodes timed out 34 time(s)
+Parsing logs locally
+Communication delay for server 5 ends
+[1m[93mWARN[0m: Clients missed their target rate 8 time(s)
+[1m[93mWARN[0m: Nodes timed out 35 time(s)
+Parsing logs locally
+[1m[93mWARN[0m: Clients missed their target rate 8 time(s)
+[1m[93mWARN[0m: Nodes timed out 35 time(s)
+Parsing logs locally
+[1m[93mWARN[0m: Clients missed their target rate 11 time(s)
+[1m[93mWARN[0m: Nodes timed out 35 time(s)
+Parsing logs locally
+[1m[93mWARN[0m: Clients missed their target rate 9 time(s)
+[1m[93mWARN[0m: Nodes timed out 35 time(s)
+[1m[93mWARN[0m: Clients missed their target rate 9 time(s)
+[1m[93mWARN[0m: Nodes timed out 35 time(s)
+Parsing logs locally
+Parsing logs locally
+[1m[93mWARN[0m: Clients missed their target rate 9 time(s)
+[1m[93mWARN[0m: Nodes timed out 35 time(s)
+Parsing logs locally
+[1m[93mWARN[0m: Clients missed their target rate 9 time(s)
+[1m[93mWARN[0m: Nodes timed out 34 time(s)
+Parsing logs locally
+[1m[93mWARN[0m: Clients missed their target rate 9 time(s)
+[1m[93mWARN[0m: Nodes timed out 34 time(s)
+Parsing logs locally
+[1m[93mWARN[0m: Clients missed their target rate 8 time(s)
+[1m[93mWARN[0m: Nodes timed out 34 time(s)
+Parsing logs locally
+/home/zhan/hotstuff/benchmark/logs
+[1m[93mWARN[0m: Clients missed their target rate 89 time(s)
+[1m[93mWARN[0m: Nodes timed out 35 time(s)
+consensus duration: 19.292999982833862
+end2end duration: 19.325000047683716
+consensus latency: 33.72795818265804
+end2end latency: 87.14610396002256
+4096
+87.14610396002256
+
+-----------------------------------------
+ SUMMARY:
+-----------------------------------------
+ + CONFIG:
+ Committee size: 10 nodes
+ Input rate: 4,000 tx/s
+ Transaction size: 512 B
+ Faults: 0 nodes
+ Execution time: 50 s
+
+ Consensus max payloads size: 32 B
+ Consensus min block delay: 0 ms
+ Mempool max payloads size: 500,000 B
+ Mempool min block delay: 0 ms
+
+ + RESULTS:
+ Consensus TPS: 1,196 tx/s
+ Consensus BPS: 612,557 B/s
+ Consensus latency: 8,226 ms
+
+ End-to-end TPS: 1,196 tx/s
+ End-to-end BPS: 612,557 B/s
+ End-to-end latency: 8,279 ms
+-----------------------------------------
+

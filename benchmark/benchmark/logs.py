@@ -182,15 +182,24 @@ class LogParser:
 
     def _end_to_end_latency(self):
         latency = []
+        starts, ends = [], []
         for sent, received in zip(self.sent_samples, self.received_samples):
             for tx_id, batch_id in received.items():
                 if batch_id in self.commits:
                     assert tx_id in sent  # We receive txs that we sent.
                     start = sent[tx_id]
+                    starts.append(start)
                     end = self.commits[batch_id]
+                    ends.append(end)
                     latency += [end-start]
         
-        
+        print(f'min latency: {min(latency)*1000 if latency else DURATION}')
+        print(f'avg latency: {mean(latency)*1000 if latency else DURATION}')
+        print(f'max latency: {max(latency)*1000 if latency else DURATION}')
+
+        print(f'first tx sent: {datetime.fromtimestamp(min(starts)) if starts else DURATION}')
+        print(f'last tx commit: {datetime.fromtimestamp(max(ends)) if ends else DURATION}')
+
 
         return mean(latency) if latency else DURATION
 
@@ -280,10 +289,10 @@ class LogParser:
 
             print(delay)
             print(end_to_end_latency)
-            if consensus_latency < 2*delay:
-                consensus_latency = min(DURATION*1000, 2*delay+consensus_latency)
-            if end_to_end_latency < 2*delay:
-                end_to_end_latency = min(DURATION*1000, 2*delay+end_to_end_latency)
+            # if consensus_latency < 2*delay:
+            #     consensus_latency = min(DURATION*1000, 2*delay+consensus_latency)
+            # if end_to_end_latency < 2*delay:
+            #     end_to_end_latency = min(DURATION*1000, 2*delay+end_to_end_latency)
             insert_S3Hotstuff_results = f'INSERT INTO S3Hotstuff VALUES ("{time_seed}", {local}, {nodes}, {faults}, {timeout_delay}, {delay}, {sync_retry_delay}, {duration}, {input_rate}, {round(consensus_tps)}, {round(consensus_latency)}, {round(end_to_end_latency)})'
             results_db.cursor().execute(insert_S3Hotstuff_results)
             results_db.commit()
