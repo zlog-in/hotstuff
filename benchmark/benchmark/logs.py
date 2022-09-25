@@ -164,7 +164,7 @@ class LogParser:
         latency = [c - self.proposals[d] for d, c in self.commits.items()]
             # print(latency)
       
-        return mean(latency) if latency else 0
+        return mean(latency) if latency else DURATION
 
     def _end_to_end_throughput(self):
         if not self.commits:
@@ -192,7 +192,7 @@ class LogParser:
         
         
 
-        return mean(latency) if latency else 0
+        return mean(latency) if latency else DURATION
 
     def result(self):
         consensus_latency = self._consensus_latency() * 1000
@@ -219,7 +219,9 @@ class LogParser:
         duration = bench_parameters['duration']
         input_rate = bench_parameters['rate']
         nodes = servers * replicas
-      
+
+        print(f'consensus latency: {consensus_latency}')
+        print(f'end2end latency: {end_to_end_latency}')
         
 
         with open('node_parameters.json') as f:
@@ -275,6 +277,13 @@ class LogParser:
                 delay_config = json.load(f)
                 f.close()
             time_seed = delay_config['time_seed']
+
+            print(delay)
+            print(end_to_end_latency)
+            if consensus_latency < 2*delay:
+                consensus_latency = min(DURATION*1000, 2*delay+consensus_latency)
+            if end_to_end_latency < 2*delay:
+                end_to_end_latency = min(DURATION*1000, 2*delay+end_to_end_latency)
             insert_S3Hotstuff_results = f'INSERT INTO S3Hotstuff VALUES ("{time_seed}", {local}, {nodes}, {faults}, {timeout_delay}, {delay}, {sync_retry_delay}, {duration}, {input_rate}, {round(consensus_tps)}, {round(consensus_latency)}, {round(end_to_end_latency)})'
             results_db.cursor().execute(insert_S3Hotstuff_results)
             results_db.commit()

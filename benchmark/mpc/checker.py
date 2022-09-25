@@ -46,9 +46,9 @@ scenarios = ["S3"]
 for scenario in scenarios:
 
     if scenario == "S1":
-        replicas = [1, 5]
+        replicas = [1]
         rates = [10000]
-        round = 1
+        round = 2
 
         # replicas = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
         # rates = [4000, 5000, 6000, 7000, 8000, 9000, 10000]
@@ -72,7 +72,7 @@ for scenario in scenarios:
                     os.system('fab parsing')
 
     elif scenario == "S2":
-        replicas = [3, 7]
+        replicas = [4]
         rates = [10000]
         round = 20
         # replicas = [1,2,3,4,5,6]
@@ -104,7 +104,7 @@ for scenario in scenarios:
 
     elif scenario == "S2f":
 
-        replicas = [3, 7]
+        replicas = [4]
         rates = [10000]
         round = 20
         bench_parameters['delay'] = 0
@@ -130,10 +130,10 @@ for scenario in scenarios:
 
     elif scenario == "S3":
 
-        replicas = [1, 5, 10]
-        rates = [10000]
-        delays = [0, 5, 10, 320, 640, 5120]
-        round = 3      
+        replicas = [1]
+        rates = [4000]
+        delays = [512, 1024, 2048, 4096]
+        round = 1
     
 
         # 1, 5, 10
